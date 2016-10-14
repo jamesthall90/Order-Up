@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+import java.net.*;
 
 public class LogInScreen extends JFrame {
     JButton btnLogIn;
@@ -42,7 +43,7 @@ public class LogInScreen extends JFrame {
 
         //Creates an ImageIcon for the logo, with
         //some additional logic (see createImageIcon() method below)
-        orderUpLogo = createImageIcon("images/OrderUpLogo With Label Transparent 200 x 174 .png", "Order-Up Logo");
+        orderUpLogo = createImageIcon("http://i.imgur.com/hPN6Qz7.png", "Order-Up Logo");
 
         logoHolderLabel = new JLabel(orderUpLogo); //adds created logo icon to JLabel
 
@@ -64,7 +65,7 @@ public class LogInScreen extends JFrame {
         schoolChoiceBox.setMaximumRowCount(schoolNames.length); //sets max
         // rows to number of schools in schoolNames array
 
-        //ctrl and hover over a function for info (intellij)
+        //ctrl + hover over a function for info (IntelliJ)
         //sets all of the specified location of each of the JObjects
         //if setSize is changed, these will be affected
 
@@ -160,9 +161,17 @@ public class LogInScreen extends JFrame {
     }
 
     //Returns an ImageIcon, or null if the path was invalid.
-    protected ImageIcon createImageIcon(String path,
-                                        String description) {
-        java.net.URL imgURL = getClass().getResource(path);
+    protected ImageIcon createImageIcon(String path, String description) {
+//        java.net.URL imgURL = getClass().getResource(path);
+        URL imgURL = null;
+
+        try {
+            imgURL = new URL(path);
+
+        } catch (MalformedURLException e) { // catches an invalid url exception
+            e.printStackTrace();
+        }
+
         if (imgURL != null) {
             return new ImageIcon(imgURL, description);
         } else {
