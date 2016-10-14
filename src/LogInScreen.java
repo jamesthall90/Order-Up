@@ -16,9 +16,9 @@ public class LogInScreen extends JFrame {
     JLabel schoolChoiceLabel;
     JLabel usernameLabel;
     JLabel passwordLabel;
-    ImageIcon orderUpLogo;
     JComboBox schoolChoiceBox;
     Color fgcuGreen;
+    String logoURL = "http://i.imgur.com/hPN6Qz7.png";
 
     //for schoolChoiceBox
     private static final String[] schoolNames = {" ", "Florida Gulf Coast " +
@@ -29,8 +29,7 @@ public class LogInScreen extends JFrame {
 
         fgcuGreen = new Color(1, 121, 76); //Custom color for FGCU green
 
-        schoolChoiceBox = new JComboBox(schoolNames); //puts schools names into
-        // comboBox rows
+        schoolChoiceBox = new JComboBox(schoolNames); //puts schools names into comboBox rows
 
         btnLogIn = new JButton("Login");
         btnCancel = new JButton("Cancel");
@@ -40,7 +39,7 @@ public class LogInScreen extends JFrame {
 
         //Creates an ImageIcon for the logo, with
         //some additional logic (see createImageIcon() method below)
-        orderUpLogo = createImageIcon("http://i.imgur.com/hPN6Qz7.png", "Order-Up Logo");
+        ImageIcon orderUpLogo = createImageIcon(logoURL, "Order-Up Logo");
 
         logoHolderLabel = new JLabel(orderUpLogo); //adds created logo icon to JLabel
 
