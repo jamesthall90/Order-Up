@@ -20,32 +20,47 @@ public class LogInScreen extends JFrame {
     JLabel passwordLabel;
     ImageIcon orderUpLogo;
     JComboBox schoolChoiceBox;
+    Color fgcuGreen;
 
     //for schoolChoiceBox
-    private static final String[] schoolNames = {" ","Florida Gulf Coast " +
+    private static final String[] schoolNames = {" ", "Florida Gulf Coast " +
             "University"};
 
-    public LogInScreen(){
+    public LogInScreen() {
         super("Login Screen");
+
+        fgcuGreen = new Color(1, 121, 76); //Custom color for FGCU green
 
         schoolChoiceBox = new JComboBox(schoolNames); //puts schools names into
         // comboBox rows
-        orderUpLogo = new ImageIcon("OrderUpLogo 50x50.png");// holds the logo
+
         btnLogIn = new JButton("Login");
         btnCancel = new JButton("Cancel");
         logInPanel = new JPanel();
         txtFieldUser = new JTextField(15);
         txtFieldPassword = new JPasswordField(15);
 
+        //Creates an ImageIcon for the logo, with
+        //some additional logic (see createImageIcon() method below)
+        orderUpLogo = createImageIcon("images/OrderUpLogo With Label Transparent 200 x 174 .png", "Order-Up Logo");
+
+        logoHolderLabel = new JLabel(orderUpLogo); //adds created logo icon to JLabel
+
+
         schoolChoiceLabel = new JLabel("University ");
+        schoolChoiceLabel.setForeground(Color.white);
+
         usernameLabel = new JLabel("Email ");
+        usernameLabel.setForeground(Color.white);
+
         passwordLabel = new JLabel("Password ");
+        passwordLabel.setForeground(Color.white);
 
         //Our setLocation be different on other screen resolutions
 
-        setSize(500,400); //sets the size of the frame
-        setLocation(500,280); //sets the location of the frame on the screen
-        logInPanel.setLayout (null);
+        setSize(500, 400); //sets the size of the frame
+        setLocation(500, 280); //sets the location of the frame on the screen
+        logInPanel.setLayout(null);
         schoolChoiceBox.setMaximumRowCount(schoolNames.length); //sets max
         // rows to number of schools in schoolNames array
 
@@ -53,26 +68,27 @@ public class LogInScreen extends JFrame {
         //sets all of the specified location of each of the JObjects
         //if setSize is changed, these will be affected
 
-        txtFieldUser.setBounds(175,230,150,20);
-        txtFieldPassword.setBounds(175,265,150,20);
-        btnLogIn.setBounds(210,300,80,20);
-        btnCancel.setBounds(210,335,80,20);
-        schoolChoiceBox.setBounds(175,150,150,20);
-        schoolChoiceLabel.setBounds(112,150,80,20);
-        usernameLabel.setBounds(135,228,80,20);
-        passwordLabel.setBounds(110,263,80,20);
+        logoHolderLabel.setBounds(155, 10, 200, 174);
+        txtFieldUser.setBounds(175, 230, 150, 20);
+        txtFieldPassword.setBounds(175, 265, 150, 20);
+        btnLogIn.setBounds(210, 300, 80, 20);
+        btnCancel.setBounds(210, 335, 80, 20);
+        schoolChoiceBox.setBounds(175, 200, 150, 20);
+        schoolChoiceLabel.setBounds(112, 193, 80, 20);
+        usernameLabel.setBounds(135, 228, 80, 20);
+        passwordLabel.setBounds(110, 263, 80, 20);
 
 
-        //logInPanel.add(logoHolderLabel, BorderLayout.NORTH); wasn't working
+        logInPanel.add(logoHolderLabel);
         logInPanel.add(btnLogIn);
         logInPanel.add(txtFieldUser);
         logInPanel.add(txtFieldPassword);
         logInPanel.add(btnCancel);
         logInPanel.add(schoolChoiceBox);
         logInPanel.add(schoolChoiceLabel);
-        //logInPanel.add(logoHolderLabel);
         logInPanel.add(usernameLabel);
         logInPanel.add(passwordLabel);
+        logInPanel.setBackground(fgcuGreen);
 
         getContentPane().add(logInPanel);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -80,27 +96,26 @@ public class LogInScreen extends JFrame {
 
         Writer writer = null;
         File check = new File("userPass.txt");
-        if(check.exists()){
+        if (check.exists()) {
 
             //Checks if the file exists. will not add anything if the file does exist.
-        }else{
-            try{
+        } else {
+            try {
                 File texting = new File("userPass.txt");
                 writer = new BufferedWriter(new FileWriter(texting));
                 writer.write("message");
-            }catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-
 
 
         btnLogIn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     File file = new File("userPass.txt");
-                    Scanner scan = new Scanner(file);;
+                    Scanner scan = new Scanner(file);
+                    ;
                     String line = null;
                     FileWriter filewrite = new FileWriter(file, true);
 
@@ -117,18 +132,14 @@ public class LogInScreen extends JFrame {
                     }
 
 
-
-
-                    if(puname.equals(usertxt) && ppaswd.equals(passtxt)) {
+                    if (puname.equals(usertxt) && ppaswd.equals(passtxt)) {
                         //MainMenu menu =new MainMenu(); // We don't have a main menu yet
                         dispose();
-                    }
-                    else if(puname.equals("") && ppaswd.equals("")){
-                        JOptionPane.showMessageDialog(null,"Please insert Username and Password");
-                    }
-                    else {
+                    } else if (puname.equals("") && ppaswd.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Please insert Username and Password");
+                    } else {
 
-                        JOptionPane.showMessageDialog(null,"Wrong Username / Password");
+                        JOptionPane.showMessageDialog(null, "Wrong Username / Password");
                         txtFieldUser.setText("");
                         txtFieldPassword.setText("");
                         txtFieldUser.requestFocus();
@@ -141,12 +152,22 @@ public class LogInScreen extends JFrame {
         });
 
 
-
-        btnCancel.addActionListener(new ActionListener(){
+        btnCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
     }
 
+    //Returns an ImageIcon, or null if the path was invalid.
+    protected ImageIcon createImageIcon(String path,
+                                        String description) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
 }
