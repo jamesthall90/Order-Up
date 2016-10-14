@@ -1,13 +1,10 @@
-/**********************************\
- * Created by Yamnel on 10/13/16.
- * Edited with Zivko
- \**********************************/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
 import java.net.*;
+
 
 public class LogInScreen extends JFrame {
     JButton btnLogIn;
