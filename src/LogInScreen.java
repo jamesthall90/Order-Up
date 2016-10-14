@@ -130,7 +130,7 @@ public class LogInScreen extends JFrame {
 
 
                     if (puname.equals(usertxt) && ppaswd.equals(passtxt)) {
-                        //MainMenu menu =new MainMenu(); // We don't have a main menu yet
+                        MainMenu menu = new MainMenu(); // We don't have a main menu yet
                         dispose();
                     } else if (puname.equals("") && ppaswd.equals("")) {
                         JOptionPane.showMessageDialog(null, "Please insert Username and Password");
