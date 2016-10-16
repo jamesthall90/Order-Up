@@ -7,6 +7,7 @@ import java.net.URL;
 /**
  * Created by TylerHall on 10/14/16.
  */
+
 public class MainMenu extends JFrame {
 
     JPanel mainMenuPanel;
@@ -25,6 +26,7 @@ public class MainMenu extends JFrame {
     Border compound, fgcuGreenLine, raisedBevel, loweredBevel;
     Font studentNameFont, pointsLabelFont, totalPointsFont, totalPointsLabelFont,
             remainingPointsFont, remainingPointsLabelFont;
+    //Logo should be added to shorter URL for code convention purposes
     String logoURL = "https://f9149b6c-a-62cb3a1a-s-sites.googlegroups.com/site/outstandingprogramming/documents/OrderUpLogo%20small.png?attachauth=ANoY7cqnPAfwcX7KptsKARQ4lduoL8wFCNEf5EjWKX1uc_Gde2kDkChiXRo43bP6gTEWQ42K_d38AmMGn2X9allt7u7rdTw8OneQC2qM8yuc1ef4i2hf2o--zoPN0IZf6OFBl4r4MkWYcj4Bl-eciN2sTYv331OurpjuG0YWyxpzoL637O7s4qVvseXBXsOFZpn_oUS6-0GuVyGZK2ctPi2Ee65KaHAIbFCwoEguIpZdpTXCZl2clF25ihz1kI_gXxCdaPB3pDXC&attredirects=0";
     ImageIcon orderUpLogoSmall;
     JLabel smallLogoholderLabel;
@@ -62,6 +64,7 @@ public class MainMenu extends JFrame {
 
         smallLogoholderLabel = new JLabel(orderUpLogoSmall);
 
+        // Initialization and settings for student Name Label
         studentNameLabel = new JLabel(studentName);
         studentNameLabel.setFont(studentNameFont);
         studentNameLabel.setForeground(fgcuBlue);
@@ -70,14 +73,17 @@ public class MainMenu extends JFrame {
         studentNameLabel.setBorder(fgcuGreenLine);
         studentNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Initialization and settings for points Label
         pointsLabel = new JLabel("Points");
         pointsLabel.setForeground(Color.white);
         pointsLabel.setFont(pointsLabelFont);
 
+        // Initialization and settings for total Points Label
         totalPointsLabel = new JLabel("Total ");
         totalPointsLabel.setFont(totalPointsLabelFont);
         totalPointsLabel.setForeground(Color.white);
 
+        // Initialization and settings for total Points output
         totalPoints = new JLabel("500"); // <----- Needs to display total points (probably an int)
         totalPoints.setFont(totalPointsFont);
         totalPoints.setForeground(fgcuGreen);
@@ -86,10 +92,12 @@ public class MainMenu extends JFrame {
         totalPoints.setBorder(fgcuGreenLine);
         totalPoints.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Initialization and settings for remaining Points Label
         remainingPointsLabel = new JLabel("Remaining ");
         remainingPointsLabel.setFont(remainingPointsLabelFont);
         remainingPointsLabel.setForeground(Color.white);
 
+        // Initialization and settings for remaining Points output
         remainingPoints = new JLabel("256"); // <----- Needs to display remaining points (probably an int)
         remainingPoints.setFont(remainingPointsFont);
         remainingPoints.setForeground(fgcuGreen);
@@ -98,9 +106,11 @@ public class MainMenu extends JFrame {
         remainingPoints.setBorder(fgcuGreenLine);
         remainingPoints.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Initialization and settings for my Meal Plan button
         myMealPlan = new JButton("My Meal Plan");
         myMealPlan.setForeground(fgcuGreen);
 
+        // Bounds / placement settings for all objects in mainMenuPanel
         smallLogoholderLabel.setBounds(49, 10, 100, 87);
         studentNameLabel.setBounds(20, 100, 160, 40);
         pointsLabel.setBounds(400, 10, 100, 50);
@@ -110,6 +120,7 @@ public class MainMenu extends JFrame {
         remainingPointsLabel.setBounds(347, 75, 100, 40);
         myMealPlan.setBounds(385, 153, 100, 40);
 
+        
         mainMenuPanel.add(smallLogoholderLabel);
         mainMenuPanel.add(studentNameLabel);
         mainMenuPanel.add(pointsLabel);
