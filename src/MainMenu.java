@@ -44,11 +44,11 @@ public class MainMenu extends JFrame {
 
         //Font objects for various labels
         studentNameFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-        pointsLabelFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        pointsLabelFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
         totalPointsFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-        totalPointsLabelFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        totalPointsLabelFont = new Font(Font.SANS_SERIF, Font.ITALIC, 15);
         remainingPointsFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
-        remainingPointsLabelFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
+        remainingPointsLabelFont = new Font(Font.SANS_SERIF, Font.ITALIC, 15);
 
 
         mainMenuPanel = new JPanel();
@@ -101,13 +101,13 @@ public class MainMenu extends JFrame {
         myMealPlan = new JButton("My Meal Plan");
         myMealPlan.setForeground(fgcuGreen);
 
-        smallLogoholderLabel.setBounds(38, 10, 100, 87);
-        studentNameLabel.setBounds(20, 100, 140, 40);
+        smallLogoholderLabel.setBounds(49, 10, 100, 87);
+        studentNameLabel.setBounds(20, 100, 160, 40);
         pointsLabel.setBounds(400, 10, 100, 50);
         totalPoints.setBounds(435, 55, 40, 30);
-        totalPointsLabel.setBounds(373, 47, 65, 40);
+        totalPointsLabel.setBounds(386, 47, 65, 40);
         remainingPoints.setBounds(435, 84, 40, 30);
-        remainingPointsLabel.setBounds(331, 75, 100, 40);
+        remainingPointsLabel.setBounds(347, 75, 100, 40);
         myMealPlan.setBounds(385, 153, 100, 40);
 
         mainMenuPanel.add(smallLogoholderLabel);
