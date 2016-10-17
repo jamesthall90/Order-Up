@@ -11,7 +11,7 @@ import java.net.URL;
 public class MainMenu extends JFrame {
 
     JPanel mainMenuPanel;
-    String studentName = "Test Name"; // <----- Needs to store the student's name from userPass
+    String studentName = "John Smith"; // <----- Needs to store the student's name from userPass
     JLabel studentNameLabel;
     JLabel pointsLabel;
     JLabel totalPoints;
@@ -120,7 +120,7 @@ public class MainMenu extends JFrame {
         remainingPointsLabel.setBounds(347, 75, 100, 40);
         myMealPlan.setBounds(385, 153, 100, 40);
 
-        
+
         mainMenuPanel.add(smallLogoholderLabel);
         mainMenuPanel.add(studentNameLabel);
         mainMenuPanel.add(pointsLabel);
