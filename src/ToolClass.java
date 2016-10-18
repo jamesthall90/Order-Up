@@ -7,8 +7,7 @@ import java.net.URL;
  */
 public class ToolClass {
 
-
-    protected ImageIcon createImageIcon(String path, String description) {
+    static ImageIcon createImageIcon(String path, String description) {
 //        java.net.URL imgURL = getClass().getResource(path);
         URL imgURL = null;
 

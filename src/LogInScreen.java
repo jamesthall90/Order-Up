@@ -3,8 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
-import java.net.*;
-
 
 public class LogInScreen extends JFrame {
     JButton btnLogIn;
@@ -19,6 +17,7 @@ public class LogInScreen extends JFrame {
     JComboBox schoolChoiceBox;
     Color fgcuGreen;
     String logoURL = "http://i.imgur.com/hPN6Qz7.png";
+    ImageIcon orderUpLogo;
 
     //for schoolChoiceBox
     private static final String[] schoolNames = {" ", "Florida Gulf Coast " +
@@ -37,9 +36,10 @@ public class LogInScreen extends JFrame {
         txtFieldUser = new JTextField(15);
         txtFieldPassword = new JPasswordField(15);
 
-        //Creates an ImageIcon for the logo, with
-        //some additional logic (see createImageIcon() method below)
-        ImageIcon orderUpLogo = createImageIcon(logoURL, "Order-Up Logo");
+        //Creates a ToolClass object and then calls
+        //createImageIcon to add logo ImageIcon to orderUpLogo
+
+        orderUpLogo = ToolClass.createImageIcon(logoURL, "Order-up Logo");
 
         logoHolderLabel = new JLabel(orderUpLogo); //adds created logo icon to JLabel
 
@@ -47,6 +47,7 @@ public class LogInScreen extends JFrame {
         schoolChoiceLabel = new JLabel("University ");
         schoolChoiceLabel.setForeground(Color.white);
 
+        //
         usernameLabel = new JLabel("Email ");
         usernameLabel.setForeground(Color.white);
 
@@ -154,25 +155,5 @@ public class LogInScreen extends JFrame {
                 System.exit(0);
             }
         });
-    }
-
-    //Returns an ImageIcon, or null if the path was invalid.
-    protected ImageIcon createImageIcon(String path, String description) {
-//        java.net.URL imgURL = getClass().getResource(path);
-        URL imgURL = null;
-
-        try {
-            imgURL = new URL(path);
-
-        } catch (MalformedURLException e) { // catches an invalid url exception
-            e.printStackTrace();
-        }
-
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
     }
 }
