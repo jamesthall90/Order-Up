@@ -1,8 +1,6 @@
 import javax.swing.border.Border;
 import javax.swing.*;
 import java.awt.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Created by TylerHall on 10/14/16.
@@ -60,7 +58,11 @@ public class MainMenu extends JFrame {
         mainMenuPanel.setLayout(null);
         mainMenuPanel.setBackground(fgcuBlue);
 
-        orderUpLogoSmall = createImageIcon(logoURL, "Order-Up Logo");
+
+        //Creates a ToolClass object and then calls
+        //createImageIcon to add logo ImageIcon to orderUpLogoSmall
+
+        orderUpLogoSmall = ToolClass.createImageIcon(logoURL, "Order-Up Logo");
 
         smallLogoholderLabel = new JLabel(orderUpLogoSmall);
 
@@ -135,23 +137,4 @@ public class MainMenu extends JFrame {
         setVisible(true);
     }
 
-    protected ImageIcon createImageIcon(String path, String description) {
-//        java.net.URL imgURL = getClass().getResource(path);
-        URL imgURL = null;
-
-        try {
-            imgURL = new URL(path);
-
-        } catch (MalformedURLException e) { // catches an invalid url exception
-            e.printStackTrace();
-        }
-
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-
-    }
 }
