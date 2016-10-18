@@ -25,7 +25,7 @@ public class MainMenu extends JFrame {
     Font studentNameFont, pointsLabelFont, totalPointsFont, totalPointsLabelFont,
             remainingPointsFont, remainingPointsLabelFont;
     //Logo should be added to shorter URL for code convention purposes
-    String logoURL = "https://f9149b6c-a-62cb3a1a-s-sites.googlegroups.com/site/outstandingprogramming/documents/OrderUpLogo%20small.png?attachauth=ANoY7cqnPAfwcX7KptsKARQ4lduoL8wFCNEf5EjWKX1uc_Gde2kDkChiXRo43bP6gTEWQ42K_d38AmMGn2X9allt7u7rdTw8OneQC2qM8yuc1ef4i2hf2o--zoPN0IZf6OFBl4r4MkWYcj4Bl-eciN2sTYv331OurpjuG0YWyxpzoL637O7s4qVvseXBXsOFZpn_oUS6-0GuVyGZK2ctPi2Ee65KaHAIbFCwoEguIpZdpTXCZl2clF25ihz1kI_gXxCdaPB3pDXC&attredirects=0";
+    String logoURL = "https://f9149b6c-a-62cb3a1a-s-sites.googlegroups.com/site/outstandingprogramming/documents/OrderUpLogo%20small.png";
     ImageIcon orderUpLogoSmall;
     JLabel smallLogoholderLabel;
 

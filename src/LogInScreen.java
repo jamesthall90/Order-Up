@@ -47,7 +47,6 @@ public class LogInScreen extends JFrame {
         schoolChoiceLabel = new JLabel("University ");
         schoolChoiceLabel.setForeground(Color.white);
 
-        //
         usernameLabel = new JLabel("Email ");
         usernameLabel.setForeground(Color.white);
 
