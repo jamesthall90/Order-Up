@@ -1,5 +1,8 @@
 package Calendar;
 
+import Utility.ToolClass;
+
+
 /**********************************\
  * Created by Yamnel on 10/20/16. *   
  \**********************************/
@@ -128,6 +131,7 @@ public class CalendarDemo extends Program implements ItemListener {
         JLabel label = new JLabel(monthName + " " + year);
         label.setFont(JTFTools.decodeFont(TITLE_FONT));
         label.setHorizontalAlignment(JLabel.CENTER);
+        label.setForeground(ToolClass.fgcuGreen);
         return label;
     }
 
@@ -164,7 +168,7 @@ public class CalendarDemo extends Program implements ItemListener {
     private Component createDayBox(String text) {
         VPanel vbox = new VPanel();
         if (text== null) {
-            vbox.setBackground(EMPTY_BACKGROUND);
+            vbox.setBackground(ToolClass.lightBlue);//EMPTY_BACKGROUND);
         } else {
             JLabel label = new JLabel(text);
             label.setFont(JTFTools.decodeFont(DATE_FONT));
