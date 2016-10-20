@@ -1,3 +1,8 @@
+import Calendar.CalendarDemo;
+import Calendar.*;
+
+import java.util.Calendar;
+
 /**********************************\
  * Created by Yamnel on 9/30/16.  *
 \**********************************/
@@ -6,8 +11,8 @@
 public class Main {
 
     public static void main(String[] args) {
-        LogInScreen login = new LogInScreen();
-        // MainMenu menu = new MainMenu();
+//        LogInScreen login = new LogInScreen();
+         MainMenu menu = new MainMenu();
     }
 
 }

@@ -1,3 +1,5 @@
+import Calendar.CalendarDemo;
+
 import javax.swing.border.Border;
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +11,7 @@ import java.awt.*;
 public class MainMenu extends JFrame {
 
     JPanel mainMenuPanel;
-    String studentName = "John Smith"; // <----- Needs to store the student's name from userPass
+    String studentName = "John Doe"; // <----- Needs to store the student's name from userPass
     JLabel studentNameLabel;
     JLabel pointsLabel;
     JLabel totalPoints;
@@ -53,7 +55,7 @@ public class MainMenu extends JFrame {
 
         mainMenuPanel = new JPanel();
 
-        setSize(500, 400); //sets the size of the frame
+        setSize(750, 640); //sets the size of the frame
         setLocation(500, 280); //sets the location of the frame on the screen
         mainMenuPanel.setLayout(null);
         mainMenuPanel.setBackground(fgcuBlue);
@@ -131,6 +133,15 @@ public class MainMenu extends JFrame {
         mainMenuPanel.add(remainingPoints);
         mainMenuPanel.add(remainingPointsLabel);
         mainMenuPanel.add(myMealPlan);
+
+        /*TESTING*/
+        CalendarDemo cal = new CalendarDemo();
+        mainMenuPanel.add(cal);
+        cal.setBounds(100, 200, 600, 400);
+
+        cal.setVisible(true);
+
+        /*END TESTING*/
 
         getContentPane().add(mainMenuPanel);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
