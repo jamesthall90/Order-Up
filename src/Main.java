@@ -1,6 +1,6 @@
 import Calendar.CalendarDemo;
 import Calendar.*;
-
+import MainScreens.*;
 import java.util.Calendar;
 
 /**********************************\
@@ -12,7 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
 //        LogInScreen login = new LogInScreen();
-         MainMenu menu = new MainMenu();
+//         MainMenu menu = new MainMenu();
+        DayPlanner day = new DayPlanner();
     }
 
 }

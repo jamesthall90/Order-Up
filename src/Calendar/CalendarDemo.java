@@ -31,7 +31,7 @@ import java.util.Locale;
 public class CalendarDemo extends Program implements ItemListener {
 
     /* Private constants */
-    private static final Color EMPTY_BACKGROUND = new Color(0xDDDDDD);
+//    private static final Color EMPTY_BACKGROUND = new Color(0xDDDDDD);
     private static final String TITLE_FONT = "Serif-36";
     private static final String LABEL_FONT = "Serif-bold-14";
     private static final String DATE_FONT = "Serif-18";
