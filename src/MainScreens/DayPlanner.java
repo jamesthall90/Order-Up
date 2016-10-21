@@ -65,19 +65,19 @@ public class DayPlanner extends JFrame {
 
         dayPlannerPanel.add(breakfastLabel);
         dayPlannerPanel.add(breakfastRestaurants);
-        dayPlannerPanel.add(breakfastFoodItems);
-        dayPlannerPanel.add(breakfastDrinkItems);
-        dayPlannerPanel.add(lunchLabel);
-        dayPlannerPanel.add(lunchRestaurants);
-        dayPlannerPanel.add(lunchFoodItems);
-        dayPlannerPanel.add(lunchDrinkItems);
-        dayPlannerPanel.add(dinnerLabel);
-        dayPlannerPanel.add(dinnerRestaurants);
-        dayPlannerPanel.add(dinnerFoodItems);
-        dayPlannerPanel.add(dinnerDrinkItems);
-        dayPlannerPanel.add(snackLabel);
-        dayPlannerPanel.add(snackRestaurants);
-        dayPlannerPanel.add(snackItems);
+//        dayPlannerPanel.add(breakfastFoodItems);
+//        dayPlannerPanel.add(breakfastDrinkItems);
+//        dayPlannerPanel.add(lunchLabel);
+//        dayPlannerPanel.add(lunchRestaurants);
+//        dayPlannerPanel.add(lunchFoodItems);
+//        dayPlannerPanel.add(lunchDrinkItems);
+//        dayPlannerPanel.add(dinnerLabel);
+//        dayPlannerPanel.add(dinnerRestaurants);
+//        dayPlannerPanel.add(dinnerFoodItems);
+//        dayPlannerPanel.add(dinnerDrinkItems);
+//        dayPlannerPanel.add(snackLabel);
+//        dayPlannerPanel.add(snackRestaurants);
+//        dayPlannerPanel.add(snackItems);
 
     }
 
