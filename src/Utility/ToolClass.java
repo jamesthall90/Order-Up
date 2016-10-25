@@ -12,10 +12,10 @@ import java.awt.Font;
 public class ToolClass {
 
     //Custom FGCU color objects to be used by any class that requires them
-    public static Color fgcuBlue = new Color(9, 40, 105);
-    public static Color lightBlue = new Color(136, 179, 214, 75);
-    public static Color fgcuGreen = new Color(1, 121, 76);
-    public static Color fgcuTransparentGreen = new Color(1, 121, 76, 75);
+    public static Color fgcuBlue = new Color(0, 40, 122);  // #00287A (Official FGCU Blue)
+    public static Color fgcuLightBlue = new Color(0, 40, 122, 150); // FGCU Blue lowered to 150 opacity
+    public static Color fgcuGreen = new Color(0, 136, 90); // #00885A (Official FGCU Green)
+    public static Color fgcuLightGreen = new Color(0, 136, 90, 150); // FGCU Green lowered to 150 opacity
 
     public static Font smallBoldHeadingFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     public static Font largerBoldHeadingFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);

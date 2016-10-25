@@ -168,7 +168,7 @@ public class CalendarDemo extends Program implements ItemListener {
     private Component createDayBox(String text) {
         VPanel vbox = new VPanel();
         if (text== null) {
-            vbox.setBackground(ToolClass.lightBlue);//EMPTY_BACKGROUND);
+            vbox.setBackground(ToolClass.fgcuLightBlue);//EMPTY_BACKGROUND);
         } else {
             JLabel label = new JLabel(text);
             label.setFont(JTFTools.decodeFont(DATE_FONT));
