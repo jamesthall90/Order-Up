@@ -31,6 +31,10 @@ public class DayPlanner extends JFrame {
     JComboBox snackRestaurants;
     JComboBox snackItems;
     Dimension innerPanelDimension = new Dimension(200, 200);
+    String[] bfRestaurantList = {"Choose a restaurant", "Chic-fil-a", "Einstein's"};
+    String[] lunchRestaurantList = {"Choose a restaurant", "Chic-fil-a", "Brahma"};
+    String[] dinnerRestaurantList = {"Choose a restaurant", "Chic-fil-a", "Einstein's"};
+    String[] snackRestaurantList = {"Choose a restaurant", "Jamba Juice", "Einstein's"};
 
     public DayPlanner() {
 
@@ -39,8 +43,8 @@ public class DayPlanner extends JFrame {
 //        dayPlannerPanel = new JPanel();
         setSize(800, 800); //sets the size of the frame
         setLocation(500, 500); //sets the location of the frame on the screen
-        setLayout(new FlowLayout());
-        setBackground(ToolClass.fgcuGreen);
+        setLayout(null);
+        this.setBackground(ToolClass.fgcuGreen);
         getContentPane();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -53,11 +57,12 @@ public class DayPlanner extends JFrame {
         breakfastPanel.setBackground(ToolClass.fgcuGreen);
 
         breakfastLabel = new JLabel("Breakfast");
+        breakfastLabel.setHorizontalAlignment(SwingConstants.CENTER);
         breakfastLabel.setForeground(Color.WHITE);
         breakfastLabel.setFont(ToolClass.largerBoldHeadingFont);
         breakfastLabel.setVisible(true);
 
-        breakfastRestaurants = new JComboBox();
+        breakfastRestaurants = new JComboBox(bfRestaurantList);
         breakfastRestaurants.setVisible(true);
         breakfastRestaurants.setBackground(Color.WHITE);
         breakfastRestaurants.setForeground(ToolClass.fgcuBlue);
@@ -78,10 +83,11 @@ public class DayPlanner extends JFrame {
         lunchPanel.setBackground(ToolClass.fgcuGreen);
 
         lunchLabel = new JLabel("Lunch");
+        lunchLabel.setHorizontalAlignment(SwingConstants.CENTER);
         lunchLabel.setForeground(Color.WHITE);
         lunchLabel.setFont(ToolClass.largerBoldHeadingFont);
 
-        lunchRestaurants = new JComboBox();
+        lunchRestaurants = new JComboBox(lunchRestaurantList);
         lunchRestaurants.setVisible(true);
         lunchRestaurants.setBackground(Color.WHITE);
         lunchRestaurants.setForeground(ToolClass.fgcuBlue);
@@ -103,10 +109,11 @@ public class DayPlanner extends JFrame {
         dinnerPanel.setBackground(ToolClass.fgcuGreen);
 
         dinnerLabel = new JLabel("Dinner");
+        dinnerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         dinnerLabel.setForeground(Color.WHITE);
         dinnerLabel.setFont(ToolClass.largerBoldHeadingFont);
 
-        dinnerRestaurants = new JComboBox();
+        dinnerRestaurants = new JComboBox(dinnerRestaurantList);
         dinnerRestaurants.setVisible(true);
         dinnerRestaurants.setBackground(Color.WHITE);
         dinnerRestaurants.setForeground(ToolClass.fgcuBlue);
@@ -128,10 +135,11 @@ public class DayPlanner extends JFrame {
         snackPanel.setBackground(ToolClass.fgcuGreen);
 
         snackLabel = new JLabel("Snack");
+        snackLabel.setHorizontalAlignment(SwingConstants.CENTER);
         snackLabel.setForeground(Color.WHITE);
         snackLabel.setFont(ToolClass.largerBoldHeadingFont);
 
-        snackRestaurants = new JComboBox();
+        snackRestaurants = new JComboBox(snackRestaurantList);
         snackRestaurants.setVisible(true);
         snackRestaurants.setBackground(Color.WHITE);
         snackRestaurants.setForeground(ToolClass.fgcuBlue);
@@ -141,6 +149,10 @@ public class DayPlanner extends JFrame {
         snackItems.setForeground(ToolClass.fgcuGreen);
 
 
+        breakfastPanel.setBounds(20, 120, 225, 225);
+        lunchPanel.setBounds(560, 120, 225, 225);
+        snackPanel.setBounds(310, 150, 185, 185);
+        dinnerPanel.setBounds(300, 460, 225, 225);
 //        breakfastLabel.setBounds(150, 90, 100, 80);
 //        breakfastRestaurants.setBounds(150, 185, 120, 50);
 //        breakfastFoodItems.setBounds();
@@ -156,23 +168,28 @@ public class DayPlanner extends JFrame {
 //        snackRestaurants.setBounds();
 //        snackItems.setBounds();
 
-        add(breakfastPanel, FlowLayout.LEFT);
+        add(breakfastPanel);
         breakfastPanel.add(breakfastLabel);
         breakfastPanel.add(breakfastRestaurants);
         breakfastPanel.add(breakfastFoodItems);
         breakfastPanel.add(breakfastDrinkItems);
 
-        add(lunchPanel, FlowLayout.CENTER);
+        add(lunchPanel);
         lunchPanel.add(lunchLabel);
         lunchPanel.add(lunchRestaurants);
         lunchPanel.add(lunchFoodItems);
         lunchPanel.add(lunchDrinkItems);
 
-        add(dinnerPanel, FlowLayout.RIGHT);
+        add(dinnerPanel);
         dinnerPanel.add(dinnerLabel);
         dinnerPanel.add(dinnerRestaurants);
         dinnerPanel.add(dinnerFoodItems);
         dinnerPanel.add(dinnerDrinkItems);
+
+        add(snackPanel);
+        snackPanel.add(snackLabel);
+        snackPanel.add(snackRestaurants);
+        snackPanel.add(snackItems);
 
         validate();
 //        dayPlannerPanel.add(snackPanel, FlowLayout.CENTER);
