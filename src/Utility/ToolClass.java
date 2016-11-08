@@ -40,6 +40,5 @@ public class ToolClass {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
-
     }
 }

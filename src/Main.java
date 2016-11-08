@@ -5,12 +5,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        LogInScreen login = new LogInScreen();
+//        LogInScreen login = new LogInScreen();
 
         /* FOR TESTING */
 
-//         MainMenu menu = new MainMenu();
-//        DayPlanner day = new DayPlanner();
+//        MainMenu menu = new MainMenu();
+        DayPlanner day = new DayPlanner();
 
         /* END TESTING */
     }
