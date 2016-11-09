@@ -40,14 +40,10 @@ public class DayPlanner extends JFrame {
 
         super("Today's Meal Plan");
 
-//        dayPlannerPanel = new JPanel();
+        dayPlannerPanel = new JPanel();
         setSize(800, 800); //sets the size of the frame
         setLocation(500, 500); //sets the location of the frame on the screen
-        setLayout(null);
-        this.setBackground(ToolClass.fgcuGreen);
-        getContentPane();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+        dayPlannerPanel.setLayout(null);
 
         /* Breakfast Panel & Items */
         breakfastPanel = new JPanel();
@@ -101,7 +97,6 @@ public class DayPlanner extends JFrame {
         lunchDrinkItems.setForeground(ToolClass.fgcuBlue);
 
         /* Dinner Panel & Items */
-
         dinnerPanel = new JPanel();
         dinnerPanel.setLayout(new GridLayout(4, 1));
         dinnerPanel.setVisible(true);
@@ -127,7 +122,6 @@ public class DayPlanner extends JFrame {
         dinnerDrinkItems.setForeground(ToolClass.fgcuBlue);
 
         /* Snack Panel & Items */
-
         snackPanel = new JPanel();
         snackPanel.setLayout(new GridLayout(3, 1));
         snackPanel.setVisible(true);
@@ -135,7 +129,10 @@ public class DayPlanner extends JFrame {
         snackPanel.setBackground(ToolClass.fgcuGreen);
 
         snackLabel = new JLabel("Snack");
+        snackLabel.setSize(50, 20);
         snackLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        snackLabel.setOpaque(true);
+        snackLabel.setBackground(Color.CYAN);
         snackLabel.setForeground(Color.WHITE);
         snackLabel.setFont(ToolClass.largerBoldHeadingFont);
 
@@ -153,61 +150,35 @@ public class DayPlanner extends JFrame {
         lunchPanel.setBounds(560, 120, 225, 225);
         snackPanel.setBounds(310, 150, 185, 185);
         dinnerPanel.setBounds(300, 460, 225, 225);
-//        breakfastLabel.setBounds(150, 90, 100, 80);
-//        breakfastRestaurants.setBounds(150, 185, 120, 50);
-//        breakfastFoodItems.setBounds();
-//        breakfastDrinkItems.setBounds();
-//        lunchLabel.setBounds();
-//        lunchFoodItems.setBounds();
-//        lunchDrinkItems.setBounds();
-//        dinnerLabel.setBounds();
-//        dinnerRestaurants.setBounds();
-//        dinnerFoodItems.setBounds();
-//        dinnerDrinkItems.setBounds();
-//        snackLabel.setBounds();
-//        snackRestaurants.setBounds();
-//        snackItems.setBounds();
 
-        add(breakfastPanel);
+        getContentPane().add(dayPlannerPanel);
+
+        dayPlannerPanel.add(breakfastPanel);
         breakfastPanel.add(breakfastLabel);
         breakfastPanel.add(breakfastRestaurants);
         breakfastPanel.add(breakfastFoodItems);
         breakfastPanel.add(breakfastDrinkItems);
 
-        add(lunchPanel);
+        dayPlannerPanel.add(lunchPanel);
         lunchPanel.add(lunchLabel);
         lunchPanel.add(lunchRestaurants);
         lunchPanel.add(lunchFoodItems);
         lunchPanel.add(lunchDrinkItems);
 
-        add(dinnerPanel);
+        dayPlannerPanel.add(dinnerPanel);
         dinnerPanel.add(dinnerLabel);
         dinnerPanel.add(dinnerRestaurants);
         dinnerPanel.add(dinnerFoodItems);
         dinnerPanel.add(dinnerDrinkItems);
 
-        add(snackPanel);
+        dayPlannerPanel.add(snackPanel);
         snackPanel.add(snackLabel);
         snackPanel.add(snackRestaurants);
         snackPanel.add(snackItems);
 
-        validate();
-//        dayPlannerPanel.add(snackPanel, FlowLayout.CENTER);
-//        snackPanel.add(snackLabel);
-//        snackPanel.add(snackRestaurants);
-//        snackPanel.add(snackItems);
-
-//        dayPlannerPanel.add(lunchLabel);
-//        dayPlannerPanel.add(lunchRestaurants);
-//        dayPlannerPanel.add(lunchFoodItems);
-//        dayPlannerPanel.add(lunchDrinkItems);
-//        dayPlannerPanel.add(dinnerLabel);
-//        dayPlannerPanel.add(dinnerRestaurants);
-//        dayPlannerPanel.add(dinnerFoodItems);
-//        dayPlannerPanel.add(dinnerDrinkItems);
-//        dayPlannerPanel.add(snackLabel);
-//        dayPlannerPanel.add(snackRestaurants);
-//        dayPlannerPanel.add(snackItems);
+        dayPlannerPanel.setBackground(ToolClass.fgcuGreen);
+        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     }
 
