@@ -5,7 +5,7 @@ import Utility.ToolClass;
 import javax.swing.*;
 import java.awt.*;
 
-/**
+/*
  * Created by TylerHall on 10/20/16.
  */
 public class DayPlanner extends JFrame {
@@ -131,7 +131,7 @@ public class DayPlanner extends JFrame {
         snackLabel = new JLabel("Snack");
         snackLabel.setSize(50, 20);
         snackLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        snackLabel.setOpaque(true);
+//        snackLabel.setOpaque(true);
         snackLabel.setBackground(Color.CYAN);
         snackLabel.setForeground(Color.WHITE);
         snackLabel.setFont(ToolClass.largerBoldHeadingFont);
@@ -149,7 +149,7 @@ public class DayPlanner extends JFrame {
         breakfastPanel.setBounds(20, 120, 225, 225);
         lunchPanel.setBounds(560, 120, 225, 225);
         snackPanel.setBounds(310, 150, 185, 185);
-        dinnerPanel.setBounds(300, 460, 225, 225);
+        dinnerPanel.setBounds(300, 400, 225, 225);
 
         getContentPane().add(dayPlannerPanel);
 
