@@ -49,6 +49,8 @@ public class CalendarDemo extends Program implements ItemListener {
     private String[] weekdayNames;
     private int firstDayOfWeek;
 
+    /*This is the action listener for the buttons on the calendar.
+    * It'll make the btn create a new DayPlanner Window when clicked.*/
     private ActionListener plannerBtnListener = e -> new DayPlanner();
 
 
@@ -173,14 +175,18 @@ public class CalendarDemo extends Program implements ItemListener {
             vbox.setBackground(ToolClass.fgcuLightBlue);//EMPTY_BACKGROUND);
         } else {
 
+            /*I commented out the labes thet shoed on the days and instead i
+            t now created btns. The buttons get the text variable that holds
+            a string that represents the date number*/
+
 //            JLabel label = new JLabel(text);
 //            label.setFont(JTFTools.decodeFont(DATE_FONT));
 //            vbox.add(label, "anchor=NORTHEAST top=2 right=2");
 
             JButton plannerBtn = new JButton(text);
 
-            plannerBtn.setSize(vbox.getSize());
-            plannerBtn.addActionListener(plannerBtnListener);
+            plannerBtn.setSize(vbox.getWidth(), vbox.getHeight()); // this should make the btns the same size as the box
+            plannerBtn.addActionListener(plannerBtnListener); // adding the listener
             vbox.add(plannerBtn); // ADDS A BTN to DayPlaner
 
             vbox.setBackground(Color.WHITE);
