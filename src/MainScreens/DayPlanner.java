@@ -1,5 +1,6 @@
 package MainScreens;
 
+import Calendar.CalendarDemo;
 import Utility.ToolClass;
 import oracle.jvm.hotspot.jfr.JFR;
 
@@ -39,7 +40,7 @@ public class DayPlanner extends JFrame {
 
 
     public DayPlanner(String dayText) { // dayText is the day number
-        super("Meal Plan for the " + dayText);
+        super("Meal Plan for " + "/" + dayText + "/" + CalendarDemo.year);
 
         dayPlannerPanel = new JPanel();
         setSize(800, 800); //sets the size of the frame

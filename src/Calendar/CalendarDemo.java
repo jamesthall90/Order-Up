@@ -49,6 +49,9 @@ public class CalendarDemo extends Program implements ItemListener {
     private String[] weekdayNames;
     private int firstDayOfWeek;
 
+    public static int month;
+    public static int year;
+
 
 
     public CalendarDemo(){
@@ -124,8 +127,8 @@ public class CalendarDemo extends Program implements ItemListener {
 
     /* Generate the header label for a particular month */
     private JLabel createMonthLabel(Calendar calendar) {
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
         String monthName = capitalize(monthNames[month]);
         JLabel label = new JLabel(monthName + " " + year);
         label.setFont(JTFTools.decodeFont(TITLE_FONT));
@@ -167,29 +170,40 @@ public class CalendarDemo extends Program implements ItemListener {
     private Component createDayBox(String dayText) {
         /*This is the action listener for the buttons on the calendar.
         * It'll make the btn create a new DayPlanner Window when clicked.*/
+
+        //Need to add some validation to ensure that multiple DayPlanners cannot be opened - TH
         ActionListener plannerBtnListener = e -> new DayPlanner(dayText);
 
         VPanel vbox = new VPanel();
+        vbox.setLayout(new BorderLayout());
 
         if (dayText== null) {
             vbox.setBackground(ToolClass.fgcuLightBlue);//EMPTY_BACKGROUND);
         } else {
 
-            /*I commented out the labes thet shoed on the days and instead i
-            t now created btns. The buttons get the text variable that holds
-            a string that represents the date number*/
+            /*I commented out the labels that showed on the days and instead i
+            now created btns. The buttons get the text variable that holds
+            a string that represents the date number <-- Yamnel Serra */
 
 //            JLabel label = new JLabel(text);
 //            label.setFont(JTFTools.decodeFont(DATE_FONT));
 //            vbox.add(label, "anchor=NORTHEAST top=2 right=2");
 
-            JButton plannerBtn = new JButton(dayText);
+            JButton plannerBtn = new JButton(dayText);//dayText);
+//            JLabel dayDisplay = new JLabel(dayText);
+//            dayDisplay.setSize(20, 20);
+//            JLabel pointsUsed = new JLabel("Points Used "+"125");
+//            pointsUsed.setSize(20, 20);
+//            plannerBtn.add(dayDisplay);//, BorderLayout.WEST);
+//            plannerBtn.add(pointsUsed);//, BorderLayout.EAST);
 
-            // this should make the btns the same size as the box
-            // but it's not working... not sure why yet. Will keep working on it on the future
+//            plannerBtn.setVerticalTextPosition(SwingConstants.TOP);
+//            plannerBtn.setHorizontalTextPosition(SwingConstants.LEFT);
+
+
             plannerBtn.setSize(vbox.getWidth(), vbox.getHeight());
-            plannerBtn.addActionListener(plannerBtnListener); // adding the listener
-            vbox.add(plannerBtn); // ADDS A BTN to DayPlaner
+            plannerBtn.addActionListener(plannerBtnListener); // Adds an ActionListener to plannerBtn
+            vbox.add(plannerBtn); // Adds plannerBtn to the individual day (vbox)
 
             vbox.setBackground(Color.WHITE);
         }
