@@ -1,6 +1,7 @@
 package MainScreens;
 
 import Utility.ToolClass;
+import oracle.jvm.hotspot.jfr.JFR;
 
 import javax.swing.*;
 import java.awt.*;
@@ -178,7 +179,9 @@ public class DayPlanner extends JFrame {
 
         dayPlannerPanel.setBackground(ToolClass.fgcuGreen);
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        // changed this to Dispose so it won't close the entire program
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 

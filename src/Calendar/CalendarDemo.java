@@ -1,11 +1,7 @@
 package Calendar;
 
+import MainScreens.DayPlanner;
 import Utility.ToolClass;
-
-
-/**********************************\
- * Created by Yamnel on 10/20/16. *   
- \**********************************/
 /*
  * File: CalendarDemo.java
  * -----------------------
@@ -21,6 +17,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormatSymbols;
@@ -52,6 +49,9 @@ public class CalendarDemo extends Program implements ItemListener {
     private String[] weekdayNames;
     private int firstDayOfWeek;
 
+    private ActionListener plannerBtnListener = e -> new DayPlanner();
+
+
 
     public CalendarDemo(){
         init();
@@ -60,6 +60,7 @@ public class CalendarDemo extends Program implements ItemListener {
 
     /** Initialize the graphical user interface */
     public void init() {
+
         setBackground(Color.WHITE);
         initCountryList();
 //        localeChooser = new JComboBox(countries);
@@ -167,12 +168,21 @@ public class CalendarDemo extends Program implements ItemListener {
     /* Create a box for a calendar day containing the specified text */
     private Component createDayBox(String text) {
         VPanel vbox = new VPanel();
+
         if (text== null) {
             vbox.setBackground(ToolClass.fgcuLightBlue);//EMPTY_BACKGROUND);
         } else {
-            JLabel label = new JLabel(text);
-            label.setFont(JTFTools.decodeFont(DATE_FONT));
-            vbox.add(label, "anchor=NORTHEAST top=2 right=2");
+
+//            JLabel label = new JLabel(text);
+//            label.setFont(JTFTools.decodeFont(DATE_FONT));
+//            vbox.add(label, "anchor=NORTHEAST top=2 right=2");
+
+            JButton plannerBtn = new JButton(text);
+
+            plannerBtn.setSize(vbox.getSize());
+            plannerBtn.addActionListener(plannerBtnListener);
+            vbox.add(plannerBtn); // ADDS A BTN to DayPlaner
+
             vbox.setBackground(Color.WHITE);
         }
         vbox.setOpaque(true);

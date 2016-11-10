@@ -9,8 +9,8 @@ public class Main {
 
         /* FOR TESTING */
 
-//        MainMenu menu = new MainMenu();
-        DayPlanner day = new DayPlanner();
+        MainMenu menu = new MainMenu();
+//        DayPlanner day = new DayPlanner();
 
         /* END TESTING */
     }
