@@ -49,10 +49,6 @@ public class CalendarDemo extends Program implements ItemListener {
     private String[] weekdayNames;
     private int firstDayOfWeek;
 
-    /*This is the action listener for the buttons on the calendar.
-    * It'll make the btn create a new DayPlanner Window when clicked.*/
-    private ActionListener plannerBtnListener = e -> new DayPlanner();
-
 
 
     public CalendarDemo(){
@@ -168,10 +164,14 @@ public class CalendarDemo extends Program implements ItemListener {
     }
 
     /* Create a box for a calendar day containing the specified text */
-    private Component createDayBox(String text) {
+    private Component createDayBox(String dayText) {
+        /*This is the action listener for the buttons on the calendar.
+        * It'll make the btn create a new DayPlanner Window when clicked.*/
+        ActionListener plannerBtnListener = e -> new DayPlanner(dayText);
+
         VPanel vbox = new VPanel();
 
-        if (text== null) {
+        if (dayText== null) {
             vbox.setBackground(ToolClass.fgcuLightBlue);//EMPTY_BACKGROUND);
         } else {
 
@@ -183,9 +183,11 @@ public class CalendarDemo extends Program implements ItemListener {
 //            label.setFont(JTFTools.decodeFont(DATE_FONT));
 //            vbox.add(label, "anchor=NORTHEAST top=2 right=2");
 
-            JButton plannerBtn = new JButton(text);
+            JButton plannerBtn = new JButton(dayText);
 
-            plannerBtn.setSize(vbox.getWidth(), vbox.getHeight()); // this should make the btns the same size as the box
+            // this should make the btns the same size as the box
+            // but it's not working... not sure why yet. Will keep working on it on the future
+            plannerBtn.setSize(vbox.getWidth(), vbox.getHeight());
             plannerBtn.addActionListener(plannerBtnListener); // adding the listener
             vbox.add(plannerBtn); // ADDS A BTN to DayPlaner
 
