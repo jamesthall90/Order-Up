@@ -37,9 +37,9 @@ public class DayPlanner extends JFrame {
     String[] dinnerRestaurantList = {"Choose a restaurant", "Chic-fil-a", "Einstein's"};
     String[] snackRestaurantList = {"Choose a restaurant", "Jamba Juice", "Einstein's"};
 
-    public DayPlanner(String day) {
 
-        super("Meal Plan for the " + day);
+    public DayPlanner(String dayText) { // dayText is the day number
+        super("Meal Plan for the " + dayText);
 
         dayPlannerPanel = new JPanel();
         setSize(800, 800); //sets the size of the frame
