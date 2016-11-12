@@ -172,7 +172,14 @@ public class CalendarDemo extends Program implements ItemListener {
         * It'll make the btn create a new DayPlanner Window when clicked.*/
 
         //Need to add some validation to ensure that multiple DayPlanners cannot be opened - TH
-        ActionListener plannerBtnListener = e -> new DayPlanner(dayText);
+//        ActionListener plannerBtnListener = e -> new DayPlanner(dayText);
+
+        ActionListener plannerBtnListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DayPlanner(dayText);
+            }
+        };
 
         VPanel vbox = new VPanel();
 

@@ -129,6 +129,7 @@ public class MainMenu extends JFrame {
         mainMenuPanel.add(remainingPointsLabel);
         //mainMenuPanel.add(myMealPlan);
 
+
         /*TESTING*/
         CalendarDemo cal = new CalendarDemo();
         mainMenuPanel.add(cal);
