@@ -20,7 +20,7 @@ public class ToolClass {
 
     public static Font smallBoldHeadingFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     public static Font largerBoldHeadingFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-    public static Font smallItalicHeadingFont = new Font(Font.SANS_SERIF, Font.ITALIC, 15);
+    public static Font smallItalicHeadingFont = new Font(Font.SANS_SERIF, Font.ITALIC, 12);
 
 
     public static ImageIcon createImageIcon(String path, String description) {

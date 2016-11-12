@@ -12,6 +12,7 @@ import java.awt.*;
  */
 public class DayPlanner extends JFrame {
 
+    JButton submitBtn;
     JPanel dayPlannerPanel;
     JPanel breakfastPanel;
     JPanel lunchPanel;
@@ -147,11 +148,17 @@ public class DayPlanner extends JFrame {
         snackItems.setBackground(Color.WHITE);
         snackItems.setForeground(ToolClass.fgcuGreen);
 
+        submitBtn = new JButton("Submit");
+        submitBtn.setVisible(true);
+        submitBtn.setForeground(Color.WHITE);
+        submitBtn.setBackground(Color.BLUE);
+        submitBtn.setOpaque(true);
 
         breakfastPanel.setBounds(20, 120, 225, 225);
         lunchPanel.setBounds(560, 120, 225, 225);
         snackPanel.setBounds(310, 150, 185, 185);
         dinnerPanel.setBounds(300, 400, 225, 225);
+        submitBtn.setBounds(350, 400, 60, 60);
 
         getContentPane().add(dayPlannerPanel);
 
@@ -177,6 +184,8 @@ public class DayPlanner extends JFrame {
         snackPanel.add(snackLabel);
         snackPanel.add(snackRestaurants);
         snackPanel.add(snackItems);
+
+        dayPlannerPanel.add(submitBtn);
 
         dayPlannerPanel.setBackground(ToolClass.fgcuGreen);
         setVisible(true);

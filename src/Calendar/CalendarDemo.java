@@ -175,6 +175,8 @@ public class CalendarDemo extends Program implements ItemListener {
         ActionListener plannerBtnListener = e -> new DayPlanner(dayText);
 
         VPanel vbox = new VPanel();
+
+        //Adds a layout manager to the VPanel object, so that setSize() will work - TH
         vbox.setLayout(new BorderLayout());
 
         if (dayText== null) {
@@ -183,24 +185,36 @@ public class CalendarDemo extends Program implements ItemListener {
 
             /*I commented out the labels that showed on the days and instead i
             now created btns. The buttons get the text variable that holds
-            a string that represents the date number <-- Yamnel Serra */
+            a string that represents the date number - Yamnel Serra */
 
 //            JLabel label = new JLabel(text);
 //            label.setFont(JTFTools.decodeFont(DATE_FONT));
 //            vbox.add(label, "anchor=NORTHEAST top=2 right=2");
 
-            JButton plannerBtn = new JButton(dayText);//dayText);
-//            JLabel dayDisplay = new JLabel(dayText);
-//            dayDisplay.setSize(20, 20);
-//            JLabel pointsUsed = new JLabel("Points Used "+"125");
-//            pointsUsed.setSize(20, 20);
-//            plannerBtn.add(dayDisplay);//, BorderLayout.WEST);
-//            plannerBtn.add(pointsUsed);//, BorderLayout.EAST);
+            /*Added a BorderLayout to plannerBtn, so as to set
+            positions for dayDisplay and pointsUsed, which will
+            display the day and the points used on that day,
+            respectively - TH */
 
-//            plannerBtn.setVerticalTextPosition(SwingConstants.TOP);
-//            plannerBtn.setHorizontalTextPosition(SwingConstants.LEFT);
+            JButton plannerBtn = new JButton();
+            plannerBtn.setLayout(new BorderLayout());
 
+            JLabel dayDisplay = new JLabel(dayText);
+            dayDisplay.setFont(ToolClass.smallBoldHeadingFont);
+            dayDisplay.setSize(20, 20);
 
+            /*pointsUsed is currently set to a static value, but
+            will eventually reflect the number of points used
+            on that particular day - TH */
+
+            JLabel pointsUsed = new JLabel("125");
+            pointsUsed.setSize(20, 20);
+            pointsUsed.setHorizontalAlignment(SwingConstants.CENTER);
+            pointsUsed.setFont(ToolClass.smallItalicHeadingFont);
+            pointsUsed.setForeground(ToolClass.fgcuGreen);
+
+            plannerBtn.add(dayDisplay, BorderLayout.NORTH); //Adds dayDisplay to the plannerBtn
+            plannerBtn.add(pointsUsed, BorderLayout.SOUTH); //Adds pointsUsed to the plannerBtn
             plannerBtn.setSize(vbox.getWidth(), vbox.getHeight());
             plannerBtn.addActionListener(plannerBtnListener); // Adds an ActionListener to plannerBtn
             vbox.add(plannerBtn); // Adds plannerBtn to the individual day (vbox)
