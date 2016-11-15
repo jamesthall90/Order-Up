@@ -1,6 +1,7 @@
 package Calendar;
 
 import MainScreens.DayPlanner;
+import MainScreens.MainMenu;
 import Utility.ToolClass;
 /*
  * File: CalendarDemo.java
@@ -13,6 +14,8 @@ import Utility.ToolClass;
 import acm.gui.*;
 import acm.program.*;
 import acm.util.*;
+import sun.applet.Main;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -48,6 +51,7 @@ public class CalendarDemo extends Program implements ItemListener {
     private String[] monthNames;
     private String[] weekdayNames;
     private int firstDayOfWeek;
+    private JLabel studentPlanner;
 
     public static int month;
     public static int year;
@@ -66,11 +70,14 @@ public class CalendarDemo extends Program implements ItemListener {
         initCountryList();
 //        localeChooser = new JComboBox(countries);
         localeChooser = new JLabel(countries[0]);
+        localeChooser.setVisible(false);
+        studentPlanner = new JLabel("John Doe's Meal Planner");
         String country = Locale.getDefault().getDisplayCountry();
 //        localeChooser.setSelectedItem(country);
 //        localeChooser.addItemListener(this);
         add(new JButton("<-"), NORTH);
-        add(localeChooser, NORTH);
+//        add(localeChooser, NORTH);
+        add(studentPlanner, NORTH);
         add(new JButton("->"), NORTH);
         currentCalendar = Calendar.getInstance();
         itemStateChanged(null);
@@ -177,7 +184,9 @@ public class CalendarDemo extends Program implements ItemListener {
         ActionListener plannerBtnListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 new DayPlanner(dayText);
+
             }
         };
 

@@ -142,5 +142,6 @@ public class MainMenu extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
+    
 
 }
