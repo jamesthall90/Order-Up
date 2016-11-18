@@ -1,11 +1,12 @@
 package MainScreens;
 
-import Calendar.CalendarDemo;
+//import Calendar.CalendarDemo;
 import Utility.ToolClass;
-import oracle.jvm.hotspot.jfr.JFR;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /*
  * Created by TylerHall on 10/20/16.
@@ -41,7 +42,7 @@ public class DayPlanner extends JFrame {
 
 
     public DayPlanner(String dayText) { // dayText is the day number
-        super("Meal Plan for " + "/" + dayText + "/" + CalendarDemo.year);
+        super("Meal Plan for " + "/" + dayText + "/" + MainMenu.CalendarDemo.year);
 
         dayPlannerPanel = new JPanel();
         setSize(800, 800); //sets the size of the frame
@@ -191,7 +192,46 @@ public class DayPlanner extends JFrame {
         setVisible(true);
 
         // changed this to Dispose so it won't close the entire program
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        WindowListener OnCLose = new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                new MainMenu();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        };
+
+        addWindowListener(OnCLose);
 
     }
 
