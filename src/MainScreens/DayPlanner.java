@@ -1,20 +1,16 @@
 package MainScreens;
 
-<<<<<<< HEAD
-import Calendar.CalendarDemo;
-import Utility.Meals;
-=======
 //import Calendar.CalendarDemo;
->>>>>>> branch 'master' of https://github.com/jamesthall90/Order-Up.git
+import Utility.Meals;
+//import Calendar.CalendarDemo;
 import Utility.ToolClass;
-<<<<<<< HEAD
 //import oracle.jvm.hotspot.jfr.JFR;
-=======
->>>>>>> branch 'master' of https://github.com/jamesthall90/Order-Up.git
 
 import javax.swing.*;
+
+import MainScreens.MainMenu.CalendarDemo;
+
 import java.awt.*;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -23,10 +19,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
-=======
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
->>>>>>> branch 'master' of https://github.com/jamesthall90/Order-Up.git
 
 /*
  * Created by TylerHall on 10/20/16.
@@ -91,13 +85,11 @@ public class DayPlanner extends JFrame {
     
     
 
-<<<<<<< HEAD
     // build the restaurant hashset for the comboboxes
     for (int i = 0; i < mealList.size(); i++) {
       restaurantHash.add(mealList.get(i).getRestaurant());
-=======
-    public DayPlanner(String dayText) { // dayText is the day number
-        super("Meal Plan for " + "/" + dayText + "/" + MainMenu.CalendarDemo.year);
+//    public DayPlanner(String dayText) { // dayText is the day number
+//        super("Meal Plan for " + "/" + dayText + "/" + MainMenu.CalendarDemo.year);
 
         dayPlannerPanel = new JPanel();
         setSize(800, 800); //sets the size of the frame
@@ -117,7 +109,7 @@ public class DayPlanner extends JFrame {
         breakfastLabel.setFont(ToolClass.largerBoldHeadingFont);
         breakfastLabel.setVisible(true);
 
-        breakfastRestaurants = new JComboBox(bfRestaurantList);
+        breakfastRestaurants = new JComboBox(restaurants);
         breakfastRestaurants.setVisible(true);
         breakfastRestaurants.setBackground(Color.WHITE);
         breakfastRestaurants.setForeground(ToolClass.fgcuBlue);
@@ -142,7 +134,7 @@ public class DayPlanner extends JFrame {
         lunchLabel.setForeground(Color.WHITE);
         lunchLabel.setFont(ToolClass.largerBoldHeadingFont);
 
-        lunchRestaurants = new JComboBox(lunchRestaurantList);
+        lunchRestaurants = new JComboBox(restaurants);
         lunchRestaurants.setVisible(true);
         lunchRestaurants.setBackground(Color.WHITE);
         lunchRestaurants.setForeground(ToolClass.fgcuBlue);
@@ -167,7 +159,7 @@ public class DayPlanner extends JFrame {
         dinnerLabel.setForeground(Color.WHITE);
         dinnerLabel.setFont(ToolClass.largerBoldHeadingFont);
 
-        dinnerRestaurants = new JComboBox(dinnerRestaurantList);
+        dinnerRestaurants = new JComboBox(restaurants);
         dinnerRestaurants.setVisible(true);
         dinnerRestaurants.setBackground(Color.WHITE);
         dinnerRestaurants.setForeground(ToolClass.fgcuBlue);
@@ -195,7 +187,7 @@ public class DayPlanner extends JFrame {
         snackLabel.setForeground(Color.WHITE);
         snackLabel.setFont(ToolClass.largerBoldHeadingFont);
 
-        snackRestaurants = new JComboBox(snackRestaurantList);
+        snackRestaurants = new JComboBox(restaurants);
         snackRestaurants.setVisible(true);
         snackRestaurants.setBackground(Color.WHITE);
         snackRestaurants.setForeground(ToolClass.fgcuBlue);
@@ -288,7 +280,6 @@ public class DayPlanner extends JFrame {
 
         addWindowListener(OnCLose);
 
->>>>>>> branch 'master' of https://github.com/jamesthall90/Order-Up.git
     }
 
     // convert the hashset to an array so we can display it in the combobox
