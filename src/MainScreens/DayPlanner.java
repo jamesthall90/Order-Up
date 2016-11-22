@@ -117,6 +117,10 @@ public class DayPlanner extends JFrame {
         breakfastFoodItems = new JComboBox();
         breakfastFoodItems.setBackground(Color.WHITE);
         breakfastFoodItems.setForeground(ToolClass.fgcuGreen);
+        
+        breakfastSideItems = new JComboBox();
+        breakfastSideItems.setBackground(Color.WHITE);
+        breakfastSideItems.setForeground(ToolClass.fgcuGreen);
 
         breakfastDrinkItems = new JComboBox();
         breakfastDrinkItems.setBackground(Color.WHITE);
@@ -142,6 +146,10 @@ public class DayPlanner extends JFrame {
         lunchFoodItems = new JComboBox();
         lunchFoodItems.setBackground(Color.WHITE);
         lunchFoodItems.setForeground(ToolClass.fgcuGreen);
+        
+        lunchSideItems= new JComboBox();
+        lunchSideItems.setBackground(Color.WHITE);
+        lunchSideItems.setForeground(ToolClass.fgcuGreen);
 
         lunchDrinkItems = new JComboBox();
         lunchDrinkItems.setBackground(Color.WHITE);
@@ -167,6 +175,10 @@ public class DayPlanner extends JFrame {
         dinnerFoodItems = new JComboBox();
         dinnerFoodItems.setBackground(Color.WHITE);
         dinnerFoodItems.setForeground(ToolClass.fgcuGreen);
+        
+        dinnerSideItems = new JComboBox();
+        dinnerSideItems.setBackground(Color.WHITE);
+        dinnerSideItems.setForeground(ToolClass.fgcuGreen);
 
         dinnerDrinkItems = new JComboBox();
         dinnerDrinkItems.setBackground(Color.WHITE);
