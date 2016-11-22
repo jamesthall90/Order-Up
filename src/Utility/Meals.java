@@ -2,13 +2,13 @@ package Utility;
 
 public class Meals {
   private int calorie;
-  private String name;
+  private String entreeName;
   private String restaurant;
   private String item; //e=entree, s=side, d=drink
   
   public Meals(String rn, String n, int c, String i) {
     this.restaurant = rn;
-    this.name = n;
+    this.entreeName = n;
     this.calorie = c;
     this.item = i;
   }
@@ -22,7 +22,7 @@ public class Meals {
   }
    
   public String getName(){
-    return this.name;
+    return this.entreeName;
   }
   
   public String getItem(){
@@ -31,6 +31,6 @@ public class Meals {
   
   @Override
   public String toString(){
-    return this.restaurant + "," + this.name + "," + this.calorie + "," + this.item;
+    return this.restaurant + "," + this.entreeName + "," + this.calorie + "," + this.item;
   }
 }
