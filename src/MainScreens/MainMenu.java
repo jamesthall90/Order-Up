@@ -21,10 +21,7 @@ import acm.util.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,6 +58,9 @@ public class MainMenu{
     String logoURL = "https://f9149b6c-a-62cb3a1a-s-sites.googlegroups.com/site/outstandingprogramming/documents/OrderUpLogo%20small.png";
     ImageIcon orderUpLogoSmall;
     JLabel smallLogoholderLabel;
+
+//    JPanel testPanel;
+
 
     public MainMenu() {
 //        super("Main Menu");
@@ -334,13 +334,47 @@ public class MainMenu{
                 }
             };
 
+            JPanel testPanel = new JPanel();
+            JLabel testLabel = new JLabel("Hello! This is a test!");
+            testPanel.add(testLabel, BorderLayout.NORTH);
+
+            MouseListener vboxListener = new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                    add(testPanel);
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                    remove(testPanel);
+                }
+            };
+
             VPanel vbox = new VPanel();
 
             //Adds a layout manager to the VPanel object, so that setSize() will work - TH
             vbox.setLayout(new BorderLayout());
 
             if (dayText== null) {
-                vbox.setBackground(ToolClass.fgcuLightBlue);//EMPTY_BACKGROUND);
+                vbox.setBackground(ToolClass.fgcuLightBlue);
             } else {
 
             /*I commented out the labels that showed on the days and instead i
@@ -367,22 +401,25 @@ public class MainMenu{
             will eventually reflect the number of points used
             on that particular day - TH */
 
-                JLabel pointsUsed = new JLabel("125");
-                pointsUsed.setSize(20, 20);
-                pointsUsed.setHorizontalAlignment(SwingConstants.CENTER);
-                pointsUsed.setFont(ToolClass.smallItalicHeadingFont);
-                pointsUsed.setForeground(ToolClass.fgcuGreen);
+//                JLabel pointsUsed = new JLabel("125");
+//                pointsUsed.setSize(20, 20);
+//                pointsUsed.setHorizontalAlignment(SwingConstants.CENTER);
+//                pointsUsed.setFont(ToolClass.smallItalicHeadingFont);
+//                pointsUsed.setForeground(ToolClass.fgcuGreen);
 
                 plannerBtn.add(dayDisplay, BorderLayout.NORTH); //Adds dayDisplay to the plannerBtn
-                plannerBtn.add(pointsUsed, BorderLayout.SOUTH); //Adds pointsUsed to the plannerBtn
+//                plannerBtn.add(pointsUsed, BorderLayout.SOUTH); //Adds pointsUsed to the plannerBtn
                 plannerBtn.setSize(vbox.getWidth(), vbox.getHeight());
                 plannerBtn.addActionListener(plannerBtnListener); // Adds an ActionListener to plannerBtn
                 vbox.add(plannerBtn); // Adds plannerBtn to the individual day (vbox)
 
                 vbox.setBackground(Color.WHITE);
+                vbox.addMouseListener(vboxListener);
             }
             vbox.setOpaque(true);
             vbox.setBorder(new LineBorder(Color.BLACK));
+
+
             return vbox;
         }
 
