@@ -51,7 +51,7 @@ public class MainMenu{
     JLabel pointsUsed;
     JLabel pointsUsedLabel;
     JButton myMealPlan;
-    Border compound, fgcuGreenLine, raisedBevel, loweredBevel;
+
     Font studentNameFont, largerBoldHeadingFont, totalPointsFont, totalPointsLabelFont,
             remainingPointsFont, remainingPointsLabelFont;
     //Logo should be added to shorter URL for code convention purposes
@@ -66,12 +66,7 @@ public class MainMenu{
 //        super("Main Menu");
         menu = new JFrame("Main Menu");
 
-        //Objects created for use with compound border
-        raisedBevel = BorderFactory.createRaisedBevelBorder();
-        loweredBevel = BorderFactory.createLoweredBevelBorder();
-        fgcuGreenLine = BorderFactory.createLineBorder(ToolClass.fgcuGreen);
-        compound = BorderFactory.createCompoundBorder(raisedBevel, loweredBevel);
-        compound = BorderFactory.createCompoundBorder(fgcuGreenLine, compound);
+
 
         //Font objects for various labels
 
@@ -101,7 +96,7 @@ public class MainMenu{
         studentNameLabel.setForeground(ToolClass.fgcuBlue);
         studentNameLabel.setBackground(Color.white);
         studentNameLabel.setOpaque(true);
-        studentNameLabel.setBorder(fgcuGreenLine);
+        studentNameLabel.setBorder(ToolClass.fgcuGreenLine);
         studentNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Initialization and settings for points Label
@@ -120,7 +115,7 @@ public class MainMenu{
         totalPoints.setForeground(ToolClass.fgcuGreen);
         totalPoints.setBackground(Color.white);
         totalPoints.setOpaque(true);
-        totalPoints.setBorder(fgcuGreenLine);
+        totalPoints.setBorder(ToolClass.fgcuGreenLine);
         totalPoints.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Initialization and settings for remaining Points Label
@@ -134,7 +129,7 @@ public class MainMenu{
         remainingPoints.setForeground(ToolClass.fgcuGreen);
         remainingPoints.setBackground(Color.yellow);
         remainingPoints.setOpaque(true);
-        remainingPoints.setBorder(fgcuGreenLine);
+        remainingPoints.setBorder(ToolClass.fgcuGreenLine);
         remainingPoints.setHorizontalAlignment(SwingConstants.CENTER);
 
         // Initialization and settings for my Meal Plan button
