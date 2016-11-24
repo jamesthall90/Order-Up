@@ -554,7 +554,7 @@ public class DayPlanner extends JFrame {
         totalNutrition.setLayout(new FlowLayout());
         totalNutrition.setVisible(true);
         totalNutrition.setBackground(ToolClass.fgcuBlue);
-        totalNutrition.setBorder(ToolClass.newCompound);
+        totalNutrition.setBorder(ToolClass.whiteLine);
 
         totalCalories = new JLabel("<HTML><U>Total Calories:</U></HTML> ");
         totalCalories.setForeground(Color.WHITE);

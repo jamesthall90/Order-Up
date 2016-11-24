@@ -28,7 +28,7 @@ public class ToolClass {
     public static Border raisedBevel = BorderFactory.createRaisedBevelBorder();
     public static Border loweredBevel = BorderFactory.createLoweredBevelBorder();
     public static Border fgcuGreenLine = BorderFactory.createLineBorder(fgcuGreen);
-    public static Border whiteLine = BorderFactory.createLineBorder(Color.WHITE, 1);
+    public static Border whiteLine = BorderFactory.createLineBorder(Color.WHITE, 3, true);
     public static Border compound = BorderFactory.createCompoundBorder(raisedBevel, loweredBevel);
     public static Border newCompound = BorderFactory.createCompoundBorder(whiteLine, compound);
 
