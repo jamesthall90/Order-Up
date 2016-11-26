@@ -1,6 +1,7 @@
 package Utility;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.awt.*;
@@ -21,6 +22,16 @@ public class ToolClass {
     public static Font smallBoldHeadingFont = new Font(Font.SANS_SERIF, Font.BOLD, 15);
     public static Font largerBoldHeadingFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
     public static Font smallItalicHeadingFont = new Font(Font.SANS_SERIF, Font.ITALIC, 12);
+    public static Font nutritionPanelFont = new Font(Font.SANS_SERIF, Font.ITALIC + Font.BOLD, 10);
+
+    //Objects created for use with compound border
+    public static Border raisedBevel = BorderFactory.createRaisedBevelBorder();
+    public static Border loweredBevel = BorderFactory.createLoweredBevelBorder();
+    public static Border fgcuGreenLine = BorderFactory.createLineBorder(fgcuGreen);
+    public static Border whiteLine = BorderFactory.createLineBorder(Color.WHITE, 3, true);
+    public static Border compound = BorderFactory.createCompoundBorder(raisedBevel, loweredBevel);
+    public static Border newCompound = BorderFactory.createCompoundBorder(whiteLine, compound);
+
 
 
     public static ImageIcon createImageIcon(String path, String description) {
