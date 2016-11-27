@@ -2,23 +2,13 @@ package MainScreens;
 
 //import Calendar.CalendarDemo;
 import Utility.ToolClass;
-///////////////////////////////////
+import acm.gui.TableLayout;
+import acm.gui.VPanel;
+import acm.program.Program;
+import acm.util.JTFTools;
 
-import MainScreens.DayPlanner;
-import MainScreens.MainMenu;
-import Utility.ToolClass;
-/*
- * File: CalendarDemo.java
- * -----------------------
- * This program uses the GUI layout mechanism to create a calendar
- * page.  The program uses the features of Java's Locale class to
- * internationalize the calendar.
- */
-
-import acm.gui.*;
-import acm.program.*;
-import acm.util.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -27,11 +17,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+///////////////////////////////////
+/*
+ * File: CalendarDemo.java
+ * -----------------------
+ * This program uses the GUI layout mechanism to create a calendar
+ * page.  The program uses the features of Java's Locale class to
+ * internationalize the calendar.
+ */
 ///////////////////////////////
-
-import javax.swing.border.Border;
-import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by TylerHall on 10/14/16.
@@ -58,6 +52,7 @@ public class MainMenu{
     String logoURL = "https://f9149b6c-a-62cb3a1a-s-sites.googlegroups.com/site/outstandingprogramming/documents/OrderUpLogo%20small.png";
     ImageIcon orderUpLogoSmall;
     JLabel smallLogoholderLabel;
+    JButton calorieCalculator;
 
 //    JPanel testPanel;
 
@@ -98,6 +93,13 @@ public class MainMenu{
         studentNameLabel.setOpaque(true);
         studentNameLabel.setBorder(ToolClass.fgcuGreenLine);
         studentNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //calorieCalc initilizer
+        calorieCalculator = new JButton("Calorie Calculator");
+        MouseHandler handler = new MouseHandler();
+        calorieCalculator.setBounds(300,10,150,30);
+        calorieCalculator.addMouseListener(handler);
+
 
         // Initialization and settings for points Label
         pointsLabel = new JLabel("Points");
@@ -154,6 +156,7 @@ public class MainMenu{
         mainMenuPanel.add(totalPointsLabel);
         mainMenuPanel.add(remainingPoints);
         mainMenuPanel.add(remainingPointsLabel);
+        mainMenuPanel.add(calorieCalculator);
         //mainMenuPanel.add(myMealPlan);
 
 
@@ -172,15 +175,41 @@ public class MainMenu{
         menu.setVisible(true);
     }
 
-/**
- *
- * This is the calendar class
- *
- * Implemented inside the Main Menu to facilitate
- * the closing of the JFrame "main".
- *
- *
- * */
+    //handles listeners for calorie calculator, didn't want to touch the
+    // behemoth below this
+    private class MouseHandler implements MouseListener{
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            CalorieCalculator starter = new CalorieCalculator();
+            starter.setVisible(true);
+            starter.setSize(400, 400);
+            starter.setLocation(500,280);
+            starter.setResizable(false);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }
+
+
     public static class CalendarDemo extends Program implements ItemListener {
         /* Private constants */
 //    private static final Color EMPTY_BACKGROUND = new Color(0xDDDDDD);
@@ -439,6 +468,4 @@ public class MainMenu{
             return word.substring(0, 1).toUpperCase() + word.substring(1);
         }
     }
-    
-
 }
