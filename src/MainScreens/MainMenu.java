@@ -172,7 +172,15 @@ public class MainMenu{
         menu.setVisible(true);
     }
 
-
+/**
+ *
+ * This is the calendar class
+ *
+ * Implemented inside the Main Menu to facilitate
+ * the closing of the JFrame "main".
+ *
+ *
+ * */
     public static class CalendarDemo extends Program implements ItemListener {
         /* Private constants */
 //    private static final Color EMPTY_BACKGROUND = new Color(0xDDDDDD);
