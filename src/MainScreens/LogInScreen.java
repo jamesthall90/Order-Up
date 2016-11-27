@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.sql.*;
 import java.util.*;
 
 public class LogInScreen extends JFrame {
@@ -35,6 +36,7 @@ public class LogInScreen extends JFrame {
         btnLogIn = new JButton("Login");
         btnCancel = new JButton("Cancel");
         logInPanel = new JPanel();
+//        txtFieldUIN = new JTextField();
         txtFieldUser = new JTextField(15);
         txtFieldPassword = new JPasswordField(15);
 
@@ -93,46 +95,47 @@ public class LogInScreen extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
-        Writer writer = null;
-        File check = new File("userPass.txt");
-        if (check.exists()) {
-
-            //Checks if the file exists. will not add anything if the file does exist.
-        } else {
-            try {
-                File texting = new File("userPass.txt");
-                writer = new BufferedWriter(new FileWriter(texting));
-                writer.write("message");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        Writer writer = null;
+//        File check = new File("userPass.txt");
+//        if (check.exists()) {
+//
+//            //Checks if the file exists. will not add anything if the file does exist.
+//        } else {
+//            try {
+//                File texting = new File("userPass.txt");
+//                writer = new BufferedWriter(new FileWriter(texting));
+//                writer.write("message");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
 
         btnLogIn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    File file = new File("userPass.txt");
-                    Scanner scan = new Scanner(file);
-                    String line = null;
-                    FileWriter filewrite = new FileWriter(file, true);
 
+                    String uname, upaswd;
                     String usertxt = " ";
                     String passtxt = " ";
-                    String puname = txtFieldUser.getText();
-                    String ppaswd = txtFieldPassword.getText();
 
+                    uname = txtFieldUser.getText();
+                    upaswd = txtFieldPassword.getText();
+                    String host = "jdbc:sqlite:/Users/TylerHall/IdeaProjects/Order-Up/data/studentinfo.db";
 
-                    while (scan.hasNext()) {
-                        usertxt = scan.nextLine();
-                        passtxt = scan.nextLine();
+                    Connection studentInfoCon = DriverManager.getConnection(host);
 
-                    }
+                    Statement state = studentInfoCon.createStatement();
+                    String query = String.format("SELECT student_password FROM student WHERE student_email= '%s'", uname);
+                    ResultSet rs = state.executeQuery(query);
 
-                    if (puname.equals(usertxt) && ppaswd.equals(passtxt)) {
+                    usertxt = txtFieldUser.getText();//rs.getString("student_email");
+                    passtxt = rs.getString("student_password");
+
+                    if (uname.equals(usertxt) && upaswd.equals(passtxt)) {
                         MainMenu menu = new MainMenu();
                         dispose();
-                    } else if (puname.equals("") && ppaswd.equals("")) {
+                    } else if (uname.equals("") && upaswd.equals("")) {
                         JOptionPane.showMessageDialog(null, "Please insert Username and Password");
                     } else {
 
@@ -141,8 +144,10 @@ public class LogInScreen extends JFrame {
                         txtFieldPassword.setText("");
                         txtFieldUser.requestFocus();
                     }
-                } catch (IOException d) {
-                    d.printStackTrace();
+                } catch (SQLException e1) {
+//                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Invalid credentials entered! Please try again.",
+                            "Input Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
