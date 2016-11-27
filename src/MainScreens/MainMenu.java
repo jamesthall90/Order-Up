@@ -7,7 +7,6 @@ import acm.program.Program;
 import acm.util.JTFTools;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -30,7 +29,7 @@ import java.util.Locale;
  * Created by TylerHall on 10/14/16.
  */
 
-public class MainMenu{
+public class MainMenu {
     static JFrame menu;
 
     JPanel mainMenuPanel;
@@ -59,7 +58,6 @@ public class MainMenu{
     public MainMenu() {
 //        super("Main Menu");
         menu = new JFrame("Main Menu");
-
 
 
         //Font objects for various labels
@@ -96,7 +94,7 @@ public class MainMenu{
         //calorieCalc initilizer
         calorieCalculator = new JButton("Calorie Calculator");
         MouseHandler handler = new MouseHandler();
-        calorieCalculator.setBounds(300,10,150,30);
+        calorieCalculator.setBounds(300, 10, 150, 30);
         calorieCalculator.addMouseListener(handler);
 
 
@@ -174,41 +172,6 @@ public class MainMenu{
         menu.setVisible(true);
     }
 
-    //handles listeners for calorie calculator, didn't want to touch the
-    // behemoth below this
-    private class MouseHandler implements MouseListener{
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            CalorieCalculator starter = new CalorieCalculator();
-            starter.setVisible(true);
-            starter.setSize(400, 400);
-            starter.setLocation(500,280);
-            starter.setResizable(false);
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    }
-
-
     public static class CalendarDemo extends Program implements ItemListener {
         /* Private constants */
 //    private static final Color EMPTY_BACKGROUND = new Color(0xDDDDDD);
@@ -221,7 +184,8 @@ public class MainMenu{
 //            new Locale("nl", "NL", ""), new Locale("es", "ES", ""),
 //            new Locale("en", "GB", ""), new Locale("en", "US", "")
 //    };
-
+        public static int month;
+        public static int year;
         /* Private instance variables */
 //    private JComboBox localeChooser;
         private JLabel localeChooser;
@@ -232,17 +196,15 @@ public class MainMenu{
         private String[] weekdayNames;
         private int firstDayOfWeek;
 
-        public static int month;
-        public static int year;
 
-
-
-        public CalendarDemo(){
+        public CalendarDemo() {
             init();
 
         }
 
-        /** Initialize the graphical user interface */
+        /**
+         * Initialize the graphical user interface
+         */
         public void init() {
 
             setBackground(Color.WHITE);
@@ -260,14 +222,18 @@ public class MainMenu{
             addActionListeners();
         }
 
-        /** Respond to a button action */
+        /**
+         * Respond to a button action
+         */
         public void actionPerformed(ActionEvent e) {
             int delta = (e.getActionCommand().equals("<-")) ? -1 : +1;
             currentCalendar.add(Calendar.MONTH, delta);
             updateCalendarDisplay(currentCalendar);
         }
 
-        /** Respond to a change in the locale selection */
+        /**
+         * Respond to a change in the locale selection
+         */
         public void itemStateChanged(ItemEvent e) {
             if (e == null || e.getStateChange() == ItemEvent.SELECTED) {
                 Date time = currentCalendar.getTime();
@@ -341,6 +307,7 @@ public class MainMenu{
             }
             return current;
         }
+
         /* Compute the index of the first weekday for the current Locale */
         private int getFirstWeekdayIndex(Calendar calendar) {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -404,7 +371,7 @@ public class MainMenu{
             //Adds a layout manager to the VPanel object, so that setSize() will work - TH
             vbox.setLayout(new BorderLayout());
 
-            if (dayText== null) {
+            if (dayText == null) {
                 vbox.setBackground(ToolClass.fgcuLightBlue);
             } else {
 
@@ -465,6 +432,40 @@ public class MainMenu{
         /* Capitalize the first letter of a word */
         private String capitalize(String word) {
             return word.substring(0, 1).toUpperCase() + word.substring(1);
+        }
+    }
+
+    //handles listeners for calorie calculator, didn't want to touch the
+    // behemoth below this
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            CalorieCalculator starter = new CalorieCalculator();
+            starter.setVisible(true);
+            starter.setSize(400, 400);
+            starter.setLocation(500, 280);
+            starter.setResizable(false);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
         }
     }
 }

@@ -114,7 +114,6 @@ public class LogInScreen extends JFrame {
                 try {
                     File file = new File("userPass.txt");
                     Scanner scan = new Scanner(file);
-                    ;
                     String line = null;
                     FileWriter filewrite = new FileWriter(file, true);
 
