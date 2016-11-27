@@ -459,28 +459,8 @@ public class DayPlanner extends JFrame {
     dinnerNutrition.setBackground(ToolClass.fgcuBlue);
     dinnerNutrition.setBorder(ToolClass.newCompound);
 
-    dinnerCalories = new JLabel("<HTML><U>Total Calories:</U></HTML> ");
-    dinnerCalories.setForeground(Color.WHITE);
-    dinnerCalories.setFont(ToolClass.nutritionPanelFont);
-    dinnerCalories.setHorizontalTextPosition(SwingConstants.LEFT);
     dinnerCalories = panelTheme("Total Calories:");
     dinnerCalories.setHorizontalTextPosition(SwingConstants.LEFT);
-
-    dinnerFatCalories = new JLabel("<HTML><U>Total Fat Calories:</U></HTML> " + "g");
-    dinnerFatCalories.setForeground(Color.WHITE);
-    dinnerFatCalories.setFont(ToolClass.nutritionPanelFont);
-
-    dinnerCarbs = new JLabel("<HTML><U>Total Carbs:</U></HTML> " + "g");
-    dinnerCarbs.setForeground(Color.WHITE);
-    dinnerCarbs.setFont(ToolClass.nutritionPanelFont);
-
-    dinnerProtein = new JLabel("<HTML><U>Total Protein:</U></HTML> " + "g");
-    dinnerProtein.setForeground(Color.WHITE);
-    dinnerProtein.setFont(ToolClass.nutritionPanelFont);
-
-    dinnerFat = new JLabel("<HTML><U>Total Fat:</U></HTML> " + "g");
-    dinnerFat.setForeground(Color.WHITE);
-    dinnerFat.setFont(ToolClass.nutritionPanelFont);
 
     dinnerFatCalories = panelTheme("Total Fat Calories:");
     dinnerCarbs = panelTheme("Total Carbs:");

@@ -10,7 +10,7 @@ public class Main {
 
         /* FOR TESTING */
 
-        MainMenu menu = new MainMenu();
+//        MainMenu menu = new MainMenu();
 //        DayPlanner day = new DayPlanner("monday");
 //        MainMenu menu = new MainMenu();
         DayPlanner day = new DayPlanner("monday");
