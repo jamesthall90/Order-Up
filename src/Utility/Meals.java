@@ -13,7 +13,7 @@ public class Meals {
     this.item = i;
   }
   
-   public int getCalorie() {
+  public int getCalorie() {
     return this.calorie;
   } 
    

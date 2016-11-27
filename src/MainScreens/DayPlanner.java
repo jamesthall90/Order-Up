@@ -2,25 +2,21 @@ package MainScreens;
 
 //import Calendar.CalendarDemo;
 
+import MainScreens.MainMenu.CalendarDemo;
 import Utility.Meals;
-//import Calendar.CalendarDemo;
 import Utility.ToolClass;
-//import oracle.jvm.hotspot.jfr.JFR;
 
 import javax.swing.*;
-
-import MainScreens.MainMenu.CalendarDemo;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+//import Calendar.CalendarDemo;
+//import oracle.jvm.hotspot.jfr.JFR;
 
 public class DayPlanner extends JFrame {
 
@@ -96,15 +92,15 @@ public class DayPlanner extends JFrame {
     public DayPlanner(String dayText) { // dayText is the day number
         super("Meal Plan for " + "/" + dayText + "/" + CalendarDemo.year);
 
-        try {
-            Scanner scanner = new Scanner(new File("Meals.txt"));
-            scanner.useDelimiter(",");
-            while (scanner.hasNext()) {
-                mealList.add(new Meals(scanner.next(), scanner.next(), scanner.nextInt(), scanner.next()));
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("404 Error, file not found.");
-        }
+//        try {
+//            Scanner scanner = new Scanner(new File("Meals.txt"));
+//            scanner.useDelimiter(",");
+//            while (scanner.hasNext()) {
+//                mealList.add(new Meals(scanner.next(), scanner.next(), scanner.nextInt(), scanner.next()));
+//            }
+//        } catch (FileNotFoundException e) {
+//            System.out.println("404 Error, file not found.");
+//        }
 
         // build the restaurant hashset for the comboboxes
         for (int i = 0; i < mealList.size(); i++) {
