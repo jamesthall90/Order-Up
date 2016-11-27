@@ -219,7 +219,6 @@ public class DayPlanner extends JFrame {
         } else if (r.equals(restaurants[3])) {
           System.out.println("Chick-Fil-A");
           ent = chickEnt;
-          System.out.println(ent.toString());
         }
         
       } else if (e.getSource() == lunchRestaurants) {
