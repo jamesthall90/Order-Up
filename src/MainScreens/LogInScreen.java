@@ -23,6 +23,10 @@ public class LogInScreen extends JFrame {
     JComboBox schoolChoiceBox;
     String logoURL = "http://i.imgur.com/hPN6Qz7.png";
     ImageIcon orderUpLogo;
+    static int universityID;
+    static String firstName = "";
+    static String lastName = "";
+    static int userPoint;
 
     //for schoolChoiceBox
     private static final String[] schoolNames = {" ", "Florida Gulf Coast " +
@@ -95,22 +99,6 @@ public class LogInScreen extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
-//        Writer writer = null;
-//        File check = new File("userPass.txt");
-//        if (check.exists()) {
-//
-//            //Checks if the file exists. will not add anything if the file does exist.
-//        } else {
-//            try {
-//                File texting = new File("userPass.txt");
-//                writer = new BufferedWriter(new FileWriter(texting));
-//                writer.write("message");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
-
         btnLogIn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -126,10 +114,51 @@ public class LogInScreen extends JFrame {
                     Connection studentInfoCon = DriverManager.getConnection(host);
 
                     Statement state = studentInfoCon.createStatement();
+
+                    String uid = String.format("SELECT uin FROM student WHERE student_email= '%s'", uname);
+                    ResultSet uidSet = state.executeQuery(uid);
+                    universityID = Integer.parseInt(uidSet.getString("uin"));
+                    System.out.println(universityID);
+
+//                    String uid2 = uidSet.getString("uin");
+
+//                    DatabaseMetaData md = studentInfoCon.getMetaData();
+//                    ResultSet rs = md.getTables(null, null, "%", null);
+//                    if (rs != uid ){
+//
+//                    }
+//
+//                    String tableCheck = String.format("SELECT count(*) FROM studentinfo WHERE type='table' AND name='%s'", uid2);
+//
+//                    ResultSet tableSet = state.executeQuery(tableCheck);
+//
+//                    System.out.println(tableCheck);
+
+//                    if (tableSet == 0) {
+//
+//                        String tableCreate = String.format("CREATE TABLE ['%s']" +
+//                                "date INTEGER PRIMARY KEY," + "breakfast TEXT," + "lunch TEXT," +
+//                                "dinner TEXT," + "snack TEXT," + "points_used INTEGER," +
+//                                "total_calories INTEGER," + "total_fat_calories INTEGER," +
+//                                "[total protein] INTEGER," + "total_carbs INTEGER," +
+//                                "total_fat INTEGER", uid);
+//                    }
+
+
+                    String fName = String.format("SELECT first_name FROM student WHERE student_email= '%s'", uname);
+                    ResultSet fNameSet = state.executeQuery(fName);
+                    firstName = fNameSet.getString("first_name");
+                    System.out.println(firstName);
+
+                    String lName = String.format("SELECT last_name FROM student WHERE student_email= '%s'", uname);
+                    ResultSet lNameSet = state.executeQuery(lName);
+                    lastName = lNameSet.getString("last_name");
+                    System.out.println(lastName);
+
                     String query = String.format("SELECT student_password FROM student WHERE student_email= '%s'", uname);
                     ResultSet rs = state.executeQuery(query);
 
-                    usertxt = txtFieldUser.getText();//rs.getString("student_email");
+                    usertxt = txtFieldUser.getText();
                     passtxt = rs.getString("student_password");
 
                     if (uname.equals(usertxt) && upaswd.equals(passtxt)) {
@@ -145,11 +174,9 @@ public class LogInScreen extends JFrame {
                         txtFieldUser.requestFocus();
                     }
                 } catch (SQLException e1) {
-//                    e1.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Invalid credentials entered! Please try again.",
                             "Input Error", JOptionPane.ERROR_MESSAGE);
                 }
-
             }
         });
 
