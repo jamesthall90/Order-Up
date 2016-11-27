@@ -83,9 +83,19 @@ public class DayPlanner extends JFrame {
   String[] restaurants = { "Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
       "Starbucks" };
   String[] einEnt = { "Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap" };
+  String[] einSide = { "Blueberry Muffin", "Brownie", "Cookie" };
+  String[] einDrink = { "Coffee", "Orange Juice", "Chocolate Milk" };
+  String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"};
+  String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"};
+  String[] papaDrink = {"Water", "Coke", "Sprite"};
+  String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"};
+  String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"};
+  String[] brDrink = {"Water", "Coke", "Sprite"};
   String[] chickEnt = { "Chicken Sandwich", "8 Piece Chicken Nuggets", "Chicken Salad" };
-  String[] einSide, einDrink, chickSide, chickDrink, brEnt, brSide, brDrink, papaEnt, papaSide, papaDrink, JambaDrink,
-      starDrink = new String[3];
+  String[] chickSide = { "Waffle Fries", "Cookie", "Fruit Cup" };
+  String[] chickDrink = { "Water", "Lemonade", "Iced Tea" };
+  String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"};
+  String[] starDrink = {"Vanilla Bean Frappachino", "Coffee", "Raspberry Iced Tea"};
 
   String selectedBreakfastRestaurant = "Einstein Bros. Bagels";
   String selectedLunchRestaurant = "Einstein Bros. Bagels";
@@ -96,21 +106,8 @@ public class DayPlanner extends JFrame {
   public DayPlanner(String dayText) { // dayText is the day number
     super("Meal Plan for " + "/" + dayText + "/" + CalendarDemo.year);
     ent = einEnt;
-    // try {
-    // Scanner scanner = new Scanner(new File("Meals.txt"));
-    // scanner.useDelimiter(",");
-    // while (scanner.hasNext()) {
-    // mealList.add(new Meals(scanner.next(), scanner.next(),
-    // scanner.nextInt(), scanner.next()));
-    // }
-    // } catch (FileNotFoundException e) {
-    // System.out.println("404 Error, file not found.");
-    // }
-    //
-    // // build the restaurant hashset for the comboboxes
-    // for (int i = 0; i < mealList.size(); i++) {
-    // restaurantHash.add(mealList.get(i).getRestaurant());
-    // }
+    side = einSide;
+    drink = einDrink;
 
     dayPlannerPanel = new JPanel();
     setSize(800, 800); // sets the size of the frame
@@ -207,36 +204,156 @@ public class DayPlanner extends JFrame {
         String r = (String) br.getSelectedItem();
         updateRestaurant(br, r);
         // update combo boxes
+        breakfastPanel.remove(breakfastFoodItems);
+        breakfastPanel.remove(breakfastSideItems);
+        breakfastPanel.remove(breakfastDrinkItems);
+
         if (r.equals(restaurants[0])) {
           System.out.println("Einsteins");
           ent = einEnt;
+          side = einSide;
+          drink = einDrink;
         } else if (r.equals(restaurants[1])) {
-          System.out.println("papa johns");
+          ent = papaEnt;
+          side = papaSide;
+          drink = papaDrink;
         } else if (r.equals(restaurants[2])) {
-          System.out.println("Brahma");
+          ent = brEnt;
+          side = brSide;
+          drink = brDrink;
         } else if (r.equals(restaurants[3])) {
           System.out.println("Chick-Fil-A");
           ent = chickEnt;
+          side = chickSide;
+          drink = chickDrink;
+        } else if (r.equals(restaurants[4])) {
+          ent = new String[0];
+          side = new String[0];
+          drink = jambaDrink; 
+        } else if (r.equals(restaurants[5])) {
+          ent = new String[0];
+          side = new String[0];
+          drink = starDrink;
         }
+        breakfastFoodItems = new JComboBox(ent);
+        breakfastSideItems = new JComboBox(side);
+        breakfastDrinkItems = new JComboBox(drink);
+        breakfastPanel.add(breakfastFoodItems);
+        breakfastPanel.add(breakfastSideItems);
+        breakfastPanel.add(breakfastDrinkItems);
 
       } else if (e.getSource() == lunchRestaurants) {
         JComboBox lr = (JComboBox) e.getSource();
         String r = (String) lr.getSelectedItem();
         updateRestaurant(lr, r);
         // update combo boxes
+        lunchPanel.remove(lunchFoodItems);
+        lunchPanel.remove(lunchSideItems);
+        lunchPanel.remove(lunchDrinkItems);
+
+        if (r.equals(restaurants[0])) {
+          System.out.println("Einsteins");
+          ent = einEnt;
+          side = einSide;
+          drink = einDrink;
+        } else if (r.equals(restaurants[1])) {
+          ent = papaEnt;
+          side = papaSide;
+          drink = papaDrink;
+        } else if (r.equals(restaurants[2])) {
+          ent = brEnt;
+          side = brSide;
+          drink = brDrink;
+        } else if (r.equals(restaurants[3])) {
+          System.out.println("Chick-Fil-A");
+          ent = chickEnt;
+          side = chickSide;
+          drink = chickDrink;
+        } else if (r.equals(restaurants[4])) {
+          ent = new String[0];
+          side = new String[0];
+          drink = jambaDrink; 
+        } else if (r.equals(restaurants[5])) {
+          ent = new String[0];
+          side = new String[0];
+          drink = starDrink;
+        }
+        lunchFoodItems = new JComboBox(ent);
+        lunchSideItems = new JComboBox(side);
+        lunchDrinkItems = new JComboBox(drink);
+        lunchPanel.add(lunchFoodItems);
+        lunchPanel.add(lunchSideItems);
+        lunchPanel.add(lunchDrinkItems);
       } else if (e.getSource() == dinnerRestaurants) {
         JComboBox dr = (JComboBox) e.getSource();
         String r = (String) dr.getSelectedItem();
         updateRestaurant(dr, r);
         // update combo boxes
+        dinnerPanel.remove(dinnerFoodItems);
+        dinnerPanel.remove(dinnerSideItems);
+        dinnerPanel.remove(dinnerDrinkItems);
+
+        if (r.equals(restaurants[0])) {
+          System.out.println("Einsteins");
+          ent = einEnt;
+          side = einSide;
+          drink = einDrink;
+        } else if (r.equals(restaurants[1])) {
+          ent = papaEnt;
+          side = papaSide;
+          drink = papaDrink;
+        } else if (r.equals(restaurants[2])) {
+          ent = brEnt;
+          side = brSide;
+          drink = brDrink;
+        } else if (r.equals(restaurants[3])) {
+          System.out.println("Chick-Fil-A");
+          ent = chickEnt;
+          side = chickSide;
+          drink = chickDrink;
+        } else if (r.equals(restaurants[4])) {
+          ent = new String[0];
+          side = new String[0];
+          drink = jambaDrink; 
+        } else if (r.equals(restaurants[5])) {
+          ent = new String[0];
+          side = new String[0];
+          drink = starDrink;
+        }
+        dinnerFoodItems = new JComboBox(ent);
+        dinnerSideItems = new JComboBox(side);
+        dinnerDrinkItems = new JComboBox(drink);
+        dinnerPanel.add(dinnerFoodItems);
+        dinnerPanel.add(dinnerSideItems);
+        dinnerPanel.add(dinnerDrinkItems);
       } else if (e.getSource() == snackRestaurants) {
         JComboBox sr = (JComboBox) e.getSource();
         String r = (String) sr.getSelectedItem();
         updateRestaurant(sr, r);
         // update combo boxes
+        snackPanel.remove(snackItems);
+
+        if (r.equals(restaurants[0])) {
+          System.out.println("Einsteins");
+          side = new String[0];
+        } else if (r.equals(restaurants[1])) {
+          side = new String[0];
+        } else if (r.equals(restaurants[2])) {
+          side = new String[0];
+        } else if (r.equals(restaurants[3])) {
+          System.out.println("Chick-Fil-A");
+          side = new String[0];
+        } else if (r.equals(restaurants[4])) {
+          side = jambaDrink;
+        } else if (r.equals(restaurants[5])) {
+          side = starDrink;
+        }
+        snackItems = new JComboBox(side);
+        snackPanel.add(snackItems);
       }
-      repaint();
+
       revalidate();
+      repaint();
     }
   }
 
@@ -278,11 +395,11 @@ public class DayPlanner extends JFrame {
     breakfastFoodItems.setBackground(Color.WHITE);
     breakfastFoodItems.setForeground(ToolClass.fgcuGreen);
 
-    breakfastSideItems = new JComboBox();
+    breakfastSideItems = new JComboBox(side);
     breakfastSideItems.setBackground(Color.WHITE);
     breakfastSideItems.setForeground(ToolClass.fgcuGreen);
 
-    breakfastDrinkItems = new JComboBox();
+    breakfastDrinkItems = new JComboBox(drink);
     breakfastDrinkItems.setBackground(Color.WHITE);
     breakfastDrinkItems.setForeground(ToolClass.fgcuBlue);
 
@@ -354,11 +471,11 @@ public class DayPlanner extends JFrame {
     lunchFoodItems.setBackground(Color.WHITE);
     lunchFoodItems.setForeground(ToolClass.fgcuGreen);
 
-    lunchSideItems = new JComboBox();
+    lunchSideItems = new JComboBox(side);
     lunchSideItems.setBackground(Color.WHITE);
     lunchSideItems.setForeground(ToolClass.fgcuGreen);
 
-    lunchDrinkItems = new JComboBox();
+    lunchDrinkItems = new JComboBox(drink);
     lunchDrinkItems.setBackground(Color.WHITE);
     lunchDrinkItems.setForeground(ToolClass.fgcuBlue);
 
@@ -429,11 +546,11 @@ public class DayPlanner extends JFrame {
     dinnerFoodItems.setBackground(Color.WHITE);
     dinnerFoodItems.setForeground(ToolClass.fgcuGreen);
 
-    dinnerSideItems = new JComboBox();
+    dinnerSideItems = new JComboBox(side);
     dinnerSideItems.setBackground(Color.WHITE);
     dinnerSideItems.setForeground(ToolClass.fgcuGreen);
 
-    dinnerDrinkItems = new JComboBox();
+    dinnerDrinkItems = new JComboBox(drink);
     dinnerDrinkItems.setBackground(Color.WHITE);
     dinnerDrinkItems.setForeground(ToolClass.fgcuBlue);
 
@@ -518,7 +635,7 @@ public class DayPlanner extends JFrame {
     snackRestaurants.setBackground(Color.WHITE);
     snackRestaurants.setForeground(ToolClass.fgcuBlue);
 
-    snackItems = new JComboBox();
+    snackItems = new JComboBox(new String[0]);
     snackItems.setBackground(Color.WHITE);
     snackItems.setForeground(ToolClass.fgcuGreen);
 
