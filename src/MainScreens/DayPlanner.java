@@ -84,7 +84,8 @@ public class DayPlanner extends JFrame {
     ArrayList<Meals> mealList = new ArrayList<Meals>();
     String[] restaurants = new String[0];
     String[] einEnt = {"Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap"};
-    String[] einSide, einDrink, chickEnt, chickSide, chickDrink, brEnt, brSide, brDrink, papaEnt, papaSide, papaDrink,
+    String[] chickEnt = {"Chicken Sandwich", "8 Piece Chicken Nugget", "Chicken Salad"};
+    String[] einSide, einDrink, chickSide, chickDrink, brEnt, brSide, brDrink, papaEnt, papaSide, papaDrink,
             JambaDrink, starDrink = new String[3];
 
     String selectedBreakfastRestaurant = "Einstein Bros. Bagels";
