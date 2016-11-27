@@ -1,5 +1,6 @@
 package MainScreens;
 
+import Utility.Meals;
 import Utility.ToolClass;
 
 import javax.swing.*;
@@ -128,7 +129,6 @@ public class LogInScreen extends JFrame {
                         passtxt = scan.nextLine();
 
                     }
-
 
                     if (puname.equals(usertxt) && ppaswd.equals(passtxt)) {
                         MainMenu menu = new MainMenu();
