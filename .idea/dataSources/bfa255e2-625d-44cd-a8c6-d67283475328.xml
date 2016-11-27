@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Sqlite (Xerial) - student.db">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="2.6">
+    <schema id="1">
+      <visible>1</visible>
+    </schema>
+    <table id="2" parent="1" name="uid8108"/>
+    <column id="3" parent="2" name="date">
+      <data-type>INTEGER(0,-1)|4</data-type>
+    </column>
+    <column id="4" parent="2" name="breakfast">
+      <data-type>TEXT(0,-1)|12</data-type>
+    </column>
+    <column id="5" parent="2" name="lunch">
+      <data-type>TEXT(0,-1)|12</data-type>
+    </column>
+    <column id="6" parent="2" name="snack">
+      <data-type>TEXT(0,-1)|12</data-type>
+    </column>
+    <column id="7" parent="2" name="dinner">
+      <data-type>TEXT(0,-1)|12</data-type>
+    </column>
+    <key id="8" parent="2">
+      <columns>date</columns>
+      <primary>1</primary>
+    </key>
+  </database-model>
+</dataSource>

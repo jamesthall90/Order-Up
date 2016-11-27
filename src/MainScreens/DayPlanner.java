@@ -1,7 +1,5 @@
 package MainScreens;
 
-//import Calendar.CalendarDemo;
-
 import MainScreens.MainMenu.CalendarDemo;
 import Utility.Meals;
 import Utility.ToolClass;
@@ -209,7 +207,7 @@ public class DayPlanner extends JFrame {
         String r = (String) br.getSelectedItem();
         updateRestaurant(br, r);
         // update combo boxes
-        if (r.equals(restaurants[0])){
+        if (r.equals(restaurants[0])) {
           System.out.println("Einsteins");
           ent = einEnt;
         } else if (r.equals(restaurants[1])) {
@@ -220,7 +218,7 @@ public class DayPlanner extends JFrame {
           System.out.println("Chick-Fil-A");
           ent = chickEnt;
         }
-        
+
       } else if (e.getSource() == lunchRestaurants) {
         JComboBox lr = (JComboBox) e.getSource();
         String r = (String) lr.getSelectedItem();
@@ -446,6 +444,13 @@ public class DayPlanner extends JFrame {
     dinnerPanel.add(dinnerDrinkItems);
   }
 
+  private JLabel panelTheme(String txt) {
+    JLabel label = new JLabel("<HTML><U>" + txt + "</U></HTML> " + "g");
+    label.setForeground(Color.WHITE);
+    label.setFont(ToolClass.nutritionPanelFont);
+    return label;
+  }
+
   public void dinnerNutritionItems() {
 
     dinnerNutrition = new JPanel();
@@ -457,6 +462,8 @@ public class DayPlanner extends JFrame {
     dinnerCalories = new JLabel("<HTML><U>Total Calories:</U></HTML> ");
     dinnerCalories.setForeground(Color.WHITE);
     dinnerCalories.setFont(ToolClass.nutritionPanelFont);
+    dinnerCalories.setHorizontalTextPosition(SwingConstants.LEFT);
+    dinnerCalories = panelTheme("Total Calories:");
     dinnerCalories.setHorizontalTextPosition(SwingConstants.LEFT);
 
     dinnerFatCalories = new JLabel("<HTML><U>Total Fat Calories:</U></HTML> " + "g");
@@ -474,6 +481,11 @@ public class DayPlanner extends JFrame {
     dinnerFat = new JLabel("<HTML><U>Total Fat:</U></HTML> " + "g");
     dinnerFat.setForeground(Color.WHITE);
     dinnerFat.setFont(ToolClass.nutritionPanelFont);
+
+    dinnerFatCalories = panelTheme("Total Fat Calories:");
+    dinnerCarbs = panelTheme("Total Carbs:");
+    dinnerProtein = panelTheme("Total Protein:");
+    dinnerFat = panelTheme("Total Fat:");
 
     dinnerNutrition.add(dinnerCalories);
     dinnerNutrition.add(dinnerFatCalories);
