@@ -1,7 +1,5 @@
 package MainScreens;
 
-//import Calendar.CalendarDemo;
-
 import MainScreens.MainMenu.CalendarDemo;
 import Utility.Meals;
 import Utility.ToolClass;
