@@ -118,7 +118,6 @@ public class LogInScreen extends JFrame {
                     String uid = String.format("SELECT uin FROM student WHERE student_email= '%s'", uname);
                     ResultSet uidSet = state.executeQuery(uid);
                     universityID = Integer.parseInt(uidSet.getString("uin"));
-                    System.out.println(universityID);
 
 //                    String uid2 = uidSet.getString("uin");
 
@@ -148,12 +147,10 @@ public class LogInScreen extends JFrame {
                     String fName = String.format("SELECT first_name FROM student WHERE student_email= '%s'", uname);
                     ResultSet fNameSet = state.executeQuery(fName);
                     firstName = fNameSet.getString("first_name");
-                    System.out.println(firstName);
 
                     String lName = String.format("SELECT last_name FROM student WHERE student_email= '%s'", uname);
                     ResultSet lNameSet = state.executeQuery(lName);
                     lastName = lNameSet.getString("last_name");
-                    System.out.println(lastName);
 
                     String query = String.format("SELECT student_password FROM student WHERE student_email= '%s'", uname);
                     ResultSet rs = state.executeQuery(query);
