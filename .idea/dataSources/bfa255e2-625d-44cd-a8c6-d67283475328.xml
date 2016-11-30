@@ -4,7 +4,7 @@
     <schema id="1">
       <visible>1</visible>
     </schema>
-    <table id="2" parent="1" name="uid8108"/>
+    <table id="2" parent="1" name="814774683"/>
     <column id="3" parent="2" name="date">
       <data-type>INTEGER(0,-1)|4</data-type>
     </column>
@@ -20,7 +20,10 @@
     <column id="7" parent="2" name="dinner">
       <data-type>TEXT(0,-1)|12</data-type>
     </column>
-    <key id="8" parent="2">
+    <column id="8" parent="2" name="pointsUsed">
+      <data-type>INT(0,-1)|4</data-type>
+    </column>
+    <key id="9" parent="2">
       <columns>date</columns>
       <primary>1</primary>
     </key>

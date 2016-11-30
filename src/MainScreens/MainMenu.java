@@ -6,6 +6,7 @@ import acm.gui.VPanel;
 import acm.program.Program;
 import acm.util.JTFTools;
 
+import javax.security.auth.login.LoginContext;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -25,40 +26,38 @@ import java.util.Locale;
  */
 ///////////////////////////////
 
-/**
- * Created by TylerHall on 10/14/16.
- */
-
 public class MainMenu {
     static JFrame menu;
 
-    JPanel mainMenuPanel;
-    String studentName = "John Doe"; // <----- Needs to store the student's name from userPass
+    static JPanel mainMenuPanel;
     JLabel studentNameLabel;
     JLabel pointsLabel;
     JLabel totalPoints;
     JLabel totalPointsLabel;
     JLabel remainingPointsLabel;
     JLabel remainingPoints;
-    JLabel pointsUsed;
-    JLabel pointsUsedLabel;
     JButton myMealPlan;
+    Calendar thisDay;
+    static String dayOfMonthStr;
+    static int dayOfmonth;
+    static JPanel testPanel;
+    static JLabel testLabel;
 
-    Font studentNameFont, largerBoldHeadingFont, totalPointsFont, totalPointsLabelFont,
-            remainingPointsFont, remainingPointsLabelFont;
+    Font totalPointsLabelFont, remainingPointsLabelFont;
     //Logo should be added to shorter URL for code convention purposes
     String logoURL = "https://f9149b6c-a-62cb3a1a-s-sites.googlegroups.com/site/outstandingprogramming/documents/OrderUpLogo%20small.png";
     ImageIcon orderUpLogoSmall;
     JLabel smallLogoholderLabel;
     JButton calorieCalculator;
 
-//    JPanel testPanel;
-
 
     public MainMenu() {
-//        super("Main Menu");
+
         menu = new JFrame("Main Menu");
 
+        thisDay = Calendar.getInstance();
+        dayOfmonth = thisDay.get(Calendar.DAY_OF_MONTH);
+        dayOfMonthStr = String.valueOf(dayOfmonth);
 
         //Font objects for various labels
 
@@ -83,7 +82,7 @@ public class MainMenu {
         smallLogoholderLabel = new JLabel(orderUpLogoSmall);
 
         // Initialization and settings for student Name Label
-        studentNameLabel = new JLabel(studentName);
+        studentNameLabel = new JLabel(LogInScreen.firstName + " " + LogInScreen.lastName);
         studentNameLabel.setFont(ToolClass.smallBoldHeadingFont);
         studentNameLabel.setForeground(ToolClass.fgcuBlue);
         studentNameLabel.setBackground(Color.white);
@@ -135,6 +134,13 @@ public class MainMenu {
         myMealPlan = new JButton("My Meal Plan");
         myMealPlan.setForeground(ToolClass.fgcuGreen);
 
+        testPanel = new JPanel();
+        testPanel.setLayout(new BorderLayout());
+        testPanel.setVisible(true);
+        testPanel.setBackground(Color.WHITE);
+        testLabel = new JLabel("Hello! This is a test!");
+        testPanel.add(testLabel, BorderLayout.NORTH);
+
         // Bounds / placement settings for all objects in mainMenuPanel
         smallLogoholderLabel.setBounds(49, 10, 100, 87);
         studentNameLabel.setBounds(20, 100, 160, 40);
@@ -144,6 +150,7 @@ public class MainMenu {
         remainingPoints.setBounds(685, 84, 40, 30);
         remainingPointsLabel.setBounds(597, 75, 100, 40);
         myMealPlan.setBounds(585, 153, 100, 40);
+        testPanel.setBounds(220, 50, 300, 100);
 
 
         mainMenuPanel.add(smallLogoholderLabel);
@@ -166,8 +173,6 @@ public class MainMenu {
         /*END TESTING*/
 
         menu.add(mainMenuPanel);
-
-//        getContentPane().add(mainMenuPanel);
         menu.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         menu.setVisible(true);
     }
@@ -321,9 +326,6 @@ public class MainMenu {
         /*This is the action listener for the buttons on the calendar.
         * It'll make the btn create a new DayPlanner Window when clicked.*/
 
-            //Need to add some validation to ensure that multiple DayPlanners cannot be opened - TH
-//        ActionListener plannerBtnListener = e -> new DayPlanner(dayText);
-
             ActionListener plannerBtnListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -332,9 +334,7 @@ public class MainMenu {
                 }
             };
 
-            JPanel testPanel = new JPanel();
-            JLabel testLabel = new JLabel("Hello! This is a test!");
-            testPanel.add(testLabel, BorderLayout.NORTH);
+
 
             MouseListener vboxListener = new MouseListener() {
                 @Override
@@ -355,14 +355,22 @@ public class MainMenu {
                 @Override
                 public void mouseEntered(MouseEvent e) {
 
-                    add(testPanel);
+                    MainMenu.mainMenuPanel.add(MainMenu.testPanel);
+                    menu.validate();
 
+                    if (dayText.equals("1")) {
+                        testLabel.setText("whoo hoo!");
+                    } else if (dayText.equals("27")) {
+                        testLabel.setText("yee haw!");
+                    } else testLabel.setText("Hello! This is a test.");
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
 
-                    remove(testPanel);
+                    MainMenu.mainMenuPanel.remove(MainMenu.testPanel);
+                    menu.revalidate();
+                    menu.repaint();
                 }
             };
 
@@ -393,7 +401,12 @@ public class MainMenu {
 
                 JLabel dayDisplay = new JLabel(dayText);
                 dayDisplay.setFont(ToolClass.smallBoldHeadingFont);
-                dayDisplay.setSize(20, 20);
+
+                if (dayText.equals(MainMenu.dayOfMonthStr)) {
+                    dayDisplay.setBackground(Color.yellow);
+                    dayDisplay.setSize(5, 5);
+                    dayDisplay.setOpaque(true);
+                }
 
             /*pointsUsed is currently set to a static value, but
             will eventually reflect the number of points used
@@ -413,6 +426,7 @@ public class MainMenu {
 
                 vbox.setBackground(Color.WHITE);
                 vbox.addMouseListener(vboxListener);
+                plannerBtn.addMouseListener(vboxListener);
             }
             vbox.setOpaque(true);
             vbox.setBorder(new LineBorder(Color.BLACK));
