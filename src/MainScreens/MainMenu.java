@@ -403,9 +403,8 @@ public class MainMenu {
                 dayDisplay.setFont(ToolClass.smallBoldHeadingFont);
 
                 if (dayText.equals(MainMenu.dayOfMonthStr)) {
-                    dayDisplay.setBackground(Color.yellow);
-                    dayDisplay.setSize(5, 5);
-                    dayDisplay.setOpaque(true);
+                    plannerBtn.setBackground(ToolClass.fgcuLightBlue);
+                    plannerBtn.setOpaque(true);
                 }
 
             /*pointsUsed is currently set to a static value, but

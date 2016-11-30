@@ -119,21 +119,13 @@ public class LogInScreen extends JFrame {
                     ResultSet uidSet = state.executeQuery(uid);
                     universityID = Integer.parseInt(uidSet.getString("uin"));
 
-//                    String uid2 = uidSet.getString("uin");
-
-//                    DatabaseMetaData md = studentInfoCon.getMetaData();
-//                    ResultSet rs = md.getTables(null, null, "%", null);
-//                    if (rs != uid ){
-//
-//                    }
-//
 //                    String tableCheck = String.format("SELECT count(*) FROM studentinfo WHERE type='table' AND name='%s'", uid2);
 //
 //                    ResultSet tableSet = state.executeQuery(tableCheck);
 //
 //                    System.out.println(tableCheck);
-
-//                    if (tableSet == 0) {
+//
+//                    //if (tableSet == 0) {
 //
 //                        String tableCreate = String.format("CREATE TABLE ['%s']" +
 //                                "date INTEGER PRIMARY KEY," + "breakfast TEXT," + "lunch TEXT," +
@@ -141,8 +133,7 @@ public class LogInScreen extends JFrame {
 //                                "total_calories INTEGER," + "total_fat_calories INTEGER," +
 //                                "[total protein] INTEGER," + "total_carbs INTEGER," +
 //                                "total_fat INTEGER", uid);
-//                    }
-
+                    //}
 
                     String fName = String.format("SELECT first_name FROM student WHERE student_email= '%s'", uname);
                     ResultSet fNameSet = state.executeQuery(fName);
