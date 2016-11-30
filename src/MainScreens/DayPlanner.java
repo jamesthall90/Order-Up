@@ -1,7 +1,6 @@
 package MainScreens;
 
 import MainScreens.MainMenu.CalendarDemo;
-import Utility.Meals;
 import Utility.ToolClass;
 
 import javax.swing.*;
@@ -10,11 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
+//import java.io.File;
+//import java.io.FileNotFoundException;
+//import java.util.ArrayList;
+//import java.util.HashSet;
+//import java.util.Scanner;
 
 //import Calendar.CalendarDemo;
 //import oracle.jvm.hotspot.jfr.JFR;
@@ -22,40 +21,37 @@ import java.util.Scanner;
 public class DayPlanner extends JFrame {
 
   JButton submitBtn;
-  JPanel dayPlannerPanel, breakfastPanel, lunchPanel, dinnerPanel, snackPanel, 
-  breakfastNutrition, lunchNutrition, dinnerNutrition, snackNutrition, 
-  totalNutrition;
+  JPanel dayPlannerPanel, breakfastPanel, lunchPanel, dinnerPanel, snackPanel, breakfastNutrition, lunchNutrition,
+      dinnerNutrition, snackNutrition, totalNutrition;
 
-  JLabel breakfastCalories, breakfastFatCalories, breakfastProtein, breakfastCarbs, 
-  breakfastFat, lunchCalories, lunchFatCalories, lunchProtein, lunchCarbs, 
-  lunchFat, dinnerCalories, dinnerFatCalories, dinnerProtein, dinnerCarbs, 
-  dinnerFat, snackCalories, snackFatCalories, snackProtein, snackCarbs, 
-  snackFat, totalCalories, totalFatCalories, totalProtein, totalCarbs, 
-  totalFat, breakfastLabel, lunchLabel, dinnerLabel, snackLabel;
+  JLabel breakfastCalories, breakfastFatCalories, breakfastProtein, breakfastCarbs, breakfastFat, lunchCalories,
+      lunchFatCalories, lunchProtein, lunchCarbs, lunchFat, dinnerCalories, dinnerFatCalories, dinnerProtein,
+      dinnerCarbs, dinnerFat, snackCalories, snackFatCalories, snackProtein, snackCarbs, snackFat, totalCalories,
+      totalFatCalories, totalProtein, totalCarbs, totalFat, breakfastLabel, lunchLabel, dinnerLabel, snackLabel;
 
-  JComboBox breakfastRestaurants, breakfastFoodItems, breakfastSideItems, 
-  breakfastDrinkItems, lunchRestaurants, lunchFoodItems, lunchSideItems, 
-  lunchDrinkItems, dinnerRestaurants, dinnerFoodItems, dinnerSideItems, 
-  dinnerDrinkItems, snackRestaurants, snackItems;
+  JComboBox breakfastRestaurants, breakfastFoodItems, breakfastSideItems, breakfastDrinkItems, lunchRestaurants,
+      lunchFoodItems, lunchSideItems, lunchDrinkItems, dinnerRestaurants, dinnerFoodItems, dinnerSideItems,
+      dinnerDrinkItems, snackRestaurants, snackItems;
 
   Dimension innerPanelDimension = new Dimension(200, 200);
-  String[] ent, side, drink = new String[3]; //temporary array to hold menu items and load into comboboxes
+  String[] ent, side, drink = new String[3]; // temporary array to hold menu
+                                             // items and load into comboboxes
   String[] restaurants = { "Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
       "Starbucks" };
   String[] einEnt = { "Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap" };
   String[] einSide = { "Blueberry Muffin", "Brownie", "Cookie" };
   String[] einDrink = { "Coffee", "Orange Juice", "Chocolate Milk" };
-  String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"};
-  String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"};
-  String[] papaDrink = {"Water", "Coke", "Sprite"};
-  String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"};
-  String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"};
-  String[] brDrink = {"Water", "Coke", "Sprite"};
+  String[] papaEnt = { "Cheese Pizza", "Pepperoni Pizza", "Hot Wings" };
+  String[] papaSide = { "Cookie Slice", "Brownie", "Breadsticks x2" };
+  String[] papaDrink = { "Water", "Coke", "Sprite" };
+  String[] brEnt = { "Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll" };
+  String[] brSide = { "Egg Roll", "Miso Soup", "Seaweed Salad" };
+  String[] brDrink = { "Water", "Coke", "Sprite" };
   String[] chickEnt = { "Chicken Sandwich", "8 Piece Chicken Nuggets", "Chicken Salad" };
   String[] chickSide = { "Waffle Fries", "Cookie", "Fruit Cup" };
   String[] chickDrink = { "Water", "Lemonade", "Iced Tea" };
-  String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"};
-  String[] starDrink = {"Vanilla Bean Frappachino", "Coffee", "Raspberry Iced Tea"};
+  String[] jambaDrink = { "Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie" };
+  String[] starDrink = { "Vanilla Bean Frappachino", "Coffee", "Raspberry Iced Tea" };
 
   BoxHandler boxHandler = new BoxHandler();
 
@@ -184,7 +180,7 @@ public class DayPlanner extends JFrame {
         } else if (r.equals(restaurants[4])) {
           ent = new String[0];
           side = new String[0];
-          drink = jambaDrink; 
+          drink = jambaDrink;
         } else if (r.equals(restaurants[5])) {
           ent = new String[0];
           side = new String[0];
@@ -226,7 +222,7 @@ public class DayPlanner extends JFrame {
         } else if (r.equals(restaurants[4])) {
           ent = new String[0];
           side = new String[0];
-          drink = jambaDrink; 
+          drink = jambaDrink;
         } else if (r.equals(restaurants[5])) {
           ent = new String[0];
           side = new String[0];
@@ -267,7 +263,7 @@ public class DayPlanner extends JFrame {
         } else if (r.equals(restaurants[4])) {
           ent = new String[0];
           side = new String[0];
-          drink = jambaDrink; 
+          drink = jambaDrink;
         } else if (r.equals(restaurants[5])) {
           ent = new String[0];
           side = new String[0];
