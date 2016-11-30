@@ -457,7 +457,7 @@ public class MainMenu {
         public void mouseClicked(MouseEvent e) {
             CalorieCalculator starter = new CalorieCalculator();
             starter.setVisible(true);
-            starter.setSize(400, 400);
+            starter.setSize(420, 420);
             starter.setLocation(500, 280);
             starter.setResizable(false);
         }
