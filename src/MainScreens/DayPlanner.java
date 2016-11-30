@@ -41,7 +41,7 @@ public class DayPlanner extends JFrame {
   String host;
   Connection food_itemsConnect;
   Statement dbDrive;
-  String bFoodCal;
+  int bFoodCal, bFoodFatCal, bFoodCarb, bFoodProtein, bFoodPoints;
 
   ResultSet bFoodSet;
 
@@ -365,23 +365,27 @@ public class DayPlanner extends JFrame {
 
   public void breakfastNutritionItems() {
 
-    String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs" +
-            " total_points FROM food_item WHERE [restaurant= '%s'] " +
-            "AND [item_name = '%s']", breakfastRestaurantName, breakfastFoodName);
+    String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
+            " total_points FROM food_item WHERE restaurant = '%s' " +
+            "AND item_name = '%s'", breakfastRestaurantName, breakfastFoodName);
 
     try {
 
       bFoodSet = dbDrive.executeQuery(bFoodQuery);
 
-      bFoodCal = bFoodSet.getString("total_calories");
-
+      bFoodCal = bFoodSet.getInt("total_calories");
+      bFoodFatCal = bFoodSet.getInt("total_fat_cal");
+      bFoodProtein = bFoodSet.getInt("total_protein");
+      bFoodCarb = bFoodSet.getInt("total_carbs");
+      bFoodPoints = bFoodSet.getInt("total_points");
 
     } catch (SQLException e) {
 
       e.printStackTrace();
     }
 
-    System.out.println(bFoodCal);
+    System.out.println(bFoodCal + " " + bFoodFatCal + " " + bFoodProtein + " " + bFoodCarb);
+
 
     breakfastNutrition = new JPanel();
     breakfastNutrition.setLayout(new FlowLayout());
