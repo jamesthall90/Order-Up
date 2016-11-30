@@ -125,7 +125,7 @@ public class LogInScreen extends JFrame {
 //
 //                    System.out.println(tableCheck);
 //
-//                    //if (tableSet == 0) {
+//                    if (tableSet == 0) {
 //
 //                        String tableCreate = String.format("CREATE TABLE ['%s']" +
 //                                "date INTEGER PRIMARY KEY," + "breakfast TEXT," + "lunch TEXT," +
@@ -133,7 +133,7 @@ public class LogInScreen extends JFrame {
 //                                "total_calories INTEGER," + "total_fat_calories INTEGER," +
 //                                "[total protein] INTEGER," + "total_carbs INTEGER," +
 //                                "total_fat INTEGER", uid);
-                    //}
+//                    }
 
                     String fName = String.format("SELECT first_name FROM student WHERE student_email= '%s'", uname);
                     ResultSet fNameSet = state.executeQuery(fName);

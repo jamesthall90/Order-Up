@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.*;
 //import java.io.File;
 //import java.io.FileNotFoundException;
 //import java.util.ArrayList;
@@ -36,6 +37,11 @@ public class DayPlanner extends JFrame {
   Dimension innerPanelDimension = new Dimension(200, 200);
   String[] ent, side, drink = new String[3]; // temporary array to hold menu
                                              // items and load into comboboxes
+
+  String host;
+  Connection food_itemsConnect;
+  Statement dbDrive;
+
   String[] restaurants = { "Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
       "Starbucks" };
   String[] einEnt = {"Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap"}; //Entered into DB
@@ -639,5 +645,25 @@ public class DayPlanner extends JFrame {
     submitBtn.setBackground(Color.BLUE);
     submitBtn.setOpaque(true);
 
+  }
+
+  public void dBConnect() throws SQLException {
+
+    host = "jdbc:sqlite:/Users/iceman371/git/Order-Up/data/studentinfo.db";
+    food_itemsConnect = DriverManager.getConnection(host);
+
+    dbDrive = food_itemsConnect.createStatement();
+
+  }
+
+  public void setEinsteinItems() {
+
+    String einsteinEnt = String.format("SELECT item_name FROM food_item WHERE [item_type = '%s'] AND [", "entree");
+
+    //Reads Einstein's Entree items from db & sets int einEnt String array
+    for (int i = 0; i < 3; i++) {
+
+
+    }
   }
 }
