@@ -57,11 +57,13 @@ public class DayPlanner extends JFrame {
   String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
   String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
   String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"}; //Entered into DB
-  String[] starDrink = {"Vanilla Bean Frappachino", "Coffee", "Raspberry Iced Tea"}; //Entered into DB
+  String[] starDrink = {"Vanilla Bean Frappuccino", "Coffee", "Raspberry Iced Tea"}; //Entered into DB
+
+  String breakfastRestaurantName;
 
   BoxHandler boxHandler = new BoxHandler();
 
-  public DayPlanner(String dayText) { // dayText is the day number
+  public DayPlanner(String dayText) throws SQLException { // dayText is the day number
     super("Meal Plan for " + "/" + dayText + "/" + CalendarDemo.year);
     ent = einEnt;
     side = einSide;
@@ -72,6 +74,7 @@ public class DayPlanner extends JFrame {
     setLocation(500, 500); // sets the location of the frame on the screen
     dayPlannerPanel.setLayout(null);
 
+    dBConnect();
     breakfastItems();
     breakfastNutritionItems();
     lunchItems();
@@ -311,6 +314,7 @@ public class DayPlanner extends JFrame {
     }
   }
 
+
   public void breakfastItems() {
 
     /* Breakfast Panel & Items */
@@ -349,6 +353,8 @@ public class DayPlanner extends JFrame {
     breakfastPanel.add(breakfastFoodItems);
     breakfastPanel.add(breakfastSideItems);
     breakfastPanel.add(breakfastDrinkItems);
+
+    breakfastRestaurantName = breakfastRestaurants.getSelectedItem().toString();
   }
 
   public void breakfastNutritionItems() {
@@ -645,20 +651,32 @@ public class DayPlanner extends JFrame {
     submitBtn.setBackground(Color.BLUE);
     submitBtn.setOpaque(true);
 
+    ActionListener sumbitButtonHandler = new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+
+      }
+    };
   }
 
-  public void dBConnect() throws SQLException {
+  public void dBConnect() {
 
-    host = "jdbc:sqlite:/Users/iceman371/git/Order-Up/data/studentinfo.db";
-    food_itemsConnect = DriverManager.getConnection(host);
+    host = "jdbc:sqlite:/Users/TylerHall/IdeaProjects/Order-Up/data/studentinfo.db";
+    try {
+      food_itemsConnect = DriverManager.getConnection(host);
+      dbDrive = food_itemsConnect.createStatement();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
 
-    dbDrive = food_itemsConnect.createStatement();
+
 
   }
 
   public void setEinsteinItems() {
 
     String einsteinEnt = String.format("SELECT item_name FROM food_item WHERE [item_type = '%s'] AND [", "entree");
+
 
     //Reads Einstein's Entree items from db & sets int einEnt String array
     for (int i = 0; i < 3; i++) {

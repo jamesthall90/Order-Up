@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
@@ -329,7 +330,11 @@ public class MainMenu {
             ActionListener plannerBtnListener = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new DayPlanner(dayText);
+                    try {
+                        new DayPlanner(dayText);
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
                     MainMenu.menu.dispose();
                 }
             };
