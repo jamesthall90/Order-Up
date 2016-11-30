@@ -109,7 +109,7 @@ public class LogInScreen extends JFrame {
 
                     uname = txtFieldUser.getText();
                     upaswd = txtFieldPassword.getText();
-                    String host = "jdbc:sqlite:/Users/iceman371/git/Order-Up/data/studentinfo.db";
+                    String host = ToolClass.tylerPath;
 
                     Connection studentInfoCon = DriverManager.getConnection(host);
 

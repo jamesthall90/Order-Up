@@ -41,6 +41,9 @@ public class DayPlanner extends JFrame {
   String host;
   Connection food_itemsConnect;
   Statement dbDrive;
+  String bFoodCal;
+
+  ResultSet bFoodSet;
 
   String[] restaurants = { "Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
       "Starbucks" };
@@ -59,7 +62,7 @@ public class DayPlanner extends JFrame {
   String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"}; //Entered into DB
   String[] starDrink = {"Vanilla Bean Frappuccino", "Coffee", "Raspberry Iced Tea"}; //Entered into DB
 
-  String breakfastRestaurantName;
+  String breakfastRestaurantName, breakfastDrinkName, breakfastFoodName, breakfastSideName;
 
   BoxHandler boxHandler = new BoxHandler();
 
@@ -355,15 +358,37 @@ public class DayPlanner extends JFrame {
     breakfastPanel.add(breakfastDrinkItems);
 
     breakfastRestaurantName = breakfastRestaurants.getSelectedItem().toString();
+    breakfastFoodName = breakfastFoodItems.getSelectedItem().toString();
+    breakfastDrinkName = breakfastDrinkItems.getSelectedItem().toString();
+    breakfastSideName = breakfastSideItems.getSelectedItem().toString();
   }
 
   public void breakfastNutritionItems() {
+
+    String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs" +
+            " total_points FROM food_item WHERE [restaurant= '%s'] " +
+            "AND [item_name = '%s']", breakfastRestaurantName, breakfastFoodName);
+
+    try {
+
+      bFoodSet = dbDrive.executeQuery(bFoodQuery);
+
+      bFoodCal = bFoodSet.getString("total_calories");
+
+
+    } catch (SQLException e) {
+
+      e.printStackTrace();
+    }
+
+    System.out.println(bFoodCal);
 
     breakfastNutrition = new JPanel();
     breakfastNutrition.setLayout(new FlowLayout());
     breakfastNutrition.setVisible(true);
     breakfastNutrition.setBorder(ToolClass.newCompound);
     breakfastNutrition.setBackground(ToolClass.fgcuBlue);
+
 
     breakfastCalories = new JLabel("<HTML><U>Total Calories:</U></HTML> ");
     breakfastCalories.setForeground(Color.WHITE);
@@ -374,7 +399,7 @@ public class DayPlanner extends JFrame {
     breakfastFatCalories.setForeground(Color.WHITE);
     breakfastFatCalories.setFont(ToolClass.nutritionPanelFont);
 
-    breakfastCarbs = new JLabel("<HTML><U>Total Carbs:</U></HTML> " + "g");
+    breakfastCarbs = new JLabel("<HTML><U>Total Carbs:</U> " + "g </HTML>");
     breakfastCarbs.setForeground(Color.WHITE);
     breakfastCarbs.setFont(ToolClass.nutritionPanelFont);
 
@@ -391,6 +416,7 @@ public class DayPlanner extends JFrame {
     breakfastNutrition.add(breakfastCarbs);
     breakfastNutrition.add(breakfastProtein);
     breakfastNutrition.add(breakfastFat);
+
 
   }
 
@@ -661,7 +687,7 @@ public class DayPlanner extends JFrame {
 
   public void dBConnect() {
 
-    host = "jdbc:sqlite:/Users/iceman371/git/Order-Up/data/studentinfo.db";
+    host = ToolClass.tylerPath;
     try {
       food_itemsConnect = DriverManager.getConnection(host);
       dbDrive = food_itemsConnect.createStatement();
@@ -669,13 +695,11 @@ public class DayPlanner extends JFrame {
       e.printStackTrace();
     }
 
-
-
   }
 
   public void setEinsteinItems() {
 
-    String einsteinEnt = String.format("SELECT item_name FROM food_item WHERE [item_type = '%s'] AND [", "entree");
+//    String einsteinEnt = String.format("SELECT item_name FROM food_item WHERE [item_type = '%s'] AND [item_]", "entree");
 
 
     //Reads Einstein's Entree items from db & sets int einEnt String array

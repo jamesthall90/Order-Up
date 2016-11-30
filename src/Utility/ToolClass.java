@@ -12,6 +12,8 @@ import java.awt.Font;
  */
 public class ToolClass {
 
+    public static final String tylerPath = "jdbc:sqlite:/Users/TylerHall/IdeaProjects/Order-Up/data/studentinfo.db";
+    public static final String stephenPath = "jdbc:sqlite:/Users/iceman371/git/Order-Up/data/studentinfo.db";
     //Custom FGCU color objects to be used by any class that requires them
     public static final Color fgcuBlue = new Color(0, 40, 122);  // #00287A (Official FGCU Blue)
     public static Color fgcuLightBlue = new Color(0, 40, 122, 150); // FGCU Blue lowered to 150 opacity
