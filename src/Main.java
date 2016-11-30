@@ -12,8 +12,6 @@ public class Main {
 
 //        MainMenu menu = new MainMenu();
 //        DayPlanner day = new DayPlanner("monday");
-//        MainMenu menu = new MainMenu();
-//        DayPlanner day = new DayPlanner("monday");
       
         /* END TESTING */
     }
