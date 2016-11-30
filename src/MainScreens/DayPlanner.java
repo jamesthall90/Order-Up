@@ -82,20 +82,20 @@ public class DayPlanner extends JFrame {
   String[] ent, side, drink = new String[3];
   String[] restaurants = { "Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
       "Starbucks" };
-  String[] einEnt = { "Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap" };
-  String[] einSide = { "Blueberry Muffin", "Brownie", "Cookie" };
-  String[] einDrink = { "Coffee", "Orange Juice", "Chocolate Milk" };
-  String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"};
-  String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"};
-  String[] papaDrink = {"Water", "Coke", "Sprite"};
-  String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"};
-  String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"};
-  String[] brDrink = {"Water", "Coke", "Sprite"};
-  String[] chickEnt = { "Chicken Sandwich", "8 Piece Chicken Nuggets", "Chicken Salad" };
-  String[] chickSide = { "Waffle Fries", "Cookie", "Fruit Cup" };
-  String[] chickDrink = { "Water", "Lemonade", "Iced Tea" };
-  String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"};
-  String[] starDrink = {"Vanilla Bean Frappachino", "Coffee", "Raspberry Iced Tea"};
+  String[] einEnt = {"Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap"}; //Entered into DB
+  String[] einSide = {"Blueberry Muffin", "Brownie", "Cookie"}; //Entered into DB
+  String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"}; //Entered into DB
+  String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"}; //Entered into DB
+  String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"}; //Entered into DB
+  String[] papaDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+  String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"}; //Entered into DB
+  String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; //Entered into DB
+  String[] brDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+  String[] chickEnt = {"Chicken Sandwich", "8 Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
+  String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
+  String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
+  String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"}; //Entered into DB
+  String[] starDrink = {"Vanilla Bean Frappachino", "Coffee", "Raspberry Iced Tea"}; //Entered into DB
 
   String selectedBreakfastRestaurant = "Einstein Bros. Bagels";
   String selectedLunchRestaurant = "Einstein Bros. Bagels";
