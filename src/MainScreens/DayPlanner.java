@@ -22,64 +22,24 @@ import java.util.Scanner;
 public class DayPlanner extends JFrame {
 
   JButton submitBtn;
-  JPanel dayPlannerPanel;
-  JPanel breakfastPanel;
-  JPanel lunchPanel;
-  JPanel dinnerPanel;
-  JPanel snackPanel;
-  JPanel breakfastNutrition;
-  JLabel breakfastCalories;
-  JLabel breakfastFatCalories;
-  JLabel breakfastProtein;
-  JLabel breakfastCarbs;
-  JLabel breakfastFat;
-  JPanel lunchNutrition;
-  JLabel lunchCalories;
-  JLabel lunchFatCalories;
-  JLabel lunchProtein;
-  JLabel lunchCarbs;
-  JLabel lunchFat;
-  JPanel dinnerNutrition;
-  JLabel dinnerCalories;
-  JLabel dinnerFatCalories;
-  JLabel dinnerProtein;
-  JLabel dinnerCarbs;
-  JLabel dinnerFat;
-  JPanel snackNutrition;
-  JLabel snackCalories;
-  JLabel snackFatCalories;
-  JLabel snackProtein;
-  JLabel snackCarbs;
-  JLabel snackFat;
-  JPanel totalNutrition;
-  JLabel totalCalories;
-  JLabel totalFatCalories;
-  JLabel totalProtein;
-  JLabel totalCarbs;
-  JLabel totalFat;
-  JLabel breakfastLabel;
-  JComboBox breakfastRestaurants;
-  JComboBox breakfastFoodItems;
-  JComboBox breakfastSideItems;
-  JComboBox breakfastDrinkItems;
-  JLabel lunchLabel;
-  JComboBox lunchRestaurants;
-  JComboBox lunchFoodItems;
-  JComboBox lunchSideItems;
-  JComboBox lunchDrinkItems;
-  JLabel dinnerLabel;
-  JComboBox dinnerRestaurants;
-  JComboBox dinnerFoodItems;
-  JComboBox dinnerSideItems;
-  JComboBox dinnerDrinkItems;
-  JLabel snackLabel;
-  JComboBox snackRestaurants;
-  JComboBox snackItems;
+  JPanel dayPlannerPanel, breakfastPanel, lunchPanel, dinnerPanel, snackPanel, 
+  breakfastNutrition, lunchNutrition, dinnerNutrition, snackNutrition, 
+  totalNutrition;
+
+  JLabel breakfastCalories, breakfastFatCalories, breakfastProtein, breakfastCarbs, 
+  breakfastFat, lunchCalories, lunchFatCalories, lunchProtein, lunchCarbs, 
+  lunchFat, dinnerCalories, dinnerFatCalories, dinnerProtein, dinnerCarbs, 
+  dinnerFat, snackCalories, snackFatCalories, snackProtein, snackCarbs, 
+  snackFat, totalCalories, totalFatCalories, totalProtein, totalCarbs, 
+  totalFat, breakfastLabel, lunchLabel, dinnerLabel, snackLabel;
+
+  JComboBox breakfastRestaurants, breakfastFoodItems, breakfastSideItems, 
+  breakfastDrinkItems, lunchRestaurants, lunchFoodItems, lunchSideItems, 
+  lunchDrinkItems, dinnerRestaurants, dinnerFoodItems, dinnerSideItems, 
+  dinnerDrinkItems, snackRestaurants, snackItems;
+
   Dimension innerPanelDimension = new Dimension(200, 200);
-  HashSet<String> restaurantHash = new HashSet<String>();
-  ArrayList<String> restaurantList = new ArrayList<String>();
-  ArrayList<Meals> mealList = new ArrayList<Meals>();
-  String[] ent, side, drink = new String[3];
+  String[] ent, side, drink = new String[3]; //temporary array to hold menu items and load into comboboxes
   String[] restaurants = { "Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
       "Starbucks" };
   String[] einEnt = {"Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap"}; //Entered into DB
@@ -97,10 +57,6 @@ public class DayPlanner extends JFrame {
   String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"}; //Entered into DB
   String[] starDrink = {"Vanilla Bean Frappachino", "Coffee", "Raspberry Iced Tea"}; //Entered into DB
 
-  String selectedBreakfastRestaurant = "Einstein Bros. Bagels";
-  String selectedLunchRestaurant = "Einstein Bros. Bagels";
-  String selectedDinnerRestaurant = "Einstein Bros. Bagels";
-  String selectedSnackRestaurant = "Einstein Bros. Bagels";
   BoxHandler boxHandler = new BoxHandler();
 
   public DayPlanner(String dayText) { // dayText is the day number
@@ -202,8 +158,7 @@ public class DayPlanner extends JFrame {
       if (e.getSource() == breakfastRestaurants) {
         JComboBox br = (JComboBox) e.getSource();
         String r = (String) br.getSelectedItem();
-        updateRestaurant(br, r);
-        // update combo boxes
+        // update breakfast combo boxes
         breakfastPanel.remove(breakfastFoodItems);
         breakfastPanel.remove(breakfastSideItems);
         breakfastPanel.remove(breakfastDrinkItems);
@@ -245,8 +200,7 @@ public class DayPlanner extends JFrame {
       } else if (e.getSource() == lunchRestaurants) {
         JComboBox lr = (JComboBox) e.getSource();
         String r = (String) lr.getSelectedItem();
-        updateRestaurant(lr, r);
-        // update combo boxes
+        // update lunch combo boxes
         lunchPanel.remove(lunchFoodItems);
         lunchPanel.remove(lunchSideItems);
         lunchPanel.remove(lunchDrinkItems);
@@ -287,8 +241,7 @@ public class DayPlanner extends JFrame {
       } else if (e.getSource() == dinnerRestaurants) {
         JComboBox dr = (JComboBox) e.getSource();
         String r = (String) dr.getSelectedItem();
-        updateRestaurant(dr, r);
-        // update combo boxes
+        // update dinner combo boxes
         dinnerPanel.remove(dinnerFoodItems);
         dinnerPanel.remove(dinnerSideItems);
         dinnerPanel.remove(dinnerDrinkItems);
@@ -329,8 +282,7 @@ public class DayPlanner extends JFrame {
       } else if (e.getSource() == snackRestaurants) {
         JComboBox sr = (JComboBox) e.getSource();
         String r = (String) sr.getSelectedItem();
-        updateRestaurant(sr, r);
-        // update combo boxes
+        // update snack combo boxes
         snackPanel.remove(snackItems);
 
         if (r.equals(restaurants[0])) {
@@ -354,19 +306,6 @@ public class DayPlanner extends JFrame {
 
       revalidate();
       repaint();
-    }
-  }
-
-  // updates the placeholder for which combo box the user is selecting
-  public void updateRestaurant(JComboBox box, String r) {
-    if (box.equals(breakfastRestaurants)) {
-      selectedBreakfastRestaurant = r;
-    } else if (box.equals(lunchRestaurants)) {
-      selectedLunchRestaurant = r;
-    } else if (box.equals(dinnerRestaurants)) {
-      selectedDinnerRestaurant = r;
-    } else if (box.equals(snackRestaurants)) {
-      selectedSnackRestaurant = r;
     }
   }
 
