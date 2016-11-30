@@ -49,11 +49,11 @@ public class DayPlanner extends JFrame {
   String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"}; //Entered into DB
   String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"}; //Entered into DB
   String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"}; //Entered into DB
-  String[] papaDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+  String[] papaDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
   String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"}; //Entered into DB
   String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; //Entered into DB
-  String[] brDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
-  String[] chickEnt = {"Chicken Sandwich", "8 Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
+  String[] brDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
+  String[] chickEnt = {"Chicken Sandwich", "8-Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
   String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
   String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
   String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"}; //Entered into DB
@@ -157,7 +157,7 @@ public class DayPlanner extends JFrame {
   }
 
   private class BoxHandler implements ActionListener {
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
       if (e.getSource() == breakfastRestaurants) {
@@ -169,7 +169,6 @@ public class DayPlanner extends JFrame {
         breakfastPanel.remove(breakfastDrinkItems);
 
         if (r.equals(restaurants[0])) {
-          System.out.println("Einsteins");
           ent = einEnt;
           side = einSide;
           drink = einDrink;
@@ -182,7 +181,6 @@ public class DayPlanner extends JFrame {
           side = brSide;
           drink = brDrink;
         } else if (r.equals(restaurants[3])) {
-          System.out.println("Chick-Fil-A");
           ent = chickEnt;
           side = chickSide;
           drink = chickDrink;
@@ -308,7 +306,6 @@ public class DayPlanner extends JFrame {
         snackItems = new JComboBox(side);
         snackPanel.add(snackItems);
       }
-
       revalidate();
       repaint();
     }
@@ -667,21 +664,6 @@ public class DayPlanner extends JFrame {
       dbDrive = food_itemsConnect.createStatement();
     } catch (SQLException e) {
       e.printStackTrace();
-    }
-
-
-
-  }
-
-  public void setEinsteinItems() {
-
-    String einsteinEnt = String.format("SELECT item_name FROM food_item WHERE [item_type = '%s'] AND [", "entree");
-
-
-    //Reads Einstein's Entree items from db & sets int einEnt String array
-    for (int i = 0; i < 3; i++) {
-
-
     }
   }
 }
