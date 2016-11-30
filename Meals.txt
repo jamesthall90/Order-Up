@@ -1,42 +1,42 @@
-Einstein Bros. Bagels,Plain Bagel,320,120,55,9,1,e,
-Einstein Bros. Bagels,Cheesy Bacon Club,820,370,63,50,10,e,
-Einstein Bros. Bagels,Santa Fe Wrap,314,145,53,31,15,e,
-Einstein Bros. Bagels,Blueberry Muffin,156,99,33,6,20,s,
-Einstein Bros. Bagels,Brownie,76,43,45,8,18s,
-Einstein Bros. Bagels,Cookie,78,50,23,8,15,s,
-Einstein Bros. Bagels,Coffee,5,0,0,0,0d,
-Einstein Bros. Bagels,Orange Juice,230,120,12,5,8,d,
-Einstein Bros. Bagels,Chocolate Milk,220,150,15,8,20,d,
-Brahma Express,Teriyaki Chicken Bowl,220,180,43,20,15,e,
-Brahma Express,Dunk City Roll,700,450,82,23,45,e,
-Brahma Express,Spicy Tuna Roll,290,180,45,22,23,e,
-Brahma Express,Egg Roll,157,100,23,20,18,s,
-Brahma Express,Miso Soup,84,20,11,5,6,s,
-Brahma Express,Seaweed Salad,5,0,1,0,1,s,
-Brahma Express,Water,0,0,0,0,0,d,
-Brahma Express,Coke,140,0,5,0,6,d,
-Brahma Express,Sprite,192,0,8,0,6,d,
+Einstein Bros. Bagels,Plain Bagel,320,120,55,9,1,e, //Entered into DB
+Einstein Bros. Bagels,Cheesy Bacon Club,820,370,63,50,10,e, //Entered into DB
+Einstein Bros. Bagels,Santa Fe Wrap,314,145,53,31,15,e, //Entered into DB
+Einstein Bros. Bagels,Blueberry Muffin,156,99,33,6,20,s, //Entered into DB
+Einstein Bros. Bagels,Brownie,76,43,45,8,18s, //Entered into DB
+Einstein Bros. Bagels,Cookie,78,50,23,8,15,s, //Entered into DB
+Einstein Bros. Bagels,Coffee,5,0,0,0,0d, //Entered into DB
+Einstein Bros. Bagels,Orange Juice,230,120,12,5,8,d, //Entered into DB
+Einstein Bros. Bagels,Chocolate Milk,220,150,15,8,20,d, //Entered into DB
+Brahma Express,Teriyaki Chicken Bowl,220,180,43,20,15,e,  //Entered into DB
+Brahma Express,Dunk City Roll,700,450,82,23,45,e, //Entered into DB
+Brahma Express,Spicy Tuna Roll,290,180,45,22,23,e, //Entered into DB
+Brahma Express,Egg Roll,157,100,23,20,18,s, //Entered into DB
+Brahma Express,Miso Soup,84,20,11,5,6,s, //Entered into DB
+Brahma Express,Seaweed Salad,5,0,1,0,1,s, //Entered into DB
+Brahma Express,Water,0,0,0,0,0,d, //Entered into DB
+Brahma Express,Coke,140,0,5,0,6,d, //Entered into DB
+Brahma Express,Sprite,192,0,8,0,6,d, //Entered into DB
 Chick fil a,Chicken Sandwich,440,230,56,20,33,e, //Entered into DB
 Chick fil a,8 Piece Chicken Nuggets,270,180,45,18,32e, //Entered into DB
 Chick fil a,Chicken Salad,320,180,18,2,16,e, //Entered into DB
-Chick fil a,Waffle Fries,400,200,35,13,39,s,
-Chick fil a,Cookie,330,180,23,3,12,s,
-Chick fil a,Fruit Cup,50,10,10,1,3,s,
-Chick fil a,Water,0,0,0,0,0,d,
-Chick fil a,Lemonade,230,0,12,0,8,d,
-Chick fil a,Iced Tea,130,0,12,0,6,d,
-PaPa Johns,Cheese Pizza,180,100,35,18,23,e,
-PaPa Johns,Pepperoni Pizza,210,120,23,14,33,e,
-PaPa Johns,Hot Wings,200,123,23,15,18,e,
-PaPa Johns,Cookie Slice,263,187,56,9,33,s,
-PaPa Johns,Brownie,230,156,45,5,36,s,
-PaPa Johns,Bread Sticks x2,50,30,35,5,18,s,
-PaPa Johns,Water,0,0,0,0,0,d,
-PaPa Johns,Coke,140,0,5,0,5,d,
-PaPa Johns,Sprite,192,0,5,0,5,d,
-Jamba Juice,Mango Smoothie,300,50,33,16,23,d,
-Jamba Juice,Strawberry Smoothie,260,80,30,15,20,d,
-Jamba Juice,Chocolate Banana Smoothie,370,90,36,11,18,d,
-Starbucks,Vanilla Bean Frappachino,280,60,26,8,13,d,
-Starbucks,Coffee,5,0,0,0,0,d,
-Starbucks,Raspberry Iced Tea,310,120,14,2,13,d,
+Chick fil a,Waffle Fries,400,200,35,13,39,s, //Entered into DB
+Chick fil a,Cookie,330,180,23,3,12,s, //Entered into DB
+Chick fil a,Fruit Cup,50,10,10,1,3,s, //Entered into DB
+Chick fil a,Water,0,0,0,0,0,d, //Entered into DB
+Chick fil a,Lemonade,230,0,12,0,8,d, //Entered into DB
+Chick fil a,Iced Tea,130,0,12,0,6,d, //Entered into DB
+PaPa Johns,Cheese Pizza,180,100,35,18,23,e, //Entered into DB
+PaPa Johns,Pepperoni Pizza,210,120,23,14,33,e, //Entered into DB
+PaPa Johns,Hot Wings,200,123,23,15,18,e, //Entered into DB
+PaPa Johns,Cookie Slice,263,187,56,9,33,s, //Entered into DB
+PaPa Johns,Brownie,230,156,45,5,36,s, //Entered into DB
+PaPa Johns,Bread Sticks x2,50,30,35,5,18,s, //Entered into DB
+PaPa Johns,Water,0,0,0,0,0,d, //Entered into DB
+PaPa Johns,Coke,140,0,5,0,5,d, //Entered into DB
+PaPa Johns,Sprite,192,0,5,0,5,d, //Entered into DB
+Jamba Juice,Mango Smoothie,300,50,33,16,23,d,  //Entered into DB
+Jamba Juice,Strawberry Smoothie,260,80,30,15,20,d, //Entered into DB
+Jamba Juice,Chocolate Banana Smoothie,370,90,36,11,18,d, //Entered into DB
+Starbucks,Vanilla Bean Frappachino,280,60,26,8,13,d, //Entered into DB
+Starbucks,Coffee,5,0,0,0,0,d, //Entered into DB
+Starbucks,Raspberry Iced Tea,310,120,14,2,13,d, //Entered into DB
