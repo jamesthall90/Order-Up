@@ -69,7 +69,7 @@ public class MainMenu {
         mainMenuPanel = new JPanel();
 
         menu.setSize(750, 640); //sets the size of the frame
-        menu.setLocation(500, 280); //sets the location of the frame on the screen
+        menu.setLocationRelativeTo(null); //sets the location of the frame on the screen
 
         mainMenuPanel.setLayout(null);
         mainMenuPanel.setBackground(ToolClass.fgcuBlue);
@@ -462,7 +462,7 @@ public class MainMenu {
             CalorieCalculator starter = new CalorieCalculator();
             starter.setVisible(true);
             starter.setSize(420, 420);
-            starter.setLocation(500, 280);
+            starter.setLocationRelativeTo(null);
             starter.setResizable(false);
         }
 

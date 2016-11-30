@@ -64,7 +64,7 @@ public class LogInScreen extends JFrame {
         //Our setLocation be different on other screen resolutions
 
         setSize(500, 400); //sets the size of the frame
-        setLocation(500, 280); //sets the location of the frame on the screen
+        setLocationRelativeTo(null); //sets the location of the frame on the screen
         logInPanel.setLayout(null);
         schoolChoiceBox.setMaximumRowCount(schoolNames.length); //sets max
         // rows to number of schools in schoolNames array
@@ -109,7 +109,7 @@ public class LogInScreen extends JFrame {
 
                     uname = txtFieldUser.getText();
                     upaswd = txtFieldPassword.getText();
-                    String host = "jdbc:sqlite:/Users/TylerHall/IdeaProjects/Order-Up/data/studentinfo.db";
+                    String host = "jdbc:sqlite:/Users/iceman371/git/Order-Up/data/studentinfo.db";
 
                     Connection studentInfoCon = DriverManager.getConnection(host);
 

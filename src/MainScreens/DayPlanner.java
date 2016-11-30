@@ -71,7 +71,7 @@ public class DayPlanner extends JFrame {
 
     dayPlannerPanel = new JPanel();
     setSize(800, 800); // sets the size of the frame
-    setLocation(500, 500); // sets the location of the frame on the screen
+    setLocationRelativeTo(null); // sets the location of the frame on the screen
     dayPlannerPanel.setLayout(null);
 
     dBConnect();
@@ -661,7 +661,7 @@ public class DayPlanner extends JFrame {
 
   public void dBConnect() {
 
-    host = "jdbc:sqlite:/Users/TylerHall/IdeaProjects/Order-Up/data/studentinfo.db";
+    host = "jdbc:sqlite:/Users/iceman371/git/Order-Up/data/studentinfo.db";
     try {
       food_itemsConnect = DriverManager.getConnection(host);
       dbDrive = food_itemsConnect.createStatement();
