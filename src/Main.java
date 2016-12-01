@@ -7,12 +7,12 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-//        LogInScreen login = new LogInScreen();
+        LogInScreen login = new LogInScreen();
 
         /* FOR TESTING */
 
 //        MainMenu menu = new MainMenu();
-        DayPlanner day = new DayPlanner("monday");
+//        DayPlanner day = new DayPlanner("monday");
       
         /* END TESTING */
     }

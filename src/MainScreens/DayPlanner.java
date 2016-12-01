@@ -39,11 +39,19 @@ public class DayPlanner extends JFrame {
     // items and load into comboboxes
 
     String host;
-    Connection food_itemsConnect;
-    Statement bFoodState, bSideState;
 
+    Connection bFoodItemsConnect, drink_itemConnect;
 
-    ResultSet bFoodSet, bSideSet;
+    Statement bFoodState, bSideState, bDrinkState;
+    Statement lFoodState, lSideState, lDrinkState;
+    Statement dFoodState, dSideState, dDrinkState;
+    
+    
+    ResultSet bFoodSet, bSideSet, bDrinkSet;
+    ResultSet lFoodSet, lSideSet, lDrinkSet;
+    ResultSet dFoodSet, dSideSet, dDrinkSet;
+    
+    
 
     String[] restaurants = {"Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
             "Starbucks"};
@@ -166,6 +174,7 @@ public class DayPlanner extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == breakfastRestaurants) {
+
                 JComboBox br = (JComboBox) e.getSource();
                 String r = (String) br.getSelectedItem();
                 // update breakfast combo boxes
@@ -200,12 +209,15 @@ public class DayPlanner extends JFrame {
                     side = new String[0];
                     drink = starDrink;
                 }
+
                 breakfastFoodItems = new JComboBox(ent);
                 breakfastSideItems = new JComboBox(side);
                 breakfastDrinkItems = new JComboBox(drink);
                 breakfastPanel.add(breakfastFoodItems);
                 breakfastPanel.add(breakfastSideItems);
                 breakfastPanel.add(breakfastDrinkItems);
+
+                queryAss(breakfastRestaurantName, breakfastFoodName, bFoodState, bFoodItemsConnect, bFoodSet, bFoodCal, bFoodFatCal, bFoodProtein, bFoodCarb, bFoodPoints);
 
             } else if (e.getSource() == lunchRestaurants) {
                 JComboBox lr = (JComboBox) e.getSource();
@@ -367,28 +379,51 @@ public class DayPlanner extends JFrame {
         breakfastSideName = breakfastSideItems.getSelectedItem().toString();
     }
 
-    public void breakfastNutritionItems() {
-
+    public void queryAss(String restName, String foodName, Statement FoodState, Connection FoodItemConnect, ResultSet FoodSet, int cal, int fatCals, int protein, int carbs, int points){
         String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
                 " points FROM food_item WHERE restaurant = '%s' " +
-                "AND item_name = '%s'", breakfastRestaurantName, breakfastFoodName);
+                "AND item_name = '%s'", restName, foodName);
 
         try {
+            FoodState = FoodItemConnect.createStatement();
+            FoodSet = FoodState.executeQuery(bFoodQuery);
 
-            bFoodState = food_itemsConnect.createStatement();
-            bFoodSet = bFoodState.executeQuery(bFoodQuery);
-
-            bFoodCal = bFoodSet.getInt("total_calories");
-            bFoodFatCal = bFoodSet.getInt("total_fat_cal");
-            bFoodProtein = bFoodSet.getInt("total_protein");
-            bFoodCarb = bFoodSet.getInt("total_carbs");
-            bFoodPoints = bFoodSet.getInt("points");
+            cal = FoodSet.getInt("total_calories");
+            fatCals = FoodSet.getInt("total_fat_cal");
+            protein = FoodSet.getInt("total_protein");
+            carbs = FoodSet.getInt("total_carbs");
+            points = FoodSet.getInt("points");
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        System.out.println(bFoodCal + " " + bFoodFatCal + " " + bFoodProtein + " " + bFoodCarb);
+        System.out.printf("%d, %d, %d, %d, %d\n", cal, fatCals, protein, carbs, points);
+    }
+    
+    public void breakfastNutritionItems() {
+
+        // breakfast query for nutrition info and points worth.
+//        String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
+//                " points FROM food_item WHERE restaurant = '%s' " +
+//                "AND item_name = '%s'", breakfastRestaurantName, breakfastFoodName);
+//
+//        try {
+//            bFoodState = bFoodItemsConnect.createStatement();
+//            bFoodSet = bFoodState.executeQuery(bFoodQuery);
+//
+//            bFoodCal = bFoodSet.getInt("total_calories");
+//            bFoodFatCal = bFoodSet.getInt("total_fat_cal");
+//            bFoodProtein = bFoodSet.getInt("total_protein");
+//            bFoodCarb = bFoodSet.getInt("total_carbs");
+//            bFoodPoints = bFoodSet.getInt("points");
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        queryAss(breakfastRestaurantName, breakfastFoodName, bFoodState, bFoodItemsConnect, bFoodSet, bFoodCal, bFoodFatCal, bFoodProtein, bFoodCarb, bFoodPoints);
+
+//        System.out.println(bFoodCal + " " + bFoodFatCal + " " + bFoodProtein + " " + bFoodCarb);
 
 
         breakfastNutrition = new JPanel();
@@ -468,6 +503,24 @@ public class DayPlanner extends JFrame {
 
     public void lunchNutritionItems() {
 
+        String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
+                " points FROM food_item WHERE restaurant = '%s' " +
+                "AND item_name = '%s'", breakfastRestaurantName, breakfastFoodName);
+
+//        try {
+//            lFoodState = bFoodItemsConnect.createStatement();
+//            lFoodSet = bFoodState.executeQuery(bFoodQuery);
+//
+//            lFoodCal = bFoodSet.getInt("total_calories");
+//            lFoodFatCal = bFoodSet.getInt("total_fat_cal");
+//            lFoodProtein = bFoodSet.getInt("total_protein");
+//            lFoodCarb = bFoodSet.getInt("total_carbs");
+//            lFoodPoints = bFoodSet.getInt("points");
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        
         lunchNutrition = new JPanel();
         lunchNutrition.setLayout(new FlowLayout());
         lunchNutrition.setVisible(true);
@@ -694,10 +747,10 @@ public class DayPlanner extends JFrame {
 
     public void dBConnect() {
 
-        host = ToolClass.tylerPath;
+        host = ToolClass.yamnelPath;
         try {
-            food_itemsConnect = DriverManager.getConnection(host);
-            //dbDrive = food_itemsConnect.createStatement();
+            bFoodItemsConnect = DriverManager.getConnection(host);
+//            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }

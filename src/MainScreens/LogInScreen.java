@@ -109,7 +109,7 @@ public class LogInScreen extends JFrame {
 
                     uname = txtFieldUser.getText();
                     upaswd = txtFieldPassword.getText();
-                    String host = ToolClass.tylerPath;
+                    String host = ToolClass.yamnelPath;
 
                     Connection studentInfoCon = DriverManager.getConnection(host);
 
@@ -118,6 +118,10 @@ public class LogInScreen extends JFrame {
                     String uid = String.format("SELECT uin FROM student WHERE student_email= '%s'", uname);
                     ResultSet uidSet = state.executeQuery(uid);
                     universityID = Integer.parseInt(uidSet.getString("uin"));
+
+                    String uPoint = String.format("SELECT uin FROM student WHERE student_email= '%s'", uname);
+                    ResultSet uPointSet = state.executeQuery(uPoint);
+                    userPoint = Integer.parseInt(uidSet.getString("meal bucks"));
 
 //                    String tableCheck = String.format("SELECT count(*) FROM studentinfo WHERE type='table' AND name='%s'", uid2);
 //
@@ -162,6 +166,7 @@ public class LogInScreen extends JFrame {
                         txtFieldUser.requestFocus();
                     }
                 } catch (SQLException e1) {
+
                     JOptionPane.showMessageDialog(null, "Invalid credentials entered! Please try again.",
                             "Input Error", JOptionPane.ERROR_MESSAGE);
                 }

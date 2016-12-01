@@ -109,7 +109,9 @@ public class MainMenu {
         totalPointsLabel.setForeground(Color.white);
 
         // Initialization and settings for total Points output
-        totalPoints = new JLabel("500"); // <----- Needs to display total points (probably an int)
+
+
+        totalPoints = new JLabel(String.valueOf(LogInScreen.userPoint)); // <----- Needs to display total points (probably an int)
         totalPoints.setFont(ToolClass.smallBoldHeadingFont);
         totalPoints.setForeground(ToolClass.fgcuGreen);
         totalPoints.setBackground(Color.white);
