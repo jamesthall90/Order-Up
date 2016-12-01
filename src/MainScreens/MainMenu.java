@@ -6,7 +6,6 @@ import acm.gui.VPanel;
 import acm.program.Program;
 import acm.util.JTFTools;
 
-import javax.security.auth.login.LoginContext;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -93,7 +92,7 @@ public class MainMenu {
 
         //calorieCalc initilizer
         calorieCalculator = new JButton("Calorie Calculator");
-        MouseHandler handler = new MouseHandler();
+        calorieMouseHandler handler = new calorieMouseHandler();
         calorieCalculator.setBounds(300, 10, 150, 30);
         calorieCalculator.addMouseListener(handler);
 
@@ -111,7 +110,7 @@ public class MainMenu {
         // Initialization and settings for total Points output
 
 
-        totalPoints = new JLabel(String.valueOf(LogInScreen.userPoint)); // <----- Needs to display total points (probably an int)
+        totalPoints = new JLabel(String.valueOf(LogInScreen.userPointTotal)); // <----- Needs to display total points (probably an int)
         totalPoints.setFont(ToolClass.smallBoldHeadingFont);
         totalPoints.setForeground(ToolClass.fgcuGreen);
         totalPoints.setBackground(Color.white);
@@ -148,9 +147,9 @@ public class MainMenu {
         smallLogoholderLabel.setBounds(49, 10, 100, 87);
         studentNameLabel.setBounds(20, 100, 160, 40);
         pointsLabel.setBounds(650, 10, 100, 50);
-        totalPoints.setBounds(685, 55, 40, 30);
-        totalPointsLabel.setBounds(636, 47, 65, 40);
-        remainingPoints.setBounds(685, 84, 40, 30);
+        totalPoints.setBounds(685, 55, 85, 30);
+        totalPointsLabel.setBounds(636, 47, 85, 40);
+        remainingPoints.setBounds(685, 84, 85, 30);
         remainingPointsLabel.setBounds(597, 75, 100, 40);
         myMealPlan.setBounds(585, 153, 100, 40);
         testPanel.setBounds(220, 50, 300, 100);
@@ -194,13 +193,17 @@ public class MainMenu {
 //    };
         public static int month;
         public static int year;
+        public static int currentDay;
+
+        public static String datePrimaryKey;
+
         /* Private instance variables */
 //    private JComboBox localeChooser;
         private JLabel localeChooser;
         private String[] countries;
         private Calendar currentCalendar;
         private DateFormatSymbols symbols;
-        private String[] monthNames;
+        public static String[] monthNames;
         private String[] weekdayNames;
         private int firstDayOfWeek;
 
@@ -365,11 +368,18 @@ public class MainMenu {
                     MainMenu.mainMenuPanel.add(MainMenu.testPanel);
                     menu.validate();
 
-                    if (dayText.equals("1")) {
-                        testLabel.setText("whoo hoo!");
-                    } else if (dayText.equals("27")) {
-                        testLabel.setText("yee haw!");
-                    } else testLabel.setText("Hello! This is a test.");
+                    testLabel.setText("whoo hoo! " + " " + String.valueOf(year) + " " + String.valueOf(month+1) +  " " + dayText);
+                    datePrimaryKey = String.format("%d%02d%02d", year, month+1, Integer.parseInt(dayText));
+
+
+
+//                    if (dayText.equals("1")) {
+//                        testLabel.setText("whoo hoo! " + " " + String.valueOf(year) + " " + String.valueOf(month) +  " " + dayText);
+//
+//                    } else if (dayText.equals("27")) {
+//                        testLabel.setText("yee haw!");
+//                    } else testLabel.setText("whoo hoo! " + " " + String.valueOf(year) + " " + String.valueOf(month) +  " " + dayText);
+
                 }
 
                 @Override
@@ -450,17 +460,18 @@ public class MainMenu {
         }
 
         /* Capitalize the first letter of a word */
-        private String capitalize(String word) {
+        public static String capitalize(String word) {
             return word.substring(0, 1).toUpperCase() + word.substring(1);
         }
     }
 
     //handles listeners for calorie calculator, didn't want to touch the
     // behemoth below this
-    private class MouseHandler implements MouseListener {
+    private class calorieMouseHandler implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+
             CalorieCalculator starter = new CalorieCalculator();
             starter.setVisible(true);
             starter.setSize(420, 420);

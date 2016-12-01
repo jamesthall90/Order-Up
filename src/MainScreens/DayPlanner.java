@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.*;
+import java.util.Calendar;
 //import java.io.File;
 //import java.io.FileNotFoundException;
 //import java.util.ArrayList;
@@ -77,7 +78,13 @@ public class DayPlanner extends JFrame {
     BoxHandler boxHandler = new BoxHandler();
 
     public DayPlanner(String dayText) throws SQLException { // dayText is the day number
-        super("Meal Plan for " + "/" + dayText + "/" + CalendarDemo.year);
+        super("Meal Plan for " + CalendarDemo.capitalize(CalendarDemo.monthNames[CalendarDemo.month])+ ", " + dayText + " " + CalendarDemo.year);
+
+        String databaseKey = CalendarDemo.datePrimaryKey;
+
+        System.out.println(databaseKey);
+
+
         ent = einEnt;
         side = einSide;
         drink = einDrink;

@@ -1,14 +1,11 @@
 package MainScreens;
 
-import Utility.Meals;
 import Utility.ToolClass;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.sql.*;
-import java.util.*;
 
 public class LogInScreen extends JFrame {
     JButton btnLogIn;
@@ -26,7 +23,9 @@ public class LogInScreen extends JFrame {
     static int universityID;
     static String firstName = "";
     static String lastName = "";
-    static int userPoint;
+    static int userPointTotal;
+    static int userPointRemaining;
+
 
     //for schoolChoiceBox
     private static final String[] schoolNames = {" ", "Florida Gulf Coast " +
@@ -119,9 +118,9 @@ public class LogInScreen extends JFrame {
                     ResultSet uidSet = state.executeQuery(uid);
                     universityID = Integer.parseInt(uidSet.getString("uin"));
 
-                    String uPoint = String.format("SELECT uin FROM student WHERE student_email= '%s'", uname);
+                    String uPoint = String.format("SELECT meal_bucks FROM student WHERE student_email= '%s'", uname);
                     ResultSet uPointSet = state.executeQuery(uPoint);
-                    userPoint = Integer.parseInt(uidSet.getString("meal bucks"));
+                    userPointTotal = Integer.parseInt(uidSet.getString("meal_bucks"));
 
 //                    String tableCheck = String.format("SELECT count(*) FROM studentinfo WHERE type='table' AND name='%s'", uid2);
 //
@@ -153,6 +152,9 @@ public class LogInScreen extends JFrame {
                     usertxt = txtFieldUser.getText();
                     passtxt = rs.getString("student_password");
 
+                    System.out.println(uname + " " + upaswd);
+                    System.out.println(usertxt + " " + upaswd);
+
                     if (uname.equals(usertxt) && upaswd.equals(passtxt)) {
                         MainMenu menu = new MainMenu();
                         dispose();
@@ -166,7 +168,6 @@ public class LogInScreen extends JFrame {
                         txtFieldUser.requestFocus();
                     }
                 } catch (SQLException e1) {
-
                     JOptionPane.showMessageDialog(null, "Invalid credentials entered! Please try again.",
                             "Input Error", JOptionPane.ERROR_MESSAGE);
                 }
