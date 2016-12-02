@@ -72,7 +72,6 @@ public class DayPlanner extends JFrame {
             lFoodCal, lFoodFatCal, lFoodCarb, lFoodProtein, lFoodPoints, dFoodCal, dFoodFatCal, dFoodCarb, dFoodProtein, dFoodPoints,
             sFoodCal, sFoodFatCal, sFoodCarb, sFoodProtein, sFoodPoints;
 
-
     BoxHandler boxHandler = new BoxHandler();
 
     public DayPlanner(String dayText) throws SQLException, FileNotFoundException { // dayText is the day number
@@ -702,7 +701,6 @@ public class DayPlanner extends JFrame {
         totalProtein.setText("<HTML><U>Total Protein: </U>" + (bFoodProtein + lFoodProtein + dFoodProtein + sFoodProtein) + "</HTML>");
     }
 
-
     public void breakfastItems() {
 
     /* Breakfast Panel & Items */
@@ -718,6 +716,7 @@ public class DayPlanner extends JFrame {
         breakfastLabel.setFont(ToolClass.largerBoldHeadingFont);
         breakfastLabel.setVisible(true);
 
+//        breakfastRestaurants.setSelectedItem(anObject);
         breakfastRestaurants = new JComboBox(restaurants);
         breakfastRestaurants.setVisible(true);
         breakfastRestaurants.setBackground(Color.WHITE);
@@ -753,7 +752,6 @@ public class DayPlanner extends JFrame {
         breakfastSideName = breakfastSideItems.getSelectedItem().toString();
     }
 
-
     public ResultSet stephensQuery(String restName, String foodName, Statement FoodState, Connection FoodItemConnect, ResultSet FoodSet) {
         String foodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
                 " points FROM food_item WHERE restaurant = '%s' " +
@@ -768,28 +766,6 @@ public class DayPlanner extends JFrame {
             return null;
         }
     }
-
-//    public void queryAss(String restName, String foodName, Statement FoodState, Connection FoodItemConnect, ResultSet FoodSet, int cal, int fatCals, int protein, int carbs, int points){
-//        String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
-//                " points FROM food_item WHERE restaurant = '%s' " +
-//                "AND item_name = '%s'", restName, foodName);
-//
-//        try {
-//            FoodState = FoodItemConnect.createStatement();
-//            FoodSet = FoodState.executeQuery(bFoodQuery);
-//
-//            cal = FoodSet.getInt("total_calories");
-//            fatCals = FoodSet.getInt("total_fat_cal");
-//            protein = FoodSet.getInt("total_protein");
-//            carbs = FoodSet.getInt("total_carbs");
-//            points = FoodSet.getInt("points");
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.printf("%d, %d, %d, %d, %d\n", cal, fatCals, protein, carbs, points);
-//    }
 
     public void breakfastNutritionItems() {
 
@@ -1170,8 +1146,10 @@ public class DayPlanner extends JFrame {
         System.out.println(MainMenu.HOST);
 
         try {
+//            bFoodItemsConnect = DriverManager.getConnection(ToolClass.stephenPath);
             bFoodItemsConnect = DriverManager.getConnection(MainMenu.HOST);
 //            dbDrive = bFoodItemsConnect.createStatement();
+            System.out.println("DB CONNECTED");
         } catch (SQLException e) {
             e.printStackTrace();
         }
