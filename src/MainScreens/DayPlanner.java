@@ -9,7 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.Scanner;
 
 public class DayPlanner extends JFrame {
 
@@ -30,7 +33,7 @@ public class DayPlanner extends JFrame {
     String[] ent, side, drink = new String[3]; // temporary array to hold menu
 
     // items and load into combo-boxes
-    String host;
+
 
     Connection bFoodItemsConnect, drink_itemConnect;
 
@@ -72,7 +75,7 @@ public class DayPlanner extends JFrame {
 
     BoxHandler boxHandler = new BoxHandler();
 
-    public DayPlanner(String dayText) throws SQLException { // dayText is the day number
+    public DayPlanner(String dayText) throws SQLException, FileNotFoundException { // dayText is the day number
         super("Meal Plan for " + CalendarDemo.capitalize(CalendarDemo.monthNames[CalendarDemo.month]) + ", " + dayText + " " + CalendarDemo.year);
 
         int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
@@ -148,7 +151,11 @@ public class DayPlanner extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                MainMenu menu = new MainMenu();
+                try {
+                    MainMenu menu = new MainMenu();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
 
             }
 
@@ -1156,11 +1163,14 @@ public class DayPlanner extends JFrame {
         submitBtn.addActionListener(sumbitButtonHandler);
     }
 
-    public void dBConnect() {
+    public void dBConnect() throws FileNotFoundException {
 
-        host = ToolClass.yamnelPath;
+//        host = ToolClass.yamnelPath
+
+        System.out.println(MainMenu.HOST);
+
         try {
-            bFoodItemsConnect = DriverManager.getConnection(ToolClass.yamnelPath);
+            bFoodItemsConnect = DriverManager.getConnection(MainMenu.HOST);
 //            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
