@@ -76,7 +76,7 @@ public class DayPlanner extends JFrame {
     public DayPlanner(String dayText) throws SQLException { // dayText is the day number
         super("Meal Plan for " + CalendarDemo.capitalize(CalendarDemo.monthNames[CalendarDemo.month])+ ", " + dayText + " " + CalendarDemo.year);
 
-        String databaseKey = CalendarDemo.datePrimaryKey;
+        int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
 
         System.out.println(databaseKey);
 
@@ -1102,20 +1102,55 @@ public class DayPlanner extends JFrame {
 //        submitBtn.setBackground(Color.BLUE);
 //        submitBtn.setOpaque(true);
 
+        String Statement = String.format("INSERT INTO %d ()", LogInScreen.universityID);
 
         ActionListener sumbitButtonHandler = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//              Connection c = null;
+                Statement stmt = null;
+                try {
+                    Class.forName("org.sqlite.JDBC");
+//                    c = DriverManager.getConnection("jdbc:sqlite:studentinfo.db");
 
+                    bFoodItemsConnect.setAutoCommit(false);
+                    System.out.println("Opened database successfully");
+
+                    stmt = bFoodItemsConnect.createStatement();
+
+                    String sql = String.format("INSERT INTO %d " + "VALUES (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d,%s,%s,%s,%s );",LogInScreen.universityID);
+
+                    stmt.executeUpdate(sql);
+
+                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+                            "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
+                    stmt.executeUpdate(sql);
+
+                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+                            "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
+                    stmt.executeUpdate(sql);
+
+                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+                            "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
+                    stmt.executeUpdate(sql);
+
+                    stmt.close();
+                    bFoodItemsConnect.commit();
+                    bFoodItemsConnect.close();
+                } catch ( Exception Exc) {
+                    System.err.println( Exc.getClass().getName() + ": " + Exc.getMessage() );
+                    System.exit(0);
+                }
+                System.out.println("Records created successfully");
             }
         };
     }
 
     public void dBConnect() {
 
-        host = ToolClass.tylerPath;
+        host = ToolClass.yamnelPath;
         try {
-            bFoodItemsConnect = DriverManager.getConnection(ToolClass.tylerPath);
+            bFoodItemsConnect = DriverManager.getConnection(ToolClass.yamnelPath);
 //            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
