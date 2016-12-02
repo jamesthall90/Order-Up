@@ -49,6 +49,7 @@ public class DayPlanner extends JFrame {
 
     String[] restaurants = {"Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
             "Starbucks"};
+    String[] sRestaurants = {"Jamba Juice", "Starbucks"};
     String[] einEnt = {"Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap"}; //Entered into DB
     String[] einSide = {"Blueberry Muffin", "Brownie", "Cookie"}; //Entered into DB
     String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"}; //Entered into DB
@@ -363,19 +364,11 @@ public class DayPlanner extends JFrame {
         // update snack combo boxes
         snackPanel.remove(snackItems);
 
-        if (r.equals(restaurants[0])) {
-          side = new String[0];
-        } else if (r.equals(restaurants[1])) {
-          side = new String[0];
-        } else if (r.equals(restaurants[2])) {
-          side = new String[0];
-        } else if (r.equals(restaurants[3])) {
-          side = new String[0];
-        } else if (r.equals(restaurants[4])) {
+        if (r.equals(sRestaurants[0])) {
           side = jambaDrink;
-        } else if (r.equals(restaurants[5])) {
+        } else if (r.equals(sRestaurants[1])) {
           side = starDrink;
-        }
+        } 
         snackItems = new JComboBox(side);
         snackItems.addActionListener(boxHandler);
         snackPanel.add(snackItems);
@@ -1014,7 +1007,7 @@ public class DayPlanner extends JFrame {
         snackLabel.setForeground(Color.WHITE);
         snackLabel.setFont(ToolClass.largerBoldHeadingFont);
 
-        snackRestaurants = new JComboBox(restaurants);
+        snackRestaurants = new JComboBox(sRestaurants);
         snackRestaurants.addActionListener(boxHandler);
         snackRestaurants.setVisible(true);
         snackRestaurants.setBackground(Color.WHITE);
