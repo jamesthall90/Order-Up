@@ -8,21 +8,15 @@ import java.awt.event.*;
 import java.sql.*;
 
 public class LogInScreen extends JFrame {
-    JButton btnLogIn;
+    JButton btnLogIn, btnCancel;
     JPanel logInPanel;
-    JTextField txtFieldUser;
-    JTextField txtFieldPassword;
-    JButton btnCancel;
-    JLabel logoHolderLabel;
-    JLabel schoolChoiceLabel;
-    JLabel usernameLabel;
-    JLabel passwordLabel;
+    JTextField txtFieldUser, txtFieldPassword;
+    JLabel logoHolderLabel, schoolChoiceLabel, usernameLabel, passwordLabel;
     JComboBox schoolChoiceBox;
     String logoURL = "http://i.imgur.com/hPN6Qz7.png";
     ImageIcon orderUpLogo;
     static int universityID;
-    static String firstName = "";
-    static String lastName = "";
+    static String firstName = "", lastName = "";
     static int userPointTotal;
     static int userPointRemaining;
 
