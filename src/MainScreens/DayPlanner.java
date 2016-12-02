@@ -55,10 +55,10 @@ public class DayPlanner extends JFrame {
     String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"}; //Entered into DB
     String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"}; //Entered into DB
     String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"}; //Entered into DB
-    String[] papaDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+    String[] papaDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
     String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"}; //Entered into DB
     String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; //Entered into DB
-    String[] brDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+    String[] brDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
     String[] chickEnt = {"Chicken Sandwich", "8-Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
     String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
     String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
@@ -76,7 +76,7 @@ public class DayPlanner extends JFrame {
     public DayPlanner(String dayText) throws SQLException { // dayText is the day number
         super("Meal Plan for " + CalendarDemo.capitalize(CalendarDemo.monthNames[CalendarDemo.month])+ ", " + dayText + " " + CalendarDemo.year);
 
-        int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
+        String databaseKey = CalendarDemo.datePrimaryKey;
 
         System.out.println(databaseKey);
 
@@ -1102,55 +1102,20 @@ public class DayPlanner extends JFrame {
 //        submitBtn.setBackground(Color.BLUE);
 //        submitBtn.setOpaque(true);
 
-        String Statement = String.format("INSERT INTO %d ()", LogInScreen.universityID);
 
         ActionListener sumbitButtonHandler = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//              Connection c = null;
-                Statement stmt = null;
-                try {
-                    Class.forName("org.sqlite.JDBC");
-//                    c = DriverManager.getConnection("jdbc:sqlite:studentinfo.db");
 
-                    bFoodItemsConnect.setAutoCommit(false);
-                    System.out.println("Opened database successfully");
-
-                    stmt = bFoodItemsConnect.createStatement();
-
-                    String sql = String.format("INSERT INTO %d " + "VALUES (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d,%s,%s,%s,%s );",LogInScreen.universityID);
-
-                    stmt.executeUpdate(sql);
-
-                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                            "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
-                    stmt.executeUpdate(sql);
-
-                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                            "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
-                    stmt.executeUpdate(sql);
-
-                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                            "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
-                    stmt.executeUpdate(sql);
-
-                    stmt.close();
-                    bFoodItemsConnect.commit();
-                    bFoodItemsConnect.close();
-                } catch ( Exception Exc) {
-                    System.err.println( Exc.getClass().getName() + ": " + Exc.getMessage() );
-                    System.exit(0);
-                }
-                System.out.println("Records created successfully");
             }
         };
     }
 
     public void dBConnect() {
 
-        host = ToolClass.yamnelPath;
+        host = ToolClass.tylerPath;
         try {
-            bFoodItemsConnect = DriverManager.getConnection(ToolClass.yamnelPath);
+            bFoodItemsConnect = DriverManager.getConnection(ToolClass.stephenPath);
 //            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
