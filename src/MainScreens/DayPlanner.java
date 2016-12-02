@@ -55,10 +55,10 @@ public class DayPlanner extends JFrame {
     String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"}; //Entered into DB
     String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"}; //Entered into DB
     String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"}; //Entered into DB
-    String[] papaDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+    String[] papaDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
     String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"}; //Entered into DB
     String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; //Entered into DB
-    String[] brDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+    String[] brDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
     String[] chickEnt = {"Chicken Sandwich", "8-Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
     String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
     String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
@@ -1115,7 +1115,7 @@ public class DayPlanner extends JFrame {
 
         host = ToolClass.tylerPath;
         try {
-            bFoodItemsConnect = DriverManager.getConnection(ToolClass.tylerPath);
+            bFoodItemsConnect = DriverManager.getConnection(ToolClass.stephenPath);
 //            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
