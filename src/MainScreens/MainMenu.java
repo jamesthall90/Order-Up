@@ -10,11 +10,14 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Scanner;
 
 ///////////////////////////////////
 /*
@@ -27,6 +30,8 @@ import java.util.Locale;
 ///////////////////////////////
 
 public class MainMenu {
+    public static String HOST;
+
     static JFrame menu;
 
     static JPanel mainMenuPanel;
@@ -51,7 +56,10 @@ public class MainMenu {
     JButton calorieCalculator;
 
 
-    public MainMenu() {
+    public MainMenu() throws FileNotFoundException {
+        Scanner file = new Scanner(new File("database_path.txt"));
+        HOST = file.nextLine();
+        file.close();
 
         menu = new JFrame("Main Menu");
 
@@ -338,6 +346,8 @@ public class MainMenu {
                     try {
                         new DayPlanner(dayText);
                     } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
                     }
                     MainMenu.menu.dispose();
