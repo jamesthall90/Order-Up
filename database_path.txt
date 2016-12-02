@@ -1,0 +1,1 @@
+jdbc:sqlite:/Users/iceman371/git/Order-Up/data/studentinfo.db
