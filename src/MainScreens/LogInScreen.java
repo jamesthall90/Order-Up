@@ -5,6 +5,7 @@ import Utility.ToolClass;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 import java.sql.*;
 
 public class LogInScreen extends JFrame {
@@ -102,9 +103,9 @@ public class LogInScreen extends JFrame {
 
                     uname = txtFieldUser.getText();
                     upaswd = txtFieldPassword.getText();
-                    String host = ToolClass.yamnelPath;
+                    String host = MainMenu.HOST;
 
-                    Connection studentInfoCon = DriverManager.getConnection(ToolClass.stephenPath);
+                    Connection studentInfoCon = DriverManager.getConnection(host);
 
                     Statement state = studentInfoCon.createStatement();
 
@@ -164,6 +165,8 @@ public class LogInScreen extends JFrame {
                 } catch (SQLException e1) {
                     JOptionPane.showMessageDialog(null, "Invalid credentials entered! Please try again.",
                             "Input Error", JOptionPane.ERROR_MESSAGE);
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
                 }
             }
         });

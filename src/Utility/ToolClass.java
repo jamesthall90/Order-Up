@@ -2,10 +2,13 @@ package Utility;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.awt.*;
 import java.awt.Font;
+import java.util.Scanner;
 
 
 public class ToolClass {
@@ -34,6 +37,8 @@ public class ToolClass {
     public static Border compound = BorderFactory.createCompoundBorder(raisedBevel, loweredBevel);
     public static Border newCompound = BorderFactory.createCompoundBorder(whiteLine, compound);
 
+    public ToolClass() throws FileNotFoundException {
+    }
 
 
     public static ImageIcon createImageIcon(String path, String description) {
