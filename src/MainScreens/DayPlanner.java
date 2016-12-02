@@ -10,15 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.*;
-import java.util.Calendar;
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.util.ArrayList;
-//import java.util.HashSet;
-//import java.util.Scanner;
-
-//import Calendar.CalendarDemo;
-//import oracle.jvm.hotspot.jfr.JFR;
 
 public class DayPlanner extends JFrame {
 
@@ -37,8 +28,8 @@ public class DayPlanner extends JFrame {
 
     Dimension innerPanelDimension = new Dimension(200, 200);
     String[] ent, side, drink = new String[3]; // temporary array to hold menu
-    // items and load into comboboxes
 
+    // items and load into combo-boxes
     String host;
 
     Connection bFoodItemsConnect, drink_itemConnect;
@@ -104,7 +95,9 @@ public class DayPlanner extends JFrame {
         snackItems();
         snackNutritionItems();
         totalNutritionItems();
+        submit();
 
+        submitBtn.setBounds(0,0,200,50);
         totalNutrition.setBounds(285, 70, 225, 50);
         breakfastPanel.setBounds(20, 120, 225, 225);
         breakfastNutrition.setBounds(20, 345, 225, 50);
@@ -118,6 +111,9 @@ public class DayPlanner extends JFrame {
 
         // Addition of contents to dayPlannerPanel
         getContentPane().add(dayPlannerPanel);
+
+        dayPlannerPanel.add(submitBtn);
+
         dayPlannerPanel.add(totalNutrition);
         dayPlannerPanel.add(breakfastPanel);
         dayPlannerPanel.add(breakfastNutrition);
@@ -130,6 +126,7 @@ public class DayPlanner extends JFrame {
         // dayPlannerPanel.add(submitBtn);
 
         dayPlannerPanel.setBackground(ToolClass.fgcuGreen);
+
         setVisible(true);
 
         // changed this to Dispose so it won't close the entire program
@@ -174,6 +171,7 @@ public class DayPlanner extends JFrame {
         };
 
         this.addWindowListener(OnCLose);
+
     }
 
     private class BoxHandler implements ActionListener {
@@ -738,11 +736,12 @@ public class DayPlanner extends JFrame {
 
     public void submit() {
 
-        submitBtn = new JButton("Submit");
+        submitBtn = new JButton("Plan Meal");
         submitBtn.setVisible(true);
-        submitBtn.setForeground(Color.WHITE);
-        submitBtn.setBackground(Color.BLUE);
-        submitBtn.setOpaque(true);
+//        submitBtn.setForeground(Color.WHITE);
+//        submitBtn.setBackground(Color.BLUE);
+//        submitBtn.setOpaque(true);
+
 
         ActionListener sumbitButtonHandler = new ActionListener() {
             @Override
