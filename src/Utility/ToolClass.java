@@ -1,7 +1,5 @@
 package Utility;
 
-import MainScreens.MainMenu;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.net.MalformedURLException;
@@ -9,9 +7,7 @@ import java.net.URL;
 import java.awt.*;
 import java.awt.Font;
 
-/**
- * *Created by TylerHall on 10/17/16.
- */
+
 public class ToolClass {
 
     public static final String tylerPath = "jdbc:sqlite:/Users/TylerHall/IdeaProjects/Order-Up/data/studentinfo.db";

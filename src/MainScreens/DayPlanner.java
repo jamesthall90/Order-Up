@@ -32,7 +32,7 @@ public class DayPlanner extends JFrame {
     // items and load into combo-boxes
     String host;
 
-    Connection bFoodItemsConnect, drink_itemConnect;
+    Connection bFoodItemsConnect;
 
     Statement bFoodState, bSideState, bDrinkState;
     Statement lFoodState, lSideState, lDrinkState;
@@ -99,7 +99,6 @@ public class DayPlanner extends JFrame {
         snackItems();
         snackNutritionItems();
         totalNutritionItems();
-        submit();
 
         submitBtn.setBounds(0,0,200,50);
         totalNutrition.setBounds(285, 70, 225, 70);
@@ -1094,29 +1093,11 @@ public class DayPlanner extends JFrame {
         totalNutrition.add(totalFat);
     }
 
-    public void submit() {
-
-        submitBtn = new JButton("Plan Meal");
-        submitBtn.setVisible(true);
-//        submitBtn.setForeground(Color.WHITE);
-//        submitBtn.setBackground(Color.BLUE);
-//        submitBtn.setOpaque(true);
-
-
-        ActionListener sumbitButtonHandler = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        };
-    }
-
     public void dBConnect() {
 
         host = ToolClass.tylerPath;
         try {
             bFoodItemsConnect = DriverManager.getConnection(ToolClass.tylerPath);
-//            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }

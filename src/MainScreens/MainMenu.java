@@ -40,8 +40,10 @@ public class MainMenu {
     Calendar thisDay;
     static String dayOfMonthStr;
     static int dayOfmonth;
-    static JPanel testPanel;
-    static JLabel testLabel;
+    static JPanel dayAtAGlancePanel, breakfastGlancePanel, lunchGlancePanel, dinnerGlancePanel, nutritionGlancePanel;
+    static JLabel dayAtAGlanceDate, breakFastTitle, breakfastRestaurant, breakfastFoodItem, breakfastSideItem, breakfastDrinkItem,
+            lunchTitle, lunchRestaurant, lunchFoodItem, lunchSideItem, lunchDrinkItem, dinnerTitle, dinnerRestaurant,
+            dinnerFoodItem, dinnerSideItem, dinnerDrinkItem, totalCal, totalFatCal, totalCarbs, totalProtein, totalPointsUsed;
 
     Font totalPointsLabelFont, remainingPointsLabelFont;
     //Logo should be added to shorter URL for code convention purposes
@@ -136,12 +138,76 @@ public class MainMenu {
         myMealPlan = new JButton("My Meal Plan");
         myMealPlan.setForeground(ToolClass.fgcuGreen);
 
-        testPanel = new JPanel();
-        testPanel.setLayout(new BorderLayout());
-        testPanel.setVisible(true);
-        testPanel.setBackground(Color.WHITE);
-        testLabel = new JLabel("Hello! This is a test!");
-        testPanel.add(testLabel, BorderLayout.NORTH);
+        dayAtAGlancePanel = new JPanel();
+        dayAtAGlancePanel.setLayout(new FlowLayout());
+        dayAtAGlancePanel.setVisible(true);
+        dayAtAGlancePanel.setBackground(Color.WHITE);
+
+        dayAtAGlanceDate = new JLabel("");
+        dayAtAGlanceDate.setFont(ToolClass.smallItalicHeadingFont);
+        dayAtAGlanceDate.setForeground(ToolClass.fgcuGreen);
+
+        breakfastGlancePanel = new JPanel();
+        breakfastGlancePanel.setLayout(new GridLayout(5, 1));
+        breakfastGlancePanel.setVisible(true);
+        breakfastGlancePanel.setBackground(Color.WHITE);
+
+        breakFastTitle = new JLabel("<HTML><U>BREAKFAST</U></HTML");
+        breakFastTitle.setFont(ToolClass.smallBoldHeadingFont);
+        breakFastTitle.setForeground(ToolClass.fgcuBlue);
+        breakfastRestaurant = new JLabel("<HTML><U>Restaurant:</U></HTML");
+        breakfastFoodItem = new JLabel("<HTML><U>Entree:</U></HTML");
+        breakfastSideItem = new JLabel("<HTML><U>Side:</U></HTML");
+        breakfastDrinkItem = new JLabel("<HTML><U> Drink: </U></HTML");
+
+        breakfastGlancePanel.add(breakFastTitle);
+        breakfastGlancePanel.add(breakfastRestaurant);
+        breakfastGlancePanel.add(breakfastFoodItem);
+        breakfastGlancePanel.add(breakfastSideItem);
+        breakfastGlancePanel.add(breakfastDrinkItem);
+
+        lunchGlancePanel = new JPanel();
+        lunchGlancePanel.setLayout(new GridLayout(5, 1));
+        lunchGlancePanel.setVisible(true);
+        lunchGlancePanel.setBackground(Color.WHITE);
+
+        lunchTitle = new JLabel("<HTML><U>LUNCH</U></HTML");
+        lunchTitle.setFont(ToolClass.smallBoldHeadingFont);
+        lunchTitle.setForeground(ToolClass.fgcuBlue);
+        lunchRestaurant = new JLabel("<HTML><U>Restaurant:</U></HTML");
+        lunchFoodItem = new JLabel("<HTML><U>Entree:</U></HTML");
+        lunchSideItem = new JLabel("<HTML><U>Side:</U></HTML");
+        lunchDrinkItem = new JLabel("<HTML><U>Drink:</U></HTML");
+
+        lunchGlancePanel.add(lunchTitle);
+        lunchGlancePanel.add(lunchRestaurant);
+        lunchGlancePanel.add(lunchFoodItem);
+        lunchGlancePanel.add(lunchSideItem);
+        lunchGlancePanel.add(lunchDrinkItem);
+
+        dinnerGlancePanel = new JPanel();
+        dinnerGlancePanel.setLayout(new GridLayout(5, 1));
+        dinnerGlancePanel.setVisible(true);
+        dinnerGlancePanel.setBackground(Color.WHITE);
+
+        dinnerTitle = new JLabel("<HTML><U>DINNER</U></HTML");
+        dinnerTitle.setFont(ToolClass.smallBoldHeadingFont);
+        dinnerTitle.setForeground(ToolClass.fgcuBlue);
+        dinnerRestaurant = new JLabel("<HTML><U>Restaurant:</U></HTML");
+        dinnerFoodItem = new JLabel("<HTML><U>Entree:</U></HTML");
+        dinnerSideItem = new JLabel("<HTML><U>Side:</U></HTML");
+        dinnerDrinkItem = new JLabel("<HTML><U>Drink:</U></HTML");
+
+        dinnerGlancePanel.add(dinnerTitle);
+        dinnerGlancePanel.add(dinnerRestaurant);
+        dinnerGlancePanel.add(dinnerFoodItem);
+        dinnerGlancePanel.add(dinnerSideItem);
+        dinnerGlancePanel.add(dinnerDrinkItem);
+
+        dayAtAGlancePanel.add(dayAtAGlanceDate);
+        dayAtAGlancePanel.add(breakfastGlancePanel);
+        dayAtAGlancePanel.add(lunchGlancePanel);
+        dayAtAGlancePanel.add(dinnerGlancePanel);
 
         // Bounds / placement settings for all objects in mainMenuPanel
         smallLogoholderLabel.setBounds(49, 10, 100, 87);
@@ -152,7 +218,7 @@ public class MainMenu {
         remainingPoints.setBounds(685, 84, 85, 30);
         remainingPointsLabel.setBounds(597, 75, 100, 40);
         myMealPlan.setBounds(585, 153, 100, 40);
-        testPanel.setBounds(220, 50, 300, 100);
+        dayAtAGlancePanel.setBounds(220, 50, 300, 100);
 
 
         mainMenuPanel.add(smallLogoholderLabel);
@@ -360,11 +426,12 @@ public class MainMenu {
                 @Override
                 public void mouseEntered(MouseEvent e) {
 
-                    MainMenu.mainMenuPanel.add(MainMenu.testPanel);
+                    MainMenu.mainMenuPanel.add(MainMenu.dayAtAGlancePanel);
                     menu.validate();
 
-                    testLabel.setText("whoo hoo! " + " " + String.valueOf(year) + " " + String.valueOf(month+1) +  " " + dayText);
+                    dayAtAGlanceDate.setText(" Day-At-A Glance For " + String.valueOf(month + 1) + "/" + dayText + "/" + String.valueOf(year));
                     datePrimaryKey = String.format("%d%02d%02d", year, month+1, Integer.parseInt(dayText));
+
 
 
 
@@ -380,7 +447,7 @@ public class MainMenu {
                 @Override
                 public void mouseExited(MouseEvent e) {
 
-                    MainMenu.mainMenuPanel.remove(MainMenu.testPanel);
+                    MainMenu.mainMenuPanel.remove(MainMenu.dayAtAGlancePanel);
                     menu.revalidate();
                     menu.repaint();
                 }
