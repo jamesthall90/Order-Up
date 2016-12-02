@@ -752,10 +752,6 @@ public class DayPlanner extends JFrame {
         breakfastSideName = breakfastSideItems.getSelectedItem().toString();
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/jamesthall90/Order-Up.git
     public ResultSet stephensQuery(String restName, String foodName, Statement FoodState, Connection FoodItemConnect, ResultSet FoodSet) {
         String foodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
                 " points FROM food_item WHERE restaurant = '%s' " +
@@ -1150,11 +1146,8 @@ public class DayPlanner extends JFrame {
         System.out.println(MainMenu.HOST);
 
         try {
-<<<<<<< HEAD
-            bFoodItemsConnect = DriverManager.getConnection(ToolClass.stephenPath);
-=======
+//            bFoodItemsConnect = DriverManager.getConnection(ToolClass.stephenPath);
             bFoodItemsConnect = DriverManager.getConnection(MainMenu.HOST);
->>>>>>> branch 'master' of https://github.com/jamesthall90/Order-Up.git
 //            dbDrive = bFoodItemsConnect.createStatement();
             System.out.println("DB CONNECTED");
         } catch (SQLException e) {
