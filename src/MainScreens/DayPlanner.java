@@ -55,10 +55,10 @@ public class DayPlanner extends JFrame {
     String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"}; //Entered into DB
     String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"}; //Entered into DB
     String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"}; //Entered into DB
-    String[] papaDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
+    String[] papaDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
     String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"}; //Entered into DB
     String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; //Entered into DB
-    String[] brDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
+    String[] brDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
     String[] chickEnt = {"Chicken Sandwich", "8-Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
     String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
     String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
@@ -67,7 +67,7 @@ public class DayPlanner extends JFrame {
 
     String breakfastRestaurantName, breakfastDrinkName, breakfastFoodName, breakfastSideName;
     int bFoodCal, bFoodFatCal, bFoodCarb, bFoodProtein, bFoodPoints, bSideCal, bSideFatCal, bSideCarb, bSideProtein, bSidePoints,
-    lFoodCal, lFoodFatCal, lFoodCarb, lFoodProtein, lFoodPoints, dFoodCal, dFoodFatCal, dFoodCarb, dFoodProtein, dFoodPoints, 
+    lFoodCal, lFoodFatCal, lFoodCarb, lFoodProtein, lFoodPoints, dFoodCal, dFoodFatCal, dFoodCarb, dFoodProtein, dFoodPoints,
     sFoodCal, sFoodFatCal, sFoodCarb, sFoodProtein, sFoodPoints;
 
     BoxHandler boxHandler = new BoxHandler();
@@ -75,7 +75,7 @@ public class DayPlanner extends JFrame {
     public DayPlanner(String dayText) throws SQLException { // dayText is the day number
         super("Meal Plan for " + CalendarDemo.capitalize(CalendarDemo.monthNames[CalendarDemo.month])+ ", " + dayText + " " + CalendarDemo.year);
 
-        String databaseKey = CalendarDemo.datePrimaryKey;
+        int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
 
         System.out.println(databaseKey);
 
@@ -225,7 +225,7 @@ public class DayPlanner extends JFrame {
         breakfastPanel.add(breakfastFoodItems);
         breakfastPanel.add(breakfastSideItems);
         breakfastPanel.add(breakfastDrinkItems);
-        
+
         bFoodSet = null;
         bSideSet = null;
         bDrinkSet = null;
@@ -285,7 +285,7 @@ public class DayPlanner extends JFrame {
         lunchPanel.add(lunchFoodItems);
         lunchPanel.add(lunchSideItems);
         lunchPanel.add(lunchDrinkItems);
-        
+
         lFoodSet = null;
         lSideSet = null;
         lDrinkSet = null;
@@ -299,7 +299,7 @@ public class DayPlanner extends JFrame {
         lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + "</HTML>");
         lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + "</HTML>");
         updateTotalNutrition();
-        
+
       } else if (e.getSource() == dinnerRestaurants) {
         JComboBox dr = (JComboBox) e.getSource();
         String r = (String) dr.getSelectedItem();
@@ -342,7 +342,7 @@ public class DayPlanner extends JFrame {
         dinnerPanel.add(dinnerFoodItems);
         dinnerPanel.add(dinnerSideItems);
         dinnerPanel.add(dinnerDrinkItems);
-        
+
         dFoodSet = null;
         dSideSet = null;
         dDrinkSet = null;
@@ -356,7 +356,7 @@ public class DayPlanner extends JFrame {
         dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + "</HTML>");
         dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + "</HTML>");
         updateTotalNutrition();
-        
+
       } else if (e.getSource() == snackRestaurants) {
         JComboBox sr = (JComboBox) e.getSource();
         String r = (String) sr.getSelectedItem();
@@ -367,7 +367,7 @@ public class DayPlanner extends JFrame {
           side = jambaDrink;
         } else if (r.equals(sRestaurants[1])) {
           side = starDrink;
-        } 
+        }
         snackItems = new JComboBox(side);
         snackItems.addActionListener(boxHandler);
         snackPanel.add(snackItems);
@@ -383,7 +383,7 @@ public class DayPlanner extends JFrame {
         snackCarbs.setText("<HTML><U>Total Carbs: </U>" + sFoodCarb + "</HTML>");
         snackProtein.setText("<HTML><U>Total Protein: </U>" + sFoodProtein + "</HTML>");
         updateTotalNutrition();
-        
+
       } else if (e.getSource().equals(breakfastFoodItems)) {
         try {
           bFoodCal -= bFoodSet.getInt("total_calories");
@@ -677,12 +677,12 @@ public class DayPlanner extends JFrame {
         } catch (SQLException exc) {
           System.err.println("Didnt work");
         }
-      } 
+      }
       revalidate();
       repaint();
     }
   }
-    
+
     public void updateTotalNutrition() {
       totalCalories.setText("<HTML><U>Total Calories: </U>" + 0 + "</HTML>");
       totalCalories.setText("<HTML><U>Total Calories: </U>" + (bFoodCal+lFoodCal+dFoodCal+sFoodCal) + "</HTML>");
@@ -744,12 +744,12 @@ public class DayPlanner extends JFrame {
         breakfastDrinkName = breakfastDrinkItems.getSelectedItem().toString();
         breakfastSideName = breakfastSideItems.getSelectedItem().toString();
     }
-    
+
     public ResultSet stephensQuery(String restName, String foodName, Statement FoodState, Connection FoodItemConnect, ResultSet FoodSet) {
       String foodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
           " points FROM food_item WHERE restaurant = '%s' " +
           "AND item_name = '%s'", restName, foodName);
-      
+
       try {
         FoodState = FoodItemConnect.createStatement();
         FoodSet = FoodState.executeQuery(foodQuery);
@@ -759,7 +759,7 @@ public class DayPlanner extends JFrame {
         return null;
       }
     }
-    
+
     public void breakfastNutritionItems() {
 
         breakfastNutrition = new JPanel();
@@ -860,7 +860,7 @@ public class DayPlanner extends JFrame {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-        
+
         lunchNutrition = new JPanel();
         lunchNutrition.setLayout(new GridLayout(5,1));
         lunchNutrition.setVisible(true);
@@ -1077,18 +1077,53 @@ public class DayPlanner extends JFrame {
 //        submitBtn.setBackground(Color.BLUE);
 //        submitBtn.setOpaque(true);
 
+        String Statement = String.format("INSERT INTO %d ()", LogInScreen.universityID);
 
         ActionListener sumbitButtonHandler = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//              Connection c = null;
+                Statement stmt = null;
+                try {
+                    Class.forName("org.sqlite.JDBC");
+//                    c = DriverManager.getConnection("jdbc:sqlite:studentinfo.db");
 
+                    bFoodItemsConnect.setAutoCommit(false);
+                    System.out.println("Opened database successfully");
+
+                    stmt = bFoodItemsConnect.createStatement();
+
+                    String sql = String.format("INSERT INTO %d " + "VALUES (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d,%s,%s,%s,%s );",LogInScreen.universityID);
+
+                    stmt.executeUpdate(sql);
+
+                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+                            "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
+                    stmt.executeUpdate(sql);
+
+                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+                            "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
+                    stmt.executeUpdate(sql);
+
+                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+                            "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
+                    stmt.executeUpdate(sql);
+
+                    stmt.close();
+                    bFoodItemsConnect.commit();
+                    bFoodItemsConnect.close();
+                } catch ( Exception Exc) {
+                    System.err.println( Exc.getClass().getName() + ": " + Exc.getMessage() );
+                    System.exit(0);
+                }
+                System.out.println("Records created successfully");
             }
         };
     }
 
     public void dBConnect() {
 
-        host = ToolClass.tylerPath;
+        host = ToolClass.yamnelPath;
         try {
             bFoodItemsConnect = DriverManager.getConnection(ToolClass.stephenPath);
 //            dbDrive = bFoodItemsConnect.createStatement();
