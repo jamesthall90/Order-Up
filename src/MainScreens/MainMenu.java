@@ -181,15 +181,10 @@ public class MainMenu {
 
     public static class CalendarDemo extends Program implements ItemListener {
         /* Private constants */
-//    private static final Color EMPTY_BACKGROUND = new Color(0xDDDDDD);
         private static final String TITLE_FONT = "Serif-36";
         private static final String LABEL_FONT = "Serif-bold-14";
         private static final String DATE_FONT = "Serif-18";
         private static final Locale[] LOCALES = {new Locale("en", "US", "")};
-//            new Locale("fr", "FR", ""), new Locale("de", "DE", ""),
-//            new Locale("es", "MX", ""), new Locale("it", "IT", ""),
-//            new Locale("nl", "NL", ""), new Locale("es", "ES", ""),
-//            new Locale("en", "GB", ""), new Locale("en", "US", "")
 //    };
         public static int month;
         public static int year;
