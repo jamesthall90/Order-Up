@@ -363,7 +363,6 @@ public class DayPlanner extends JFrame {
         breakfastFoodItems = new JComboBox(ent);
         breakfastFoodItems.setBackground(Color.WHITE);
         breakfastFoodItems.setForeground(ToolClass.fgcuGreen);
-//    queryDriver(bFoodState, breakfastRestaurantName, breakfastFoodName, bFoodCal, bFoodFatCal, bFoodProtein, bFoodCarb, bFoodPoints);
 
         breakfastSideItems = new JComboBox(side);
         breakfastSideItems.setBackground(Color.WHITE);
@@ -449,7 +448,7 @@ public class DayPlanner extends JFrame {
         breakfastFatCalories.setForeground(Color.WHITE);
         breakfastFatCalories.setFont(ToolClass.nutritionPanelFont);
 
-        breakfastCarbs = new JLabel("<HTML><U>Total Carbs:</U> " + "g </HTML>");
+        breakfastCarbs = new JLabel("<HTML><U>Total Carbs:</U> " + bFoodCarb + "g </HTML>");
         breakfastCarbs.setForeground(Color.WHITE);
         breakfastCarbs.setFont(ToolClass.nutritionPanelFont);
 
@@ -754,14 +753,13 @@ public class DayPlanner extends JFrame {
 
     public void dBConnect() {
 
-        host = ToolClass.yamnelPath;
+        host = ToolClass.tylerPath;
         try {
             bFoodItemsConnect = DriverManager.getConnection(host);
 //            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }
 
