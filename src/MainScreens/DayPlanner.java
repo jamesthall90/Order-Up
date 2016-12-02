@@ -1163,6 +1163,9 @@ public class DayPlanner extends JFrame {
                             dinnerSide, dinnerDrink, snack, total_cal, total_fatCal, total_foodCarb, total_protein, points_used,
                             breakfast_rest, lunch_rest, dinner_rest, snack_rest);
 
+
+                    String sql2 = "INSERT INTO 814774683 (date) VALUES (20160220);";
+
                     stmt.executeUpdate(sql);
 
 //                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
