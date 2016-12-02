@@ -22,7 +22,7 @@ public class LogInScreen extends JFrame {
 
 
     //for schoolChoiceBox
-    private static final String[] schoolNames = {" ", "Florida Gulf Coast " +
+    private static final String[] schoolNames = {"Florida Gulf Coast" +
             "University"};
 
     public LogInScreen() {
