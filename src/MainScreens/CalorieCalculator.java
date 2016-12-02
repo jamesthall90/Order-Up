@@ -61,9 +61,9 @@ public class CalorieCalculator extends JFrame {
 
     ageTextField.setBounds(40, 60, 50, 20);
     ageLabel.setBounds(5, 54, 30, 30);
-    maleRadioButton.setBounds(40, 110, 20, 20);
+    maleRadioButton.setBounds(40, 110, 25, 20);
     maleLabel.setBounds(5, 110, 40, 20);
-    femaleRadioButton.setBounds(120, 110, 20, 20);
+    femaleRadioButton.setBounds(120, 110, 25, 20);
     femaleLabel.setBounds(70, 110, 50, 20);
     heightTextField.setBounds(80, 160, 50, 20);
     heightLabel.setBounds(5, 160, 80, 20);
@@ -72,18 +72,18 @@ public class CalorieCalculator extends JFrame {
     activityComboBox.setBounds(5, 290, 250, 20);
     activityLabel.setBounds(5, 260, 150, 20);
     calculateButton.setBounds(140, 340, 100, 20);
-    caloriesLabel.setBounds(340, 40, 50, 20);
+    caloriesLabel.setBounds(345, 40, 50, 20);
     gainTwoLbsTextField.setBounds(340, 60, 65, 20);
-    gainTwoLbsLabel.setBounds(220, 60, 100, 20);
+    gainTwoLbsLabel.setBounds(220, 60, 120, 20);
     gainOneLbsTextField.setBounds(340, 110, 65, 20);
     gainOneLbsLabel.setBounds(225, 110, 100, 20);
     maintainWeightTextField.setBounds(340, 160, 65, 20);
-    maintainWeightLabel.setBounds(220, 160, 100, 20);
+    maintainWeightLabel.setBounds(220, 160, 120, 20);
     loseOneLbsTextField.setBounds(340, 210, 65, 20);
     loseOneLbsLabel.setBounds(225, 210, 100, 20);
     loseTwoLbsTextField.setBounds(340, 260, 65, 20);
-    loseTwoLbsLabel.setBounds(220, 260, 100, 20);
-    screenTitle.setBounds(20, 5, 360, 40);
+    loseTwoLbsLabel.setBounds(220, 260, 120, 20);
+    screenTitle.setBounds(15, 5, 420, 40);
 
     gainTwoLbsTextField.setEditable(false);
     gainOneLbsTextField.setEditable(false);
