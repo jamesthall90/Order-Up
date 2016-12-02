@@ -30,8 +30,6 @@ import java.util.Scanner;
 ///////////////////////////////
 
 public class MainMenu {
-    public static String HOST;
-
     static JFrame menu;
 
     static JPanel mainMenuPanel;
@@ -57,9 +55,6 @@ public class MainMenu {
 
 
     public MainMenu() throws FileNotFoundException {
-        Scanner file = new Scanner(new File("database_path.txt"));
-        HOST = file.nextLine();
-        file.close();
 
         menu = new JFrame("Main Menu");
 

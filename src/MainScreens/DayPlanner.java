@@ -15,6 +15,8 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class DayPlanner extends JFrame {
+    
+    int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
 
     JButton submitBtn;
     JPanel dayPlannerPanel, breakfastPanel, lunchPanel, dinnerPanel, snackPanel, breakfastNutrition, lunchNutrition,
@@ -78,7 +80,6 @@ public class DayPlanner extends JFrame {
     public DayPlanner(String dayText) throws SQLException, FileNotFoundException { // dayText is the day number
         super("Meal Plan for " + CalendarDemo.capitalize(CalendarDemo.monthNames[CalendarDemo.month]) + ", " + dayText + " " + CalendarDemo.year);
 
-        int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
 
         System.out.println(databaseKey);
 
@@ -1126,32 +1127,61 @@ public class DayPlanner extends JFrame {
 
 
                     String breakfastFood =  breakfastFoodItems.getSelectedItem().toString();
-                    int totalCal = bFoodCal + lFoodCal + dFoodCal + sFoodCal;
-                    int totalFatCal = bFoodFatCal + lFoodFatCal + dFoodFatCal + sFoodFatCal;
+                    String breakfastSide = breakfastSideItems.getSelectedItem().toString();
+                    String breakfastDrink = breakfastDrinkItems.getSelectedItem().toString();
+                    
+                    String lunchFood =  lunchFoodItems.getSelectedItem().toString();
+                    String lunchSide = lunchSideItems.getSelectedItem().toString();
+                    String lunchDrink = lunchDrinkItems.getSelectedItem().toString();
+
+                    String dinnerFood =  dinnerFoodItems.getSelectedItem().toString();
+                    String dinnerSide = dinnerSideItems.getSelectedItem().toString();
+                    String dinnerDrink = dinnerDrinkItems.getSelectedItem().toString();
+
+                    String snack = snackItems.getSelectedItem().toString();
+                    
+                    int total_cal = bFoodCal + lFoodCal + dFoodCal + sFoodCal;
+                    int total_fatCal = bFoodFatCal + lFoodFatCal + dFoodFatCal + sFoodFatCal;
                     int total_foodCarb = bFoodCarb + lFoodCarb + dFoodCarb + sFoodCarb;
                     int total_protein = bFoodProtein + lFoodProtein + dFoodProtein + sFoodProtein;
+                    
+                    int points_used  = bFoodPoints+lFoodPoints+dFoodPoints+sFoodPoints;
+
+                    String breakfast_rest = breakfastRestaurants.getSelectedItem().toString();
+                    String lunch_rest = lunchRestaurants.getSelectedItem().toString();
+                    String dinner_rest = dinnerRestaurants.getSelectedItem().toString();
+                    String snack_rest = dinnerRestaurants.getSelectedItem().toString();
 
 
-
-                    String sql = String.format("INSERT INTO %d " + "VALUES (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d,%s,%s,%s,%s );", LogInScreen.universityID );
+                    String sql = String.format("INSERT OR IGNORE INTO 815338108 (date,breakfast_restaurant,breakfast_food,breakfast_side," +
+                                    "breakfast_drink,lunch_restaurant,lunch_food,lunch_side,lunch_drink,dinner_restaurant," +
+                                    "dinner_food,dinner_side,dinner_drink,snack_restaurant,snack,total_calories," +
+                                    "total_fat_cal,total_carbs,total_protein) " +
+                                    "VALUES (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d,%s,%s,%s,%s );",
+                            databaseKey,
+                            breakfastFood, breakfastSide, breakfastDrink, lunchFood, lunchSide, lunchDrink, dinnerFood,
+                            dinnerSide, dinnerDrink, snack, total_cal, total_fatCal, total_foodCarb, total_protein, points_used,
+                            breakfast_rest, lunch_rest, dinner_rest, snack_rest);
 
                     stmt.executeUpdate(sql);
 
-                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                            "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
-                    stmt.executeUpdate(sql);
-
-                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                            "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
-                    stmt.executeUpdate(sql);
-
-                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-                            "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
-                    stmt.executeUpdate(sql);
+//                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+//                            "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
+//                    stmt.executeUpdate(sql);
+//
+//                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+//                            "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
+//                    stmt.executeUpdate(sql);
+//
+//                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+//                            "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
+//                    stmt.executeUpdate(sql);
 
                     stmt.close();
                     bFoodItemsConnect.commit();
                     bFoodItemsConnect.close();
+
+
                 } catch (Exception Exc) {
                     System.err.println(Exc.getClass().getName() + ": " + Exc.getMessage());
                     System.exit(0);
@@ -1166,11 +1196,9 @@ public class DayPlanner extends JFrame {
     public void dBConnect() throws FileNotFoundException {
 
 //        host = ToolClass.yamnelPath
-
-        System.out.println(MainMenu.HOST);
-
+        
         try {
-            bFoodItemsConnect = DriverManager.getConnection(MainMenu.HOST);
+            bFoodItemsConnect = DriverManager.getConnection(LogInScreen.HOST);
 //            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
