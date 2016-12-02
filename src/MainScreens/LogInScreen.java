@@ -110,7 +110,7 @@ public class LogInScreen extends JFrame {
                     upaswd = txtFieldPassword.getText();
                     String host = ToolClass.yamnelPath;
 
-                    Connection studentInfoCon = DriverManager.getConnection(host);
+                    Connection studentInfoCon = DriverManager.getConnection(ToolClass.stephenPath);
 
                     Statement state = studentInfoCon.createStatement();
 
