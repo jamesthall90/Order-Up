@@ -59,7 +59,7 @@ public class DayPlanner extends JFrame {
     String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"}; //Entered into DB
     String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; //Entered into DB
     String[] brDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
-    String[] chickEnt = {"Chicken Sandwich", "8 Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
+    String[] chickEnt = {"Chicken Sandwich", "8-Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
     String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
     String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
     String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"}; //Entered into DB
@@ -1115,7 +1115,7 @@ public class DayPlanner extends JFrame {
 
         host = ToolClass.tylerPath;
         try {
-            bFoodItemsConnect = DriverManager.getConnection(ToolClass.stephenPath);
+            bFoodItemsConnect = DriverManager.getConnection(ToolClass.tylerPath);
 //            dbDrive = bFoodItemsConnect.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
