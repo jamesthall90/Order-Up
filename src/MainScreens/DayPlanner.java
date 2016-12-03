@@ -93,7 +93,12 @@ public class DayPlanner extends JFrame {
         dayPlannerPanel.setLayout(null);
 
         dBConnect();
-        breakfastItems();
+        try {
+          breakfastItems(comboBoxQuery(bFoodItemsConnect));
+        } catch (SQLException e) {
+          breakfastItems(null);
+        }
+        
         breakfastNutritionItems();
         lunchItems();
         lunchNutritionItems();
@@ -704,7 +709,7 @@ public class DayPlanner extends JFrame {
     }
 
 
-    public void breakfastItems() {
+    public void breakfastItems(ResultSet set) {
 
     /* Breakfast Panel & Items */
         breakfastPanel = new JPanel();
@@ -747,6 +752,21 @@ public class DayPlanner extends JFrame {
         breakfastPanel.add(breakfastFoodItems);
         breakfastPanel.add(breakfastSideItems);
         breakfastPanel.add(breakfastDrinkItems);
+        
+        //if there is a set
+        if (set!=null) {
+          try {
+            breakfastRestaurants.setSelectedItem(set.getString("breakfast_restaurant"));
+            breakfastFoodItems.setSelectedItem(set.getString("breakfast_food"));
+            breakfastSideItems.setSelectedItem(set.getString("breakfast_side"));
+            breakfastDrinkItems.setSelectedItem(set.getString("breakfast_drink"));
+          } catch (SQLException e) {
+            System.err.println("no set to pull from, default values loaded");
+          }
+        } else {
+          //do nothing
+        }
+      
 
         breakfastRestaurantName = breakfastRestaurants.getSelectedItem().toString();
         breakfastFoodName = breakfastFoodItems.getSelectedItem().toString();
@@ -770,27 +790,15 @@ public class DayPlanner extends JFrame {
         }
     }
 
-//    public void queryAss(String restName, String foodName, Statement FoodState, Connection FoodItemConnect, ResultSet FoodSet, int cal, int fatCals, int protein, int carbs, int points){
-//        String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
-//                " points FROM food_item WHERE restaurant = '%s' " +
-//                "AND item_name = '%s'", restName, foodName);
-//
-//        try {
-//            FoodState = FoodItemConnect.createStatement();
-//            FoodSet = FoodState.executeQuery(bFoodQuery);
-//
-//            cal = FoodSet.getInt("total_calories");
-//            fatCals = FoodSet.getInt("total_fat_cal");
-//            protein = FoodSet.getInt("total_protein");
-//            carbs = FoodSet.getInt("total_carbs");
-//            points = FoodSet.getInt("points");
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.printf("%d, %d, %d, %d, %d\n", cal, fatCals, protein, carbs, points);
-//    }
+    public ResultSet comboBoxQuery(Connection connect) throws SQLException {
+      String boxQuery = String.format("SELECT breakfast_restaurant, breakfast_food, breakfast_side, "
+          + "breakfast_drink, lunch_restaurant, lunch_food, lunch_side, lunch_drink, dinner_restaurant, "
+          + "dinner_food, dinner_side, dinner_drink, snack_restaurant, snack FROM %d", LogInScreen.universityID);
+      
+      Statement state = connect.createStatement();
+      ResultSet set = state.executeQuery(boxQuery);
+      return set;
+    }
 
     public void breakfastNutritionItems() {
 
@@ -1101,6 +1109,8 @@ public class DayPlanner extends JFrame {
         totalNutrition.add(totalFat);
     }
 
+    
+    
     public void submit() {
 
         submitBtn = new JButton("Plan Meal");
