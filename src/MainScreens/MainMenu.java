@@ -55,7 +55,7 @@ public class MainMenu {
     JButton calorieCalculator;
     static ResultSet nutriResult;
 
-    public MainMenu() throws FileNotFoundException {
+    public MainMenu() throws FileNotFoundException, SQLException {
 
         //Initialization of menu JFrame
         menu = new JFrame("Main Menu");
@@ -115,7 +115,10 @@ public class MainMenu {
         remainingPointsLabel.setForeground(Color.white);
 
         // Initialization and settings for remaining Points output
-        remainingPoints = new JLabel("256"); // <----- Needs to display remaining points from db
+
+        int remainingPointsValue = LogInScreen.userPointTotal -  (LogInScreen.studentInfoCon.createStatement().executeQuery("SELECT sum(points_used) from '"+ LogInScreen.universityID +"'").getInt("sum(points_used)"));
+
+        remainingPoints = new JLabel(String.valueOf(remainingPointsValue)); // <----- Needs to display remaining points from db
         remainingPoints.setFont(ToolClass.smallBoldHeadingFont);
         remainingPoints.setForeground(ToolClass.fgcuGreen);
         remainingPoints.setBackground(Color.yellow);
@@ -515,7 +518,7 @@ public class MainMenu {
 
                         breakfastFoodItemV = nutriResult.getString("breakfast_food");
                         System.out.println(breakfastFoodItemV);
-                        breakfastFoodItem.setText("Entree: " + breakfastFoodItemV + " ");
+                        breakfastFoodItem.setText("Entree: " + breakfastRestaurantV + " ");
 
                         breakfastSideItemV = nutriResult.getString("breakfast_side");
                         System.out.println(breakfastSideItemV);
@@ -578,7 +581,57 @@ public class MainMenu {
                         totalPointsUsed.setText(": " + totalPointsUsedV + " ");
 
                     } catch (SQLException e1) {
-                        e1.printStackTrace();
+//                        e1.printStackTrace();
+                        breakfastRestaurantV = "";
+                        breakfastRestaurant.setText("Restaurant: " + breakfastRestaurantV + " ");
+
+                        breakfastFoodItemV = "";
+                        breakfastFoodItem.setText("Entree: " + breakfastRestaurantV + " ");
+
+                        breakfastSideItemV = "";
+                        breakfastSideItem.setText("Side: " + breakfastSideItemV + " ");
+
+                        breakfastDrinkItemV = "";
+                        breakfastDrinkItem.setText("Drink: " + breakfastDrinkItemV + " ");
+
+                        lunchRestaurantV = "";
+                        lunchRestaurant.setText("Restaurant: " + lunchRestaurantV + " ");
+
+                        lunchFoodItemV = "";
+                        lunchFoodItem.setText("Entree: " + lunchFoodItemV + " ");
+
+                        lunchSideItemV = "";
+                        lunchSideItem.setText("Side: " + lunchSideItemV + " ");
+
+                        lunchDrinkItemV = "";
+                        lunchDrinkItem.setText("Drink: " + lunchDrinkItemV + " ");
+
+                        dinnerRestaurantV = "";
+                        dinnerRestaurant.setText("Restaurant: " + dinnerRestaurantV + " ");
+
+                        dinnerFoodItemV = "";
+                        dinnerFoodItem.setText("Entree: " + dinnerFoodItemV + " ");
+
+                        dinnerSideItemV = "";
+                        dinnerSideItem.setText("Side: " + dinnerSideItemV + " ");
+
+                        dinnerDrinkItemV = "";
+                        dinnerDrinkItem.setText("Drink: " + dinnerDrinkItemV + " ");
+
+                        totalCalV = 0;
+                        totalCal.setText("Total Calories: " + totalCalV + " ");
+
+                        totalFatCalV = 0;
+                        totalFatCal.setText("Total Fat Calories: " + totalFatCalV + " ");
+
+                        totalCarbsV = 0;
+                        totalCarbs.setText(": " + totalCarbs + " ");
+
+                        totalProteinV = 0;
+                        totalProtein.setText(": " + totalProteinV + " ");
+
+                        totalPointsUsedV = 0;
+                        totalPointsUsed.setText(": " + totalPointsUsedV + " ");
                     }
                 }
 
