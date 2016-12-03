@@ -53,6 +53,7 @@ public class MainMenu {
     String logoURL = "http://aandeautos4theneedy.org/wp-content/uploads/2016/12/OrderUpLogo-small.png";
     ImageIcon orderUpLogoSmall;
     JButton calorieCalculator;
+    static ResultSet nutriResult;
 
     public MainMenu() throws FileNotFoundException {
 
@@ -489,13 +490,15 @@ public class MainMenu {
 //                    String sql123 = String.format("SELECT breakfast_restaurant, breakfast_food, breakfast_side, breakfast_drink, lunch_restaurant," +
 //                            "lunch_food, lunch_side, lunch_drink, dinner_restaurant, dinner_food, dinner_side, dinner_drink, " +
 //                            "snack_restaurant, snack, total_calories, total_fat_cal, total_carbs, total_protein, points_used" +
-//                            "FROM '%s' WHERE date = '%d'", uin, thisDate);
+//                            "FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1), Integer.parseInt(dayText));
 
 
 //                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE '%d'", uin, thisDate);
 //                    String tempkey = String.format("%d%02d%02d",);
-                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1), Integer.parseInt(dayText));
-//                    Connection nutritionCon = null;
+//                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1), Integer.parseInt(dayText));
+//
+                    String sql123 = String.format("SELECT breakfast_restaurant, breakfast_food FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1), Integer.parseInt(dayText));
+// Connection nutritionCon = null;
                     try {
 //                        nutritionCon = DriverManager.getConnection(host);
                         Statement state = LogInScreen.studentInfoCon.createStatement();
@@ -504,6 +507,11 @@ public class MainMenu {
                         breakfastRestaurantV = nutriResult.getString("breakfast_restaurant");
                         System.out.println(breakfastRestaurantV);
                         breakfastRestaurant.setText("<HTML><U>Restaurant:</U> " + breakfastRestaurantV + "</HTML>");
+
+                        breakfastFoodItemV = nutriResult.getString("breakfast_food");
+                        System.out.println(breakfastFoodItemV);
+                        breakfastFoodItem.setText("Entree: " + breakfastRestaurantV + " ");
+
 
                     } catch (SQLException e1) {
                         e1.printStackTrace();
