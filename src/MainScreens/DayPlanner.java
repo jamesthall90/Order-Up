@@ -1150,7 +1150,7 @@ public class DayPlanner extends JFrame {
                     String breakfast_rest = breakfastRestaurants.getSelectedItem().toString();
                     String lunch_rest = lunchRestaurants.getSelectedItem().toString();
                     String dinner_rest = dinnerRestaurants.getSelectedItem().toString();
-                    String snack_rest = dinnerRestaurants.getSelectedItem().toString();
+                    String snack_rest = snackRestaurants.getSelectedItem().toString();
 
 
                     String sql = String.format("INSERT OR IGNORE INTO '%d' (date,breakfast_restaurant,breakfast_food,breakfast_side," +
@@ -1167,26 +1167,17 @@ public class DayPlanner extends JFrame {
 
                     stmt.executeUpdate(sql);
 
-//                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-//                            "VALUES (2, 'Allen', 25, 'Texas', 15000.00 );";
-//                    stmt.executeUpdate(sql);
-//
-//                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-//                            "VALUES (3, 'Teddy', 23, 'Norway', 20000.00 );";
-//                    stmt.executeUpdate(sql);
-//
-//                    sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
-//                            "VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 );";
-//                    stmt.executeUpdate(sql);
 
                     stmt.close();
                     bFoodItemsConnect.commit();
                     bFoodItemsConnect.close();
+                    dBConnect();
 
 
                 } catch (Exception Exc) {
                     System.err.println(Exc.getClass().getName() + ": " + Exc.getMessage());
-//                    System.exit(0);
+                    System.exit(0);
+
                 }
                 System.out.println("Records created successfully");
             }

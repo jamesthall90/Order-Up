@@ -114,7 +114,7 @@ public class LogInScreen extends JFrame {
                     String host = HOST;
 
                     Connection studentInfoCon = DriverManager.getConnection(host);
-
+                    
                     Statement state = studentInfoCon.createStatement();
 
                     String uid = String.format("SELECT uin FROM student WHERE student_email= '%s'", uname);

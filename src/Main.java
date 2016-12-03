@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 /* Added Main Class and src Directory */
 public class Main {
+    public static  String HOST = "";
+    
 
     public static void main(String[] args) throws SQLException, FileNotFoundException {
 
