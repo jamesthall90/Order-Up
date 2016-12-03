@@ -1118,7 +1118,6 @@ public class DayPlanner extends JFrame {
                 Statement stmt = null;
                 try {
                     Class.forName("org.sqlite.JDBC");
-//                    c = DriverManager.getConnection("jdbc:sqlite:studentinfo.db");
 
                     LogInScreen.studentInfoCon.setAutoCommit(false);
                     System.out.println("Opened database successfully");
@@ -1174,7 +1173,8 @@ public class DayPlanner extends JFrame {
 
                 } catch (Exception Exc) {
                     System.err.println(Exc.getClass().getName() + ": " + Exc.getMessage());
-                    System.exit(0);
+                    dispose();
+//                    System.exit(0);
 
                 }
                 System.out.println("Records created successfully");
