@@ -1167,7 +1167,8 @@ public class DayPlanner extends JFrame {
 
                     stmt.close();
                     LogInScreen.studentInfoCon.commit();
-                    LogInScreen.studentInfoCon.close();
+//                    LogInScreen.studentInfoCon.close();
+
 //                    dBConnect();
 
 
