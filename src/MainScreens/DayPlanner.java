@@ -1142,7 +1142,7 @@ public class DayPlanner extends JFrame {
                     
                     int total_cal = bFoodCal + lFoodCal + dFoodCal + sFoodCal;
                     int total_fatCal = bFoodFatCal + lFoodFatCal + dFoodFatCal + sFoodFatCal;
-                    int total_foodCarb = bFoodCarb + lFoodCarb + dFoodCarb + sFoodCarb;
+                    int total_carb = bFoodCarb + lFoodCarb + dFoodCarb + sFoodCarb;
                     int total_protein = bFoodProtein + lFoodProtein + dFoodProtein + sFoodProtein;
                     
                     int points_used  = bFoodPoints+lFoodPoints+dFoodPoints+sFoodPoints;
@@ -1153,15 +1153,14 @@ public class DayPlanner extends JFrame {
                     String snack_rest = dinnerRestaurants.getSelectedItem().toString();
 
 
-                    String sql = String.format("INSERT OR IGNORE INTO 815338108 (date,breakfast_restaurant,breakfast_food,breakfast_side," +
+                    String sql = String.format("INSERT OR IGNORE INTO '%d' (date,breakfast_restaurant,breakfast_food,breakfast_side," +
                                     "breakfast_drink,lunch_restaurant,lunch_food,lunch_side,lunch_drink,dinner_restaurant," +
                                     "dinner_food,dinner_side,dinner_drink,snack_restaurant,snack,total_calories," +
-                                    "total_fat_cal,total_carbs,total_protein) " +
-                                    "VALUES (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%d,%d,%d,%d,%d,%s,%s,%s,%s );",
-                            databaseKey,
-                            breakfastFood, breakfastSide, breakfastDrink, lunchFood, lunchSide, lunchDrink, dinnerFood,
-                            dinnerSide, dinnerDrink, snack, total_cal, total_fatCal, total_foodCarb, total_protein, points_used,
-                            breakfast_rest, lunch_rest, dinner_rest, snack_rest);
+                                    "total_fat_cal,total_carbs,total_protein, points_used) " +
+                                    "VALUES ('%d','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%d','%d','%d','%d','%d');",
+                            LogInScreen.universityID, databaseKey, breakfast_rest,
+                            breakfastFood, breakfastSide, breakfastDrink, lunch_rest, lunchFood, lunchSide, lunchDrink, dinner_rest, dinnerFood,
+                            dinnerSide, dinnerDrink, snack_rest, snack, total_cal, total_fatCal, total_carb, total_protein, points_used);
 
 
                     String sql2 = "INSERT INTO 814774683 (date) VALUES (20160220);";
