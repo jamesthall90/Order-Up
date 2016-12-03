@@ -5,10 +5,14 @@ import Utility.ToolClass;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.Scanner;
 
 public class LogInScreen extends JFrame {
+    public static String HOST;
+
     JButton btnLogIn, btnCancel;
     JPanel logInPanel;
     JTextField txtFieldUser, txtFieldPassword;
@@ -26,8 +30,12 @@ public class LogInScreen extends JFrame {
     private static final String[] schoolNames = {"Florida Gulf Coast" +
             "University"};
 
-    public LogInScreen() {
+    public LogInScreen() throws FileNotFoundException {
         super("Login Screen");
+        Scanner file = new Scanner(new File("database_path.txt"));
+        HOST = file.nextLine();
+        file.close();
+
 
         schoolChoiceBox = new JComboBox(schoolNames); //puts schools names into comboBox rows
 
@@ -103,7 +111,7 @@ public class LogInScreen extends JFrame {
 
                     uname = txtFieldUser.getText();
                     upaswd = txtFieldPassword.getText();
-                    String host = MainMenu.HOST;
+                    String host = HOST;
 
                     Connection studentInfoCon = DriverManager.getConnection(host);
                     

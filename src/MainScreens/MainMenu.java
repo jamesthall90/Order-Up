@@ -30,8 +30,6 @@ import java.util.Scanner;
 ///////////////////////////////
 
 public class MainMenu {
-    public static String HOST;
-
     static JFrame menu;
 
     static JPanel mainMenuPanel;
@@ -45,8 +43,10 @@ public class MainMenu {
     Calendar thisDay;
     static String dayOfMonthStr;
     static int dayOfmonth;
-    static JPanel testPanel;
-    static JLabel testLabel;
+    static JPanel dayAtAGlancePanel, mealGlancePanel, breakfastGlancePanel, lunchGlancePanel, dinnerGlancePanel, nutritionGlancePanel;
+    static JLabel dayAtAGlanceDate, breakFastTitle, breakfastRestaurant, breakfastFoodItem, breakfastSideItem, breakfastDrinkItem,
+            lunchTitle, lunchRestaurant, lunchFoodItem, lunchSideItem, lunchDrinkItem, dinnerTitle, dinnerRestaurant,
+            dinnerFoodItem, dinnerSideItem, dinnerDrinkItem, totalCal, totalFatCal, totalCarbs, totalProtein, totalPointsUsed;
 
     Font totalPointsLabelFont, remainingPointsLabelFont;
     //Logo should be added to shorter URL for code convention purposes
@@ -57,9 +57,6 @@ public class MainMenu {
 
 
     public MainMenu() throws FileNotFoundException {
-        Scanner file = new Scanner(new File("database_path.txt"));
-        HOST = file.nextLine();
-        file.close();
 
         menu = new JFrame("Main Menu");
 
@@ -101,7 +98,6 @@ public class MainMenu {
         //calorieCalc initilizer
         calorieCalculator = new JButton("Calorie Calculator");
         calorieMouseHandler handler = new calorieMouseHandler();
-        calorieCalculator.setBounds(300, 10, 150, 30);
         calorieCalculator.addMouseListener(handler);
 
 
@@ -144,12 +140,111 @@ public class MainMenu {
         myMealPlan = new JButton("My Meal Plan");
         myMealPlan.setForeground(ToolClass.fgcuGreen);
 
-        testPanel = new JPanel();
-        testPanel.setLayout(new BorderLayout());
-        testPanel.setVisible(true);
-        testPanel.setBackground(Color.WHITE);
-        testLabel = new JLabel("Hello! This is a test!");
-        testPanel.add(testLabel, BorderLayout.NORTH);
+        dayAtAGlancePanel = new JPanel();
+        dayAtAGlancePanel.setLayout(new FlowLayout());
+        dayAtAGlancePanel.setVisible(true);
+        dayAtAGlancePanel.setBackground(Color.WHITE);
+
+        dayAtAGlanceDate = new JLabel("");
+        dayAtAGlanceDate.setFont(ToolClass.smallItalicHeadingFont);
+        dayAtAGlanceDate.setForeground(ToolClass.fgcuGreen);
+
+        breakfastGlancePanel = new JPanel();
+        breakfastGlancePanel.setLayout(new GridLayout(5, 1));
+        breakfastGlancePanel.setVisible(true);
+        breakfastGlancePanel.setBackground(Color.WHITE);
+
+        breakFastTitle = new JLabel("<HTML><U>BREAKFAST</U> </HTML>");
+        breakFastTitle.setFont(ToolClass.smallBoldHeadingFont);
+        breakFastTitle.setForeground(ToolClass.fgcuBlue);
+        breakfastRestaurant = new JLabel("<HTML><U>Restaurant:</U></HTML>");
+        breakfastFoodItem = new JLabel("<HTML><U>Entree:</U></HTML>");
+        breakfastSideItem = new JLabel("<HTML><U>Side:</U></HTML>");
+        breakfastDrinkItem = new JLabel("<HTML><U> Drink: </U></HTML>");
+
+        breakfastGlancePanel.add(breakFastTitle);
+        breakfastGlancePanel.add(breakfastRestaurant);
+        breakfastGlancePanel.add(breakfastFoodItem);
+        breakfastGlancePanel.add(breakfastSideItem);
+        breakfastGlancePanel.add(breakfastDrinkItem);
+
+        lunchGlancePanel = new JPanel();
+        lunchGlancePanel.setLayout(new GridLayout(5, 1));
+        lunchGlancePanel.setVisible(true);
+        lunchGlancePanel.setBackground(Color.WHITE);
+
+        lunchTitle = new JLabel("<HTML><U>LUNCH</U></HTML>");
+        lunchTitle.setFont(ToolClass.smallBoldHeadingFont);
+        lunchTitle.setForeground(ToolClass.fgcuBlue);
+        lunchRestaurant = new JLabel("<HTML><U>Restaurant:</U></HTML>");
+        lunchFoodItem = new JLabel("<HTML><U>Entree:</U></HTML>");
+        lunchSideItem = new JLabel("<HTML><U>Side:</U></HTML>");
+        lunchDrinkItem = new JLabel("<HTML><U>Drink:</U></HTML>");
+
+        lunchGlancePanel.add(lunchTitle);
+        lunchGlancePanel.add(lunchRestaurant);
+        lunchGlancePanel.add(lunchFoodItem);
+        lunchGlancePanel.add(lunchSideItem);
+        lunchGlancePanel.add(lunchDrinkItem);
+
+        dinnerGlancePanel = new JPanel();
+        dinnerGlancePanel.setLayout(new GridLayout(5, 1));
+        dinnerGlancePanel.setVisible(true);
+        dinnerGlancePanel.setBackground(Color.WHITE);
+
+        dinnerTitle = new JLabel("<HTML><U>DINNER</U></HTML>");
+        dinnerTitle.setFont(ToolClass.smallBoldHeadingFont);
+        dinnerTitle.setForeground(ToolClass.fgcuBlue);
+        dinnerRestaurant = new JLabel("<HTML><U>Restaurant:</U></HTML>");
+        dinnerFoodItem = new JLabel("<HTML><U>Entree:</U></HTML>");
+        dinnerSideItem = new JLabel("<HTML><U>Side:</U></HTML>");
+        dinnerDrinkItem = new JLabel("<HTML><U>Drink:</U></HTML>");
+
+        dinnerGlancePanel.add(dinnerTitle);
+        dinnerGlancePanel.add(dinnerRestaurant);
+        dinnerGlancePanel.add(dinnerFoodItem);
+        dinnerGlancePanel.add(dinnerSideItem);
+        dinnerGlancePanel.add(dinnerDrinkItem);
+
+        mealGlancePanel = new JPanel();
+        mealGlancePanel.setLayout(new GridLayout(1, 3));
+        mealGlancePanel.setVisible(true);
+        mealGlancePanel.setBackground(Color.WHITE);
+
+        mealGlancePanel.add(breakfastGlancePanel);
+        mealGlancePanel.add(lunchGlancePanel);
+        mealGlancePanel.add(dinnerGlancePanel);
+
+        nutritionGlancePanel = new JPanel();
+        nutritionGlancePanel.setLayout(new GridLayout(2, 3));
+        nutritionGlancePanel.setVisible(true);
+        nutritionGlancePanel.setBackground(Color.WHITE);
+
+        totalCal = new JLabel("<HTML><U>Total Calories:</U> </HTML>");
+        totalCal.setFont(ToolClass.nutritionPanelFont);
+        totalCal.setForeground(ToolClass.fgcuBlue);
+        totalFatCal = new JLabel("<HTML><U>Total Fat Calories:</U> </HTML>");
+        totalFatCal.setFont(ToolClass.nutritionPanelFont);
+        totalFatCal.setForeground(ToolClass.fgcuBlue);
+        totalCarbs = new JLabel("<HTML><U>Total Carbs:</U> </HTML>");
+        totalCarbs.setFont(ToolClass.nutritionPanelFont);
+        totalCarbs.setForeground(ToolClass.fgcuBlue);
+        totalProtein = new JLabel("<HTML><U>Total Protein:</U> </HTML>");
+        totalProtein.setFont(ToolClass.nutritionPanelFont);
+        totalProtein.setForeground(ToolClass.fgcuBlue);
+        totalPointsUsed = new JLabel("<HTML><U>Total Points Used:</U> </HTML>");
+        totalPointsUsed.setFont(ToolClass.nutritionPanelFont);
+        totalPointsUsed.setForeground(ToolClass.fgcuBlue);
+
+        nutritionGlancePanel.add(totalCal);
+        nutritionGlancePanel.add(totalFatCal);
+        nutritionGlancePanel.add(totalCarbs);
+        nutritionGlancePanel.add(totalProtein);
+        nutritionGlancePanel.add(totalPointsUsed);
+
+        dayAtAGlancePanel.add(dayAtAGlanceDate);
+        dayAtAGlancePanel.add(mealGlancePanel);
+        dayAtAGlancePanel.add(nutritionGlancePanel);
 
         // Bounds / placement settings for all objects in mainMenuPanel
         smallLogoholderLabel.setBounds(49, 10, 100, 87);
@@ -159,8 +254,10 @@ public class MainMenu {
         totalPointsLabel.setBounds(636, 47, 85, 40);
         remainingPoints.setBounds(685, 84, 85, 30);
         remainingPointsLabel.setBounds(597, 75, 100, 40);
+        calorieCalculator.setBounds(597, 135, 150, 30);
         myMealPlan.setBounds(585, 153, 100, 40);
-        testPanel.setBounds(220, 50, 300, 100);
+        dayAtAGlancePanel.setBounds(220, 20, 350, 150);
+
 
 
         mainMenuPanel.add(smallLogoholderLabel);
@@ -189,15 +286,10 @@ public class MainMenu {
 
     public static class CalendarDemo extends Program implements ItemListener {
         /* Private constants */
-//    private static final Color EMPTY_BACKGROUND = new Color(0xDDDDDD);
         private static final String TITLE_FONT = "Serif-36";
         private static final String LABEL_FONT = "Serif-bold-14";
         private static final String DATE_FONT = "Serif-18";
         private static final Locale[] LOCALES = {new Locale("en", "US", "")};
-//            new Locale("fr", "FR", ""), new Locale("de", "DE", ""),
-//            new Locale("es", "MX", ""), new Locale("it", "IT", ""),
-//            new Locale("nl", "NL", ""), new Locale("es", "ES", ""),
-//            new Locale("en", "GB", ""), new Locale("en", "US", "")
 //    };
         public static int month;
         public static int year;
@@ -375,12 +467,11 @@ public class MainMenu {
                 @Override
                 public void mouseEntered(MouseEvent e) {
 
-                    MainMenu.mainMenuPanel.add(MainMenu.testPanel);
+                    MainMenu.mainMenuPanel.add(MainMenu.dayAtAGlancePanel);
                     menu.validate();
 
-                    testLabel.setText("whoo hoo! " + " " + String.valueOf(year) + " " + String.valueOf(month+1) +  " " + dayText);
+                    dayAtAGlanceDate.setText(" Day-At-A Glance For " + String.valueOf(month + 1) + "/" + dayText + "/" + String.valueOf(year));
                     datePrimaryKey = String.format("%d%02d%02d", year, month+1, Integer.parseInt(dayText));
-
 
 
 //                    if (dayText.equals("1")) {
@@ -395,7 +486,7 @@ public class MainMenu {
                 @Override
                 public void mouseExited(MouseEvent e) {
 
-                    MainMenu.mainMenuPanel.remove(MainMenu.testPanel);
+                    MainMenu.mainMenuPanel.remove(MainMenu.dayAtAGlancePanel);
                     menu.revalidate();
                     menu.repaint();
                 }
