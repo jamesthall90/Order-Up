@@ -1186,7 +1186,7 @@ public class DayPlanner extends JFrame {
 
                 } catch (Exception Exc) {
                     System.err.println(Exc.getClass().getName() + ": " + Exc.getMessage());
-                    System.exit(0);
+//                    System.exit(0);
                 }
                 System.out.println("Records created successfully");
             }

@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,6 +48,11 @@ public class MainMenu {
             lunchTitle, lunchRestaurant, lunchFoodItem, lunchSideItem, lunchDrinkItem, dinnerTitle, dinnerRestaurant,
             dinnerFoodItem, dinnerSideItem, dinnerDrinkItem, totalCal, totalFatCal, totalCarbs, totalProtein, totalPointsUsed;
 
+    static String breakFastTitleV, breakfastRestaurantV, breakfastFoodItemV, breakfastSideItemV, breakfastDrinkItemV,
+            lunchTitleV, lunchRestaurantV, lunchFoodItemV, lunchSideItemV, lunchDrinkItemV, dinnerTitleV, dinnerRestaurantV,
+            dinnerFoodItemV, dinnerSideItemV, dinnerDrinkItemV;
+    int totalCalV, totalFatCalV, totalCarbsV, totalProteinV, totalPointsUsedV;
+
     Font totalPointsLabelFont, remainingPointsLabelFont;
     //Logo should be added to shorter URL for code convention purposes
     String logoURL = "https://f9149b6c-a-62cb3a1a-s-sites.googlegroups.com/site/outstandingprogramming/documents/OrderUpLogo%20small.png";
@@ -55,6 +60,8 @@ public class MainMenu {
     JLabel smallLogoholderLabel;
     JButton calorieCalculator;
 
+    static String host = LogInScreen.HOST;
+    static ResultSet nutriResult;
 
     public MainMenu() throws FileNotFoundException {
 
@@ -195,10 +202,10 @@ public class MainMenu {
         dinnerTitle = new JLabel("<HTML><U>DINNER</U></HTML>");
         dinnerTitle.setFont(ToolClass.smallBoldHeadingFont);
         dinnerTitle.setForeground(ToolClass.fgcuBlue);
-        dinnerRestaurant = new JLabel("<HTML><U>Restaurant:</U></HTML>");
-        dinnerFoodItem = new JLabel("<HTML><U>Entree:</U></HTML>");
-        dinnerSideItem = new JLabel("<HTML><U>Side:</U></HTML>");
-        dinnerDrinkItem = new JLabel("<HTML><U>Drink:</U></HTML>");
+        dinnerRestaurant = new JLabel("<HTML><U>Restaurant:</U> " + dinnerRestaurantV + "</HTML>");
+        dinnerFoodItem = new JLabel("<HTML><U>Entree:</U> " + dinnerFoodItemV + "</HTML>");
+        dinnerSideItem = new JLabel("<HTML><U>Side:</U> " + dinnerSideItemV + "</HTML>");
+        dinnerDrinkItem = new JLabel("<HTML><U>Drink:</U> " + dinnerDrinkItemV + "</HTML>");
 
         dinnerGlancePanel.add(dinnerTitle);
         dinnerGlancePanel.add(dinnerRestaurant);
@@ -220,19 +227,19 @@ public class MainMenu {
         nutritionGlancePanel.setVisible(true);
         nutritionGlancePanel.setBackground(Color.WHITE);
 
-        totalCal = new JLabel("<HTML><U>Total Calories:</U> </HTML>");
+        totalCal = new JLabel("<HTML><U>Total Calories:</U>" + totalCalV + "</HTML>");
         totalCal.setFont(ToolClass.nutritionPanelFont);
         totalCal.setForeground(ToolClass.fgcuBlue);
-        totalFatCal = new JLabel("<HTML><U>Total Fat Calories:</U> </HTML>");
+        totalFatCal = new JLabel("<HTML><U>Total Fat Calories:</U> " + totalFatCalV + "</HTML>");
         totalFatCal.setFont(ToolClass.nutritionPanelFont);
         totalFatCal.setForeground(ToolClass.fgcuBlue);
-        totalCarbs = new JLabel("<HTML><U>Total Carbs:</U> </HTML>");
+        totalCarbs = new JLabel("<HTML><U>Total Carbs:</U> " + totalCarbsV + "</HTML>");
         totalCarbs.setFont(ToolClass.nutritionPanelFont);
         totalCarbs.setForeground(ToolClass.fgcuBlue);
-        totalProtein = new JLabel("<HTML><U>Total Protein:</U> </HTML>");
+        totalProtein = new JLabel("<HTML><U>Total Protein:</U>" + totalProteinV + "</HTML>");
         totalProtein.setFont(ToolClass.nutritionPanelFont);
         totalProtein.setForeground(ToolClass.fgcuBlue);
-        totalPointsUsed = new JLabel("<HTML><U>Total Points Used:</U> </HTML>");
+        totalPointsUsed = new JLabel("<HTML><U>Total Points Used:</U> " + totalProteinV + "</HTML>");
         totalPointsUsed.setFont(ToolClass.nutritionPanelFont);
         totalPointsUsed.setForeground(ToolClass.fgcuBlue);
 
@@ -473,13 +480,31 @@ public class MainMenu {
                     dayAtAGlanceDate.setText(" Day-At-A Glance For " + String.valueOf(month + 1) + "/" + dayText + "/" + String.valueOf(year));
                     datePrimaryKey = String.format("%d%02d%02d", year, month+1, Integer.parseInt(dayText));
 
-
-//                    if (dayText.equals("1")) {
-//                        testLabel.setText("whoo hoo! " + " " + String.valueOf(year) + " " + String.valueOf(month) +  " " + dayText);
+                    int thisDate = (Integer.parseInt(datePrimaryKey));
+                    String uin = String.valueOf(LogInScreen.universityID);
 //
-//                    } else if (dayText.equals("27")) {
-//                        testLabel.setText("yee haw!");
-//                    } else testLabel.setText("whoo hoo! " + " " + String.valueOf(year) + " " + String.valueOf(month) +  " " + dayText);
+//                    String sql123 = String.format("SELECT breakfast_restaurant, breakfast_food, breakfast_side, breakfast_drink, lunch_restaurant," +
+//                            "lunch_food, lunch_side, lunch_drink, dinner_restaurant, dinner_food, dinner_side, dinner_drink, " +
+//                            "snack_restaurant, snack, total_calories, total_fat_cal, total_carbs, total_protein, points_used" +
+//                            "FROM '%s' WHERE date = '%d'", uin, thisDate);
+
+
+                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE '%d'", uin, thisDate);
+                    Connection nutritionCon = null;
+                    try {
+                        nutritionCon = DriverManager.getConnection(host);
+                        Statement state = nutritionCon.createStatement();
+                        nutriResult = state.executeQuery(sql123);
+
+                        breakfastRestaurantV = nutriResult.getString("breakfast_restaurant");
+                        System.out.println(breakfastRestaurantV);
+                        breakfastRestaurant.setText("<HTML><U>Restaurant:</U> " + breakfastRestaurantV + "</HTML>");
+
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+
+
 
                 }
 
