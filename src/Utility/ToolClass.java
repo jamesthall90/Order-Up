@@ -29,7 +29,7 @@ public class ToolClass {
     public static Font largerBoldHeadingFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
     public static Font smallItalicHeadingFont = new Font(Font.SANS_SERIF, Font.ITALIC, 12);
     public static Font nutritionPanelFont = new Font(Font.SANS_SERIF, Font.ITALIC + Font.BOLD, 10);
-    public static Font dayAtAGlanceMealFont = new Font(Font.SANS_SERIF, Font.PLAIN, 11);
+    public static Font dayAtAGlanceMealFont = new Font(Font.SANS_SERIF, Font.BOLD, 11);
 
     //Objects created for use with compound border
     public static Border raisedBevel = BorderFactory.createRaisedBevelBorder();
