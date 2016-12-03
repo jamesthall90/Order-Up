@@ -613,7 +613,7 @@ public class MainMenu {
                         totalFatCal.setText("Total Fat Calories: " + totalFatCalV + " ");
 
                         totalCarbsV = 0;
-                        totalCarbs.setText(": " + totalCarbs + " ");
+                        totalCarbs.setText(": " + totalCarbsV + " ");
 
                         totalProteinV = 0;
                         totalProtein.setText(": " + totalProteinV + " ");
