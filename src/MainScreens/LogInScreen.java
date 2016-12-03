@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class LogInScreen extends JFrame {
     public static String HOST;
+    public static Connection studentInfoCon;
 
     JButton btnLogIn, btnCancel;
     JPanel logInPanel;
@@ -113,7 +114,7 @@ public class LogInScreen extends JFrame {
                     upaswd = txtFieldPassword.getText();
                     String host = HOST;
 
-                    Connection studentInfoCon = DriverManager.getConnection(host);
+                    studentInfoCon = DriverManager.getConnection(host);
                     
                     Statement state = studentInfoCon.createStatement();
 

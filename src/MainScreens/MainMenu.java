@@ -484,19 +484,19 @@ public class MainMenu {
 
 
                     String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE '%d'", uin, thisDate);
-                    Connection nutritionCon = null;
-                    try {
-                        nutritionCon = DriverManager.getConnection(host);
-                        Statement state = nutritionCon.createStatement();
-                        nutriResult = state.executeQuery(sql123);
-
-                        breakfastRestaurantV = nutriResult.getString("breakfast_restaurant");
-                        System.out.println(breakfastRestaurantV);
-                        breakfastRestaurant.setText("<HTML><U>Restaurant:</U> " + breakfastRestaurantV + "</HTML>");
-
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    }
+//                    Connection nutritionCon = null;
+//                    try {
+////                        nutritionCon = DriverManager.getConnection(host);
+//                        Statement state = LogInScreen.studentInfoCon.createStatement();
+//                        nutriResult = state.executeQuery(sql123);
+//
+//                        breakfastRestaurantV = nutriResult.getString("breakfast_restaurant");
+//                        System.out.println(breakfastRestaurantV);
+//                        breakfastRestaurant.setText("<HTML><U>Restaurant:</U> " + breakfastRestaurantV + "</HTML>");
+//
+//                    } catch (SQLException e1) {
+//                        e1.printStackTrace();
+//                    }
                 }
 
                 @Override

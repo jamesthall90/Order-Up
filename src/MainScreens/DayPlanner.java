@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class DayPlanner extends JFrame {
     
-    int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
+    public static int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
 
     JButton submitBtn;
     JPanel dayPlannerPanel, breakfastPanel, lunchPanel, dinnerPanel, snackPanel, breakfastNutrition, lunchNutrition,
@@ -37,7 +37,7 @@ public class DayPlanner extends JFrame {
     // items and load into combo-boxes
 
 
-    Connection bFoodItemsConnect, drink_itemConnect;
+//    Connection bFoodItemsConnect, drink_itemConnect;
 
     Statement bFoodState, bSideState, bDrinkState;
     Statement lFoodState, lSideState, lDrinkState;
@@ -92,7 +92,7 @@ public class DayPlanner extends JFrame {
         setLocationRelativeTo(null); // sets the location of the frame on the screen
         dayPlannerPanel.setLayout(null);
 
-        dBConnect();
+//        dBConnect();
         breakfastItems();
         breakfastNutritionItems();
         lunchItems();
@@ -405,7 +405,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No bFoodSet");
                 }
                 bFoodSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-                        breakfastFoodItems.getSelectedItem().toString(), bFoodState, bFoodItemsConnect, bFoodSet);
+                        breakfastFoodItems.getSelectedItem().toString(), bFoodState, LogInScreen.studentInfoCon, bFoodSet);
                 try {
                     bFoodCal += bFoodSet.getInt("total_calories");
                     bFoodFatCal += bFoodSet.getInt("total_fat_cal");
@@ -434,7 +434,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No bSideSet");
                 }
                 bSideSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-                        breakfastSideItems.getSelectedItem().toString(), bSideState, bFoodItemsConnect, bSideSet);
+                        breakfastSideItems.getSelectedItem().toString(), bSideState, LogInScreen.studentInfoCon, bSideSet);
                 try {
                     bFoodCal += bSideSet.getInt("total_calories");
                     bFoodFatCal += bSideSet.getInt("total_fat_cal");
@@ -463,7 +463,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No bDrinkSet");
                 }
                 bDrinkSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-                        breakfastDrinkItems.getSelectedItem().toString(), bDrinkState, bFoodItemsConnect, bDrinkSet);
+                        breakfastDrinkItems.getSelectedItem().toString(), bDrinkState, LogInScreen.studentInfoCon, bDrinkSet);
                 try {
                     bFoodCal += bDrinkSet.getInt("total_calories");
                     bFoodFatCal += bDrinkSet.getInt("total_fat_cal");
@@ -493,7 +493,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No lFoodSet");
                 }
                 lFoodSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
-                        lunchFoodItems.getSelectedItem().toString(), lFoodState, bFoodItemsConnect, lFoodSet);
+                        lunchFoodItems.getSelectedItem().toString(), lFoodState, LogInScreen.studentInfoCon, lFoodSet);
                 try {
                     lFoodCal += lFoodSet.getInt("total_calories");
                     lFoodFatCal += lFoodSet.getInt("total_fat_cal");
@@ -522,7 +522,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No lSideSet");
                 }
                 lSideSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
-                        lunchSideItems.getSelectedItem().toString(), lSideState, bFoodItemsConnect, lSideSet);
+                        lunchSideItems.getSelectedItem().toString(), lSideState, LogInScreen.studentInfoCon, lSideSet);
                 try {
                     lFoodCal += lSideSet.getInt("total_calories");
                     lFoodFatCal += lSideSet.getInt("total_fat_cal");
@@ -551,7 +551,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No lDrinkSet");
                 }
                 lDrinkSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
-                        lunchDrinkItems.getSelectedItem().toString(), lDrinkState, bFoodItemsConnect, lDrinkSet);
+                        lunchDrinkItems.getSelectedItem().toString(), lDrinkState, LogInScreen.studentInfoCon, lDrinkSet);
                 try {
                     lFoodCal += lDrinkSet.getInt("total_calories");
                     lFoodFatCal += lDrinkSet.getInt("total_fat_cal");
@@ -581,7 +581,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No dFoodSet");
                 }
                 dFoodSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
-                        dinnerFoodItems.getSelectedItem().toString(), dFoodState, bFoodItemsConnect, dFoodSet);
+                        dinnerFoodItems.getSelectedItem().toString(), dFoodState, LogInScreen.studentInfoCon, dFoodSet);
                 try {
                     dFoodCal += dFoodSet.getInt("total_calories");
                     dFoodFatCal += dFoodSet.getInt("total_fat_cal");
@@ -610,7 +610,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No dSideSet");
                 }
                 dSideSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
-                        dinnerSideItems.getSelectedItem().toString(), dSideState, bFoodItemsConnect, dSideSet);
+                        dinnerSideItems.getSelectedItem().toString(), dSideState, LogInScreen.studentInfoCon, dSideSet);
                 try {
                     dFoodCal += dSideSet.getInt("total_calories");
                     dFoodFatCal += dSideSet.getInt("total_fat_cal");
@@ -639,7 +639,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No dDrinkSet");
                 }
                 dDrinkSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
-                        dinnerDrinkItems.getSelectedItem().toString(), dDrinkState, bFoodItemsConnect, dDrinkSet);
+                        dinnerDrinkItems.getSelectedItem().toString(), dDrinkState, LogInScreen.studentInfoCon, dDrinkSet);
                 try {
                     dFoodCal += dDrinkSet.getInt("total_calories");
                     dFoodFatCal += dDrinkSet.getInt("total_fat_cal");
@@ -669,7 +669,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No sFoodSet");
                 }
                 sFoodSet = stephensQuery(snackRestaurants.getSelectedItem().toString(),
-                        snackItems.getSelectedItem().toString(), sFoodState, bFoodItemsConnect, sFoodSet);
+                        snackItems.getSelectedItem().toString(), sFoodState, LogInScreen.studentInfoCon, sFoodSet);
                 try {
                     sFoodCal += sFoodSet.getInt("total_calories");
                     sFoodFatCal += sFoodSet.getInt("total_fat_cal");
@@ -1120,10 +1120,10 @@ public class DayPlanner extends JFrame {
                     Class.forName("org.sqlite.JDBC");
 //                    c = DriverManager.getConnection("jdbc:sqlite:studentinfo.db");
 
-                    bFoodItemsConnect.setAutoCommit(false);
+                    LogInScreen.studentInfoCon.setAutoCommit(false);
                     System.out.println("Opened database successfully");
 
-                    stmt = bFoodItemsConnect.createStatement();
+                    stmt = LogInScreen.studentInfoCon.createStatement();
 
 
                     String breakfastFood =  breakfastFoodItems.getSelectedItem().toString();
@@ -1163,15 +1163,13 @@ public class DayPlanner extends JFrame {
                             dinnerSide, dinnerDrink, snack_rest, snack, total_cal, total_fatCal, total_carb, total_protein, points_used);
 
 
-                    String sql2 = "INSERT INTO 814774683 (date) VALUES (20160220);";
-
                     stmt.executeUpdate(sql);
 
 
                     stmt.close();
-                    bFoodItemsConnect.commit();
-                    bFoodItemsConnect.close();
-                    dBConnect();
+                    LogInScreen.studentInfoCon.commit();
+                    LogInScreen.studentInfoCon.close();
+//                    dBConnect();
 
 
                 } catch (Exception Exc) {
@@ -1186,17 +1184,18 @@ public class DayPlanner extends JFrame {
         submitBtn.addActionListener(sumbitButtonHandler);
     }
 
-    public  void dBConnect() throws FileNotFoundException {
+//    public  void dBConnect() throws FileNotFoundException {
+//
+////        host = ToolClass.yamnelPath
+//
+//        try {
+//            bFoodItemsConnect = DriverManager.getConnection(LogInScreen.HOST);
+////            dbDrive = bFoodItemsConnect.createStatement();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-//        host = ToolClass.yamnelPath
-        
-        try {
-            bFoodItemsConnect = DriverManager.getConnection(LogInScreen.HOST);
-//            dbDrive = bFoodItemsConnect.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
 
 
