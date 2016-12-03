@@ -156,6 +156,8 @@ public class DayPlanner extends JFrame {
                     MainMenu menu = new MainMenu();
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
                 }
 
             }
@@ -1020,10 +1022,11 @@ public class DayPlanner extends JFrame {
         snackRestaurants.setBackground(Color.WHITE);
         snackRestaurants.setForeground(ToolClass.fgcuBlue);
 
-        snackItems = new JComboBox(new String[0]);
+        snackItems = new JComboBox(jambaDrink);
         snackItems.setBackground(Color.WHITE);
         snackItems.setForeground(ToolClass.fgcuGreen);
 
+        snackItems.addActionListener(boxHandler);
         snackPanel.add(snackLabel);
         snackPanel.add(snackRestaurants);
         snackPanel.add(snackItems);
@@ -1114,8 +1117,7 @@ public class DayPlanner extends JFrame {
         ActionListener sumbitButtonHandler = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//              Connection c = null;
-                Statement stmt = null;
+                Statement stmt;
                 try {
                     Class.forName("org.sqlite.JDBC");
 
@@ -1163,19 +1165,15 @@ public class DayPlanner extends JFrame {
 
 
                     stmt.executeUpdate(sql);
-
-
                     stmt.close();
                     LogInScreen.studentInfoCon.commit();
-//                    LogInScreen.studentInfoCon.close();
 
-//                    dBConnect();
-
+                    // closes window
+                    dispose();
 
                 } catch (Exception Exc) {
                     System.err.println(Exc.getClass().getName() + ": " + Exc.getMessage());
                     dispose();
-//                    System.exit(0);
 
                 }
                 System.out.println("Records created successfully");
