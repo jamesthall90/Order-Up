@@ -37,7 +37,7 @@ public class MainMenu {
     static JPanel mainMenuPanel;
     static String dayOfMonthStr;
     static int dayOfmonth;
-    static JPanel dayAtAGlancePanel, mealGlancePanel, breakfastGlancePanel, lunchGlancePanel,
+    static JPanel dayAtAGlancePanel, dayAtAGlanceDatePanel, mealGlancePanel, breakfastGlancePanel, lunchGlancePanel,
             dinnerGlancePanel, nutritionGlancePanel;
     static JLabel dayAtAGlanceDate, breakFastTitle, breakfastRestaurant, breakfastFoodItem,
             breakfastSideItem, breakfastDrinkItem,
@@ -136,12 +136,19 @@ public class MainMenu {
         dayAtAGlancePanel.setVisible(true);
         dayAtAGlancePanel.setBackground(Color.WHITE);
 
+        dayAtAGlanceDatePanel = new JPanel();
+        dayAtAGlanceDatePanel.setLayout(new FlowLayout());
+        dayAtAGlanceDatePanel.setVisible(true);
+        dayAtAGlanceDatePanel.setBackground(Color.WHITE);
+
         /* Initialization of JLabel to hold current Day-At-A-Glance date,
          * Which is updated in the vboxListener MouseListener method */
         dayAtAGlanceDate = new JLabel("");
         dayAtAGlanceDate.setFont(new Font(Font.SANS_SERIF, Font.ITALIC + Font.BOLD, 12));
         dayAtAGlanceDate.setForeground(ToolClass.fgcuGreen);
         dayAtAGlanceDate.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        dayAtAGlanceDatePanel.add(dayAtAGlanceDate, SwingConstants.CENTER);
 
         //Initialization of breakfastGlancePanel, which holds all breakfast meal items
         breakfastGlancePanel = new JPanel();
@@ -263,7 +270,7 @@ public class MainMenu {
         nutritionGlancePanel.add(totalPointsUsed);
 
         //Adds all containing panels to dayAtAGlancePanel
-        dayAtAGlancePanel.add(dayAtAGlanceDate);
+        dayAtAGlancePanel.add(dayAtAGlanceDatePanel);
         dayAtAGlancePanel.add(mealGlancePanel);
         dayAtAGlancePanel.add(nutritionGlancePanel);
 
@@ -505,7 +512,7 @@ public class MainMenu {
 
                         breakfastFoodItemV = nutriResult.getString("breakfast_food");
                         System.out.println(breakfastFoodItemV);
-                        breakfastFoodItem.setText("Entree: " + breakfastRestaurantV + " ");
+                        breakfastFoodItem.setText("Entree: " + breakfastFoodItemV + " ");
 
                         breakfastSideItemV = nutriResult.getString("breakfast_side");
                         System.out.println(breakfastSideItemV);
@@ -613,13 +620,13 @@ public class MainMenu {
                         totalFatCal.setText("Total Fat Calories: " + totalFatCalV + " ");
 
                         totalCarbsV = 0;
-                        totalCarbs.setText(": " + totalCarbsV + " ");
+                        totalCarbs.setText("Total Carbs: " + totalCarbsV + " ");
 
                         totalProteinV = 0;
-                        totalProtein.setText(": " + totalProteinV + " ");
+                        totalProtein.setText("Total Protein: " + totalProteinV + " ");
 
                         totalPointsUsedV = 0;
-                        totalPointsUsed.setText(": " + totalPointsUsedV + " ");
+                        totalPointsUsed.setText("Total Points Used: " + totalPointsUsedV + " ");
                     }
                 }
 
