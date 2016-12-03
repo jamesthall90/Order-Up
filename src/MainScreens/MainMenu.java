@@ -218,7 +218,7 @@ public class MainMenu {
         dinnerGlancePanel.add(dinnerDrinkItem);
 
         mealGlancePanel = new JPanel();
-        mealGlancePanel.setLayout(null);
+        mealGlancePanel.setLayout(new GridLayout(1, 3));
         mealGlancePanel.setVisible(true);
         mealGlancePanel.setBackground(Color.WHITE);
 
@@ -482,21 +482,21 @@ public class MainMenu {
 //                            "snack_restaurant, snack, total_calories, total_fat_cal, total_carbs, total_protein, points_used" +
 //                            "FROM '%s' WHERE date = '%d'", uin, thisDate);
 
-
-                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE '%d'", uin, thisDate);
-                    Connection nutritionCon = null;
-                    try {
-                        nutritionCon = DriverManager.getConnection(host);
-                        Statement state = nutritionCon.createStatement();
-                        nutriResult = state.executeQuery(sql123);
-
-                        breakfastRestaurantV = nutriResult.getString("breakfast_restaurant");
-                        System.out.println(breakfastRestaurantV);
-                        breakfastRestaurant.setText("<HTML><U>Restaurant:</U> " + breakfastRestaurantV + "</HTML>");
-
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    }
+//
+//                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE '%d'", uin, thisDate);
+//                    Connection nutritionCon = null;
+//                    try {
+//                        nutritionCon = DriverManager.getConnection(host);
+//                        Statement state = nutritionCon.createStatement();
+//                        nutriResult = state.executeQuery(sql123);
+//
+//                        breakfastRestaurantV = nutriResult.getString("breakfast_restaurant");
+//                        System.out.println(breakfastRestaurantV);
+//                        breakfastRestaurant.setText("<HTML><U>Restaurant:</U> " + breakfastRestaurantV + "</HTML>");
+//
+//                    } catch (SQLException e1) {
+//                        e1.printStackTrace();
+//                    }
                 }
 
                 @Override
