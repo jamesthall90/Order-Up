@@ -510,7 +510,7 @@ public class MainMenu {
 
                         breakfastFoodItemV = nutriResult.getString("breakfast_food");
                         System.out.println(breakfastFoodItemV);
-                        breakfastFoodItem.setText("Entree: " + breakfastRestaurantV + " ");
+                        breakfastFoodItem.setText("Entree: " + breakfastFoodItemV + " ");
 
 
                     } catch (SQLException e1) {
