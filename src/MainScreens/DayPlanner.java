@@ -1150,7 +1150,7 @@ public class DayPlanner extends JFrame {
                     String breakfast_rest = breakfastRestaurants.getSelectedItem().toString();
                     String lunch_rest = lunchRestaurants.getSelectedItem().toString();
                     String dinner_rest = dinnerRestaurants.getSelectedItem().toString();
-                    String snack_rest = dinnerRestaurants.getSelectedItem().toString();
+                    String snack_rest = snackRestaurants.getSelectedItem().toString();
 
 
                     String sql = String.format("INSERT OR IGNORE INTO '%d' (date,breakfast_restaurant,breakfast_food,breakfast_side," +
@@ -1182,6 +1182,7 @@ public class DayPlanner extends JFrame {
                     stmt.close();
                     bFoodItemsConnect.commit();
                     bFoodItemsConnect.close();
+                    dBConnect();
 
 
                 } catch (Exception Exc) {
