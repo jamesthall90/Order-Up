@@ -10,14 +10,12 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Scanner;
 
 ///////////////////////////////////
 /*
@@ -31,47 +29,49 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-    JLabel studentNameLabel, pointsLabel, totalPoints, totalPointsLabel, remainingPointsLabel, remainingPoints;
+    JLabel studentNameLabel, pointsLabel, totalPoints, totalPointsLabel, remainingPointsLabel,
+            remainingPoints, smallLogoholderLabel;
     static JFrame menu;
     JButton myMealPlan;
     Calendar thisDay;
     static JPanel mainMenuPanel;
     static String dayOfMonthStr;
     static int dayOfmonth;
-    static JPanel dayAtAGlancePanel, mealGlancePanel, breakfastGlancePanel, lunchGlancePanel, dinnerGlancePanel, nutritionGlancePanel;
-    static JLabel dayAtAGlanceDate, breakFastTitle, breakfastRestaurant, breakfastFoodItem, breakfastSideItem, breakfastDrinkItem,
-            lunchTitle, lunchRestaurant, lunchFoodItem, lunchSideItem, lunchDrinkItem, dinnerTitle, dinnerRestaurant,
-            dinnerFoodItem, dinnerSideItem, dinnerDrinkItem, totalCal, totalFatCal, totalCarbs, totalProtein, totalPointsUsed;
+    static JPanel dayAtAGlancePanel, mealGlancePanel, breakfastGlancePanel, lunchGlancePanel,
+            dinnerGlancePanel, nutritionGlancePanel;
+    static JLabel dayAtAGlanceDate, breakFastTitle, breakfastRestaurant, breakfastFoodItem,
+            breakfastSideItem, breakfastDrinkItem,
+            lunchTitle, lunchRestaurant, lunchFoodItem, lunchSideItem, lunchDrinkItem, dinnerTitle,
+            dinnerRestaurant, dinnerFoodItem, dinnerSideItem, dinnerDrinkItem, totalCal, totalFatCal,
+            totalCarbs, totalProtein, totalPointsUsed;
     static String breakFastTitleV, breakfastRestaurantV, breakfastFoodItemV, breakfastSideItemV, breakfastDrinkItemV,
             lunchTitleV, lunchRestaurantV, lunchFoodItemV, lunchSideItemV, lunchDrinkItemV, dinnerTitleV, dinnerRestaurantV,
             dinnerFoodItemV, dinnerSideItemV, dinnerDrinkItemV;
     int totalCalV, totalFatCalV, totalCarbsV, totalProteinV, totalPointsUsedV;
     Font totalPointsLabelFont, remainingPointsLabelFont;
 
-    //Logo should be added to shorter URL for code convention purposes
     String logoURL = "http://aandeautos4theneedy.org/wp-content/uploads/2016/12/OrderUpLogo-small.png";
     ImageIcon orderUpLogoSmall;
-    JLabel smallLogoholderLabel;
     JButton calorieCalculator;
-
-    static String host = LogInScreen.HOST;
-    static ResultSet nutriResult;
 
     public MainMenu() throws FileNotFoundException {
 
+        //Initialization of menu JFrame
         menu = new JFrame("Main Menu");
+        menu.setSize(750, 640); //sets the size of the frame
+        menu.setLocationRelativeTo(null); //sets the location of the frame on the screen
 
         thisDay = Calendar.getInstance();
         dayOfmonth = thisDay.get(Calendar.DAY_OF_MONTH);
         dayOfMonthStr = String.valueOf(dayOfmonth);
 
+        //Initialization of encasing mainMenuPanel
+        //Layout set to null, so that individual object bounds can be set
         mainMenuPanel = new JPanel();
-        menu.setSize(750, 640); //sets the size of the frame
-        menu.setLocationRelativeTo(null); //sets the location of the frame on the screen
         mainMenuPanel.setLayout(null);
         mainMenuPanel.setBackground(ToolClass.fgcuBlue);
 
-        //Calls createImageIcon from ToolCalss to add logo ImageIcon & then adds to orderUpLogoSmall
+        //Calls createImageIcon from ToolClass to add logo ImageIcon & then adds to orderUpLogoSmall
         orderUpLogoSmall = ToolClass.createImageIcon(logoURL, "Order-Up Logo");
         smallLogoholderLabel = new JLabel(orderUpLogoSmall);
 
@@ -263,7 +263,7 @@ public class MainMenu {
         dayAtAGlancePanel.add(mealGlancePanel);
         dayAtAGlancePanel.add(nutritionGlancePanel);
 
-        // Bounds / placement settings for all objects in mainMenuPanel
+        //Bounds / placement settings for all objects in mainMenuPanel
         smallLogoholderLabel.setBounds(49, 10, 100, 87);
         studentNameLabel.setBounds(20, 100, 160, 40);
         pointsLabel.setBounds(650, 10, 100, 50);
@@ -287,13 +287,15 @@ public class MainMenu {
         mainMenuPanel.add(remainingPointsLabel);
         mainMenuPanel.add(calorieCalculator);
 
-        /*TESTING*/
+        //Adds CalendarDemo object to mainMenuPanel & formats placement
         CalendarDemo cal = new CalendarDemo();
         mainMenuPanel.add(cal);
         cal.setBounds(78, 200, 600, 400);
         cal.setVisible(true);
 
-        /*END TESTING*/
+
+        /* Adds mainMenuPanel to menu JFrame and sets
+           program to close upon Close of window */
         menu.add(mainMenuPanel);
         menu.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         menu.setVisible(true);
@@ -459,19 +461,17 @@ public class MainMenu {
             /* This MouseListener is used to run a query that will populate the JLabels
              * in dayAtAGlancePanel with meal and nutrition values from the database*/
             MouseListener vboxListener = new MouseListener() {
-                @Override
+
+                @Override //Mandatory Interface method implementation - never used
                 public void mouseClicked(MouseEvent e) {
-
                 }
 
-                @Override
+                @Override //Mandatory Interface method implementation - never used
                 public void mousePressed(MouseEvent e) {
-
                 }
 
-                @Override
+                @Override //Mandatory Interface method implementation - never used
                 public void mouseReleased(MouseEvent e) {
-
                 }
 
                 @Override
