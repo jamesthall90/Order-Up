@@ -55,11 +55,11 @@ public class MainMenu {
     JButton calorieCalculator;
     static ResultSet nutriResult;
 
-    public MainMenu() throws FileNotFoundException {
+    public MainMenu() throws FileNotFoundException, SQLException {
 
         //Initialization of menu JFrame
         menu = new JFrame("Main Menu");
-        menu.setSize(750, 640); //sets the size of the frame
+        menu.setSize(975, 700); //sets the size of the frame
         menu.setLocationRelativeTo(null); //sets the location of the frame on the screen
 
         thisDay = Calendar.getInstance();
@@ -115,7 +115,10 @@ public class MainMenu {
         remainingPointsLabel.setForeground(Color.white);
 
         // Initialization and settings for remaining Points output
-        remainingPoints = new JLabel("256"); // <----- Needs to display remaining points from db
+
+        int remainingPointsValue = LogInScreen.userPointTotal -  (LogInScreen.studentInfoCon.createStatement().executeQuery("SELECT sum(points_used) from '"+ LogInScreen.universityID +"'").getInt("sum(points_used)"));
+
+        remainingPoints = new JLabel(String.valueOf(remainingPointsValue)); // <----- Needs to display remaining points from db
         remainingPoints.setFont(ToolClass.smallBoldHeadingFont);
         remainingPoints.setForeground(ToolClass.fgcuGreen);
         remainingPoints.setBackground(Color.yellow);
@@ -129,7 +132,7 @@ public class MainMenu {
 
         //Initialization of outer panel for Day-At-A-Glance output
         dayAtAGlancePanel = new JPanel();
-        dayAtAGlancePanel.setLayout(new FlowLayout());
+        dayAtAGlancePanel.setLayout(new GridLayout(3, 1));
         dayAtAGlancePanel.setVisible(true);
         dayAtAGlancePanel.setBackground(Color.WHITE);
 
@@ -267,14 +270,14 @@ public class MainMenu {
         //Bounds / placement settings for all objects in mainMenuPanel
         smallLogoholderLabel.setBounds(49, 10, 100, 87);
         studentNameLabel.setBounds(20, 100, 160, 40);
-        pointsLabel.setBounds(650, 10, 100, 50);
-        totalPoints.setBounds(685, 55, 85, 30);
-        totalPointsLabel.setBounds(636, 47, 85, 40);
-        remainingPoints.setBounds(685, 84, 85, 30);
-        remainingPointsLabel.setBounds(597, 75, 100, 40);
-        calorieCalculator.setBounds(597, 135, 150, 30);
+        pointsLabel.setBounds(850, 10, 100, 50);
+        totalPoints.setBounds(875, 55, 85, 30);
+        totalPointsLabel.setBounds(826, 47, 85, 40);
+        remainingPoints.setBounds(875, 84, 85, 30);
+        remainingPointsLabel.setBounds(795, 75, 100, 40);
+        calorieCalculator.setBounds(807, 135, 150, 30);
         myMealPlan.setBounds(585, 153, 100, 40);
-        dayAtAGlancePanel.setBounds(200, 20, 390, 150);
+        dayAtAGlancePanel.setBounds(190, 20, 590, 180);
 
         /* Adds all Container objects to encasing mainMenuPanel,
           aside from dayAtAGlancePanel, which is added
@@ -291,7 +294,7 @@ public class MainMenu {
         //Adds CalendarDemo object to mainMenuPanel & formats placement
         CalendarDemo cal = new CalendarDemo();
         mainMenuPanel.add(cal);
-        cal.setBounds(78, 200, 600, 400);
+        cal.setBounds(128, 215, 700, 455);
         cal.setVisible(true);
 
 
@@ -484,28 +487,15 @@ public class MainMenu {
                     dayAtAGlanceDate.setText(" Day-At-A Glance For " + String.valueOf(month + 1) + "/" + dayText + "/" + String.valueOf(year));
                     datePrimaryKey = String.format("%d%02d%02d", year, month+1, Integer.parseInt(dayText));
 
-                    int thisDate = (Integer.parseInt(datePrimaryKey));
                     String uin = String.valueOf(LogInScreen.universityID);
-//
-//                    String sql123 = String.format("SELECT breakfast_restaurant, breakfast_food, breakfast_side, breakfast_drink, lunch_restaurant," +
-//                            "lunch_food, lunch_side, lunch_drink, dinner_restaurant, dinner_food, dinner_side, dinner_drink, " +
-//                            "snack_restaurant, snack, total_calories, total_fat_cal, total_carbs, total_protein, points_used" +
-//                            "FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1), Integer.parseInt(dayText));
 
-
-//                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE '%d'", uin, thisDate);
-//                    String tempkey = String.format("%d%02d%02d",);
-//                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1), Integer.parseInt(dayText));
-//
                     String sql123 = String.format("SELECT breakfast_restaurant, breakfast_food, breakfast_side, " +
                                     "breakfast_drink, lunch_restaurant, lunch_food, lunch_side, lunch_drink, dinner_restaurant,"
                                     + "dinner_food, dinner_side, dinner_drink, total_calories, total_fat_cal, total_carbs, " +
                                     "total_protein, points_used FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1),
                             Integer.parseInt(dayText));
 
-// Connection nutritionCon = null;
                     try {
-//                        nutritionCon = DriverManager.getConnection(host);
                         Statement state = LogInScreen.studentInfoCon.createStatement();
                         nutriResult = state.executeQuery(sql123);
 
@@ -515,7 +505,7 @@ public class MainMenu {
 
                         breakfastFoodItemV = nutriResult.getString("breakfast_food");
                         System.out.println(breakfastFoodItemV);
-                        breakfastFoodItem.setText("Entree: " + breakfastFoodItemV + " ");
+                        breakfastFoodItem.setText("Entree: " + breakfastRestaurantV + " ");
 
                         breakfastSideItemV = nutriResult.getString("breakfast_side");
                         System.out.println(breakfastSideItemV);
@@ -567,18 +557,69 @@ public class MainMenu {
 
                         totalCarbsV = nutriResult.getInt("total_carbs");
                         System.out.println(totalCarbsV);
-                        totalCarbs.setText(": " + totalCarbs + " ");
+                        totalCarbs.setText("Total Carbs: " + totalCarbsV + " ");
 
                         totalProteinV = nutriResult.getInt("total_protein");
                         System.out.println(totalProteinV);
-                        totalProtein.setText(": " + totalProteinV + " ");
+                        totalProtein.setText("Total Protein: " + totalProteinV + " ");
 
                         totalPointsUsedV = nutriResult.getInt("points_used");
-                        System.out.println();
-                        totalPointsUsed.setText(": " + totalPointsUsedV + " ");
+                        System.out.println(totalPointsUsedV);
+                        totalPointsUsed.setText("Total Points Used: " + totalPointsUsedV + " ");
 
+                        repaint();
                     } catch (SQLException e1) {
-                        e1.printStackTrace();
+//                        e1.printStackTrace();
+                        breakfastRestaurantV = "";
+                        breakfastRestaurant.setText("Restaurant: " + breakfastRestaurantV + " ");
+
+                        breakfastFoodItemV = "";
+                        breakfastFoodItem.setText("Entree: " + breakfastRestaurantV + " ");
+
+                        breakfastSideItemV = "";
+                        breakfastSideItem.setText("Side: " + breakfastSideItemV + " ");
+
+                        breakfastDrinkItemV = "";
+                        breakfastDrinkItem.setText("Drink: " + breakfastDrinkItemV + " ");
+
+                        lunchRestaurantV = "";
+                        lunchRestaurant.setText("Restaurant: " + lunchRestaurantV + " ");
+
+                        lunchFoodItemV = "";
+                        lunchFoodItem.setText("Entree: " + lunchFoodItemV + " ");
+
+                        lunchSideItemV = "";
+                        lunchSideItem.setText("Side: " + lunchSideItemV + " ");
+
+                        lunchDrinkItemV = "";
+                        lunchDrinkItem.setText("Drink: " + lunchDrinkItemV + " ");
+
+                        dinnerRestaurantV = "";
+                        dinnerRestaurant.setText("Restaurant: " + dinnerRestaurantV + " ");
+
+                        dinnerFoodItemV = "";
+                        dinnerFoodItem.setText("Entree: " + dinnerFoodItemV + " ");
+
+                        dinnerSideItemV = "";
+                        dinnerSideItem.setText("Side: " + dinnerSideItemV + " ");
+
+                        dinnerDrinkItemV = "";
+                        dinnerDrinkItem.setText("Drink: " + dinnerDrinkItemV + " ");
+
+                        totalCalV = 0;
+                        totalCal.setText("Total Calories: " + totalCalV + " ");
+
+                        totalFatCalV = 0;
+                        totalFatCal.setText("Total Fat Calories: " + totalFatCalV + " ");
+
+                        totalCarbsV = 0;
+                        totalCarbs.setText(": " + totalCarbs + " ");
+
+                        totalProteinV = 0;
+                        totalProtein.setText(": " + totalProteinV + " ");
+
+                        totalPointsUsedV = 0;
+                        totalPointsUsed.setText(": " + totalPointsUsedV + " ");
                     }
                 }
 
