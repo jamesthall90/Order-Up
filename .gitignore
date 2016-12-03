@@ -21,3 +21,4 @@ hs_err_pid*
 /OrderUp.iml
 /data/studentinfo.db-journal
 /data/corrupt_studentinfo.db
+/bin/
