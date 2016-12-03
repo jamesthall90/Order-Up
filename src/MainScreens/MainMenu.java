@@ -47,7 +47,7 @@ public class MainMenu {
     static String breakFastTitleV, breakfastRestaurantV, breakfastFoodItemV, breakfastSideItemV, breakfastDrinkItemV,
             lunchTitleV, lunchRestaurantV, lunchFoodItemV, lunchSideItemV, lunchDrinkItemV, dinnerTitleV, dinnerRestaurantV,
             dinnerFoodItemV, dinnerSideItemV, dinnerDrinkItemV;
-    int totalCalV, totalFatCalV, totalCarbsV, totalProteinV, totalPointsUsedV;
+    static int totalCalV, totalFatCalV, totalCarbsV, totalProteinV, totalPointsUsedV;
     Font totalPointsLabelFont, remainingPointsLabelFont;
 
     String logoURL = "http://aandeautos4theneedy.org/wp-content/uploads/2016/12/OrderUpLogo-small.png";
@@ -497,7 +497,12 @@ public class MainMenu {
 //                    String tempkey = String.format("%d%02d%02d",);
 //                    String sql123 = String.format("SELECT breakfast_restaurant FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1), Integer.parseInt(dayText));
 //
-                    String sql123 = String.format("SELECT breakfast_restaurant, breakfast_food FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1), Integer.parseInt(dayText));
+                    String sql123 = String.format("SELECT breakfast_restaurant, breakfast_food, breakfast_side, " +
+                                    "breakfast_drink, lunch_restaurant, lunch_food, lunch_side, lunch_drink, dinner_restaurant,"
+                                    + "dinner_food, dinner_side, dinner_drink, total_calories, total_fat_cal, total_carbs, " +
+                                    "total_protein, points_used FROM '%s' WHERE date= '%d%02d%02d'", uin, year, (month + 1),
+                            Integer.parseInt(dayText));
+
 // Connection nutritionCon = null;
                     try {
 //                        nutritionCon = DriverManager.getConnection(host);
@@ -506,12 +511,71 @@ public class MainMenu {
 
                         breakfastRestaurantV = nutriResult.getString("breakfast_restaurant");
                         System.out.println(breakfastRestaurantV);
-                        breakfastRestaurant.setText("<HTML><U>Restaurant:</U> " + breakfastRestaurantV + "</HTML>");
+                        breakfastRestaurant.setText("Restaurant: " + breakfastRestaurantV + " ");
 
                         breakfastFoodItemV = nutriResult.getString("breakfast_food");
                         System.out.println(breakfastFoodItemV);
                         breakfastFoodItem.setText("Entree: " + breakfastFoodItemV + " ");
 
+                        breakfastSideItemV = nutriResult.getString("breakfast_side");
+                        System.out.println(breakfastSideItemV);
+                        breakfastSideItem.setText("Side: " + breakfastSideItemV + " ");
+
+                        breakfastDrinkItemV = nutriResult.getString("breakfast_drink");
+                        System.out.println(breakfastDrinkItemV);
+                        breakfastDrinkItem.setText("Drink: " + breakfastDrinkItemV + " ");
+
+                        lunchRestaurantV = nutriResult.getString("lunch_restaurant");
+                        System.out.println(lunchRestaurantV);
+                        lunchRestaurant.setText("Restaurant: " + lunchRestaurantV + " ");
+
+                        lunchFoodItemV = nutriResult.getString("lunch_food");
+                        System.out.println(lunchFoodItemV);
+                        lunchFoodItem.setText("Entree: " + lunchFoodItemV + " ");
+
+                        lunchSideItemV = nutriResult.getString("lunch_side");
+                        System.out.println(lunchSideItemV);
+                        lunchSideItem.setText("Side: " + lunchSideItemV + " ");
+
+                        lunchDrinkItemV = nutriResult.getString("lunch_drink");
+                        System.out.println(lunchDrinkItemV);
+                        lunchDrinkItem.setText("Drink: " + lunchDrinkItemV + " ");
+
+                        dinnerRestaurantV = nutriResult.getString("dinner_restaurant");
+                        System.out.println(dinnerRestaurantV);
+                        dinnerRestaurant.setText("Restaurant: " + dinnerRestaurantV + " ");
+
+                        dinnerFoodItemV = nutriResult.getString("dinner_food");
+                        System.out.println(dinnerFoodItemV);
+                        dinnerFoodItem.setText("Entree: " + dinnerFoodItemV + " ");
+
+                        dinnerSideItemV = nutriResult.getString("dinner_side");
+                        System.out.println(dinnerSideItemV);
+                        dinnerSideItem.setText("Side: " + dinnerSideItemV + " ");
+
+                        dinnerDrinkItemV = nutriResult.getString("dinner_drink");
+                        System.out.println(dinnerDrinkItemV);
+                        dinnerDrinkItem.setText("Drink: " + dinnerDrinkItemV + " ");
+
+                        totalCalV = nutriResult.getInt("total_calories");
+                        System.out.println(totalCalV);
+                        totalCal.setText("Total Calories: " + totalCalV + " ");
+
+                        totalFatCalV = nutriResult.getInt("total_fat_cal");
+                        System.out.println(totalFatCalV);
+                        totalFatCal.setText("Total Fat Calories: " + totalFatCalV + " ");
+
+                        totalCarbsV = nutriResult.getInt("total_carbs");
+                        System.out.println(totalCarbsV);
+                        totalCarbs.setText(": " + totalCarbs + " ");
+
+                        totalProteinV = nutriResult.getInt("total_protein");
+                        System.out.println(totalProteinV);
+                        totalProtein.setText(": " + totalProteinV + " ");
+
+                        totalPointsUsedV = nutriResult.getInt("points_used");
+                        System.out.println();
+                        totalPointsUsed.setText(": " + totalPointsUsedV + " ");
 
                     } catch (SQLException e1) {
                         e1.printStackTrace();
