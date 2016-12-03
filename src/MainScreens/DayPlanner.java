@@ -1186,7 +1186,7 @@ public class DayPlanner extends JFrame {
         submitBtn.addActionListener(sumbitButtonHandler);
     }
 
-    public void dBConnect() throws FileNotFoundException {
+    public  void dBConnect() throws FileNotFoundException {
 
 //        host = ToolClass.yamnelPath
         
