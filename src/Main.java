@@ -1,9 +1,7 @@
 import MainScreens.*;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 /* Added Main Class and src Directory */
 public class Main {
