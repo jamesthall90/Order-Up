@@ -11,7 +11,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.Date;
@@ -116,7 +118,7 @@ public class MainMenu {
 
         // Initialization and settings for remaining Points output
 
-        int remainingPointsValue = LogInScreen.userPointTotal -  (LogInScreen.studentInfoCon.createStatement().executeQuery("SELECT sum(points_used) from '"+ LogInScreen.universityID +"'").getInt("sum(points_used)"));
+        int remainingPointsValue = LogInScreen.userPointTotal - (LogInScreen.studentInfoCon.createStatement().executeQuery("SELECT sum(points_used) from '" + LogInScreen.universityID + "'").getInt("sum(points_used)"));
 
         remainingPoints = new JLabel(String.valueOf(remainingPointsValue)); // <----- Needs to display remaining points from db
         remainingPoints.setFont(ToolClass.smallBoldHeadingFont);
@@ -230,7 +232,7 @@ public class MainMenu {
 
         //Initialization of mealGlancePanel, which will hold all 3 meal panels
         mealGlancePanel = new JPanel();
-        mealGlancePanel.setLayout(new GridLayout(1,3));
+        mealGlancePanel.setLayout(new GridLayout(1, 3));
         mealGlancePanel.setVisible(true);
         mealGlancePanel.setBackground(Color.WHITE);
 
@@ -336,7 +338,6 @@ public class MainMenu {
 
         public CalendarDemo() {
             init();
-
         }
 
         /**
@@ -465,7 +466,8 @@ public class MainMenu {
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
                     }
-                    MainMenu.menu.dispose();
+//                    MainMenu.menu.dispose();
+                    MainMenu.menu.setVisible(false);
                 }
             };
 
@@ -492,7 +494,7 @@ public class MainMenu {
                     menu.validate();
 
                     dayAtAGlanceDate.setText(" Day-At-A Glance For " + String.valueOf(month + 1) + "/" + dayText + "/" + String.valueOf(year));
-                    datePrimaryKey = String.format("%d%02d%02d", year, month+1, Integer.parseInt(dayText));
+                    datePrimaryKey = String.format("%d%02d%02d", year, month + 1, Integer.parseInt(dayText));
 
                     String uin = String.valueOf(LogInScreen.universityID);
 
@@ -503,75 +505,75 @@ public class MainMenu {
                             Integer.parseInt(dayText));
 
                     try {
-                        Statement state = LogInScreen.studentInfoCon.createStatement();
-                        nutriResult = state.executeQuery(sql123);
+//                        Statement state = LogInScreen.studentInfoCon.createStatement();
+                        nutriResult = LogInScreen.studentInfoCon.createStatement().executeQuery(sql123);
 
                         breakfastRestaurantV = nutriResult.getString("breakfast_restaurant");
-                        System.out.println(breakfastRestaurantV);
+//                        System.out.println(breakfastRestaurantV);
                         breakfastRestaurant.setText("Restaurant: " + breakfastRestaurantV + " ");
 
                         breakfastFoodItemV = nutriResult.getString("breakfast_food");
-                        System.out.println(breakfastFoodItemV);
+//                        System.out.println(breakfastFoodItemV);
                         breakfastFoodItem.setText("Entree: " + breakfastFoodItemV + " ");
 
                         breakfastSideItemV = nutriResult.getString("breakfast_side");
-                        System.out.println(breakfastSideItemV);
+//                        System.out.println(breakfastSideItemV);
                         breakfastSideItem.setText("Side: " + breakfastSideItemV + " ");
 
                         breakfastDrinkItemV = nutriResult.getString("breakfast_drink");
-                        System.out.println(breakfastDrinkItemV);
+//                        System.out.println(breakfastDrinkItemV);
                         breakfastDrinkItem.setText("Drink: " + breakfastDrinkItemV + " ");
 
                         lunchRestaurantV = nutriResult.getString("lunch_restaurant");
-                        System.out.println(lunchRestaurantV);
+//                        System.out.println(lunchRestaurantV);
                         lunchRestaurant.setText("Restaurant: " + lunchRestaurantV + " ");
 
                         lunchFoodItemV = nutriResult.getString("lunch_food");
-                        System.out.println(lunchFoodItemV);
+//                        System.out.println(lunchFoodItemV);
                         lunchFoodItem.setText("Entree: " + lunchFoodItemV + " ");
 
                         lunchSideItemV = nutriResult.getString("lunch_side");
-                        System.out.println(lunchSideItemV);
+//                        System.out.println(lunchSideItemV);
                         lunchSideItem.setText("Side: " + lunchSideItemV + " ");
 
                         lunchDrinkItemV = nutriResult.getString("lunch_drink");
-                        System.out.println(lunchDrinkItemV);
+//                        System.out.println(lunchDrinkItemV);
                         lunchDrinkItem.setText("Drink: " + lunchDrinkItemV + " ");
 
                         dinnerRestaurantV = nutriResult.getString("dinner_restaurant");
-                        System.out.println(dinnerRestaurantV);
+//                        System.out.println(dinnerRestaurantV);
                         dinnerRestaurant.setText("Restaurant: " + dinnerRestaurantV + " ");
 
                         dinnerFoodItemV = nutriResult.getString("dinner_food");
-                        System.out.println(dinnerFoodItemV);
+//                        System.out.println(dinnerFoodItemV);
                         dinnerFoodItem.setText("Entree: " + dinnerFoodItemV + " ");
 
                         dinnerSideItemV = nutriResult.getString("dinner_side");
-                        System.out.println(dinnerSideItemV);
+//                        System.out.println(dinnerSideItemV);
                         dinnerSideItem.setText("Side: " + dinnerSideItemV + " ");
 
                         dinnerDrinkItemV = nutriResult.getString("dinner_drink");
-                        System.out.println(dinnerDrinkItemV);
+//                        System.out.println(dinnerDrinkItemV);
                         dinnerDrinkItem.setText("Drink: " + dinnerDrinkItemV + " ");
 
                         totalCalV = nutriResult.getInt("total_calories");
-                        System.out.println(totalCalV);
+//                        System.out.println(totalCalV);
                         totalCal.setText("Total Calories: " + totalCalV + " ");
 
                         totalFatCalV = nutriResult.getInt("total_fat_cal");
-                        System.out.println(totalFatCalV);
+//                        System.out.println(totalFatCalV);
                         totalFatCal.setText("Total Fat Calories: " + totalFatCalV + " ");
 
                         totalCarbsV = nutriResult.getInt("total_carbs");
-                        System.out.println(totalCarbsV);
+//                        System.out.println(totalCarbsV);
                         totalCarbs.setText("Total Carbs: " + totalCarbsV + " ");
 
                         totalProteinV = nutriResult.getInt("total_protein");
-                        System.out.println(totalProteinV);
+//                        System.out.println(totalProteinV);
                         totalProtein.setText("Total Protein: " + totalProteinV + " ");
 
                         totalPointsUsedV = nutriResult.getInt("points_used");
-                        System.out.println(totalPointsUsedV);
+//                        System.out.println(totalPointsUsedV);
                         totalPointsUsed.setText("Total Points Used: " + totalPointsUsedV + " ");
 
                         repaint();
@@ -632,7 +634,6 @@ public class MainMenu {
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-
                     MainMenu.mainMenuPanel.remove(MainMenu.dayAtAGlancePanel);
                     menu.revalidate();
                     menu.repaint();

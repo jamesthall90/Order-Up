@@ -2,6 +2,7 @@ package MainScreens;
 
 import MainScreens.MainMenu.CalendarDemo;
 import Utility.ToolClass;
+import sun.applet.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,13 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.*;
-import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DayPlanner extends JFrame {
-    
+
     public static int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
 
     JButton submitBtn;
@@ -94,16 +96,16 @@ public class DayPlanner extends JFrame {
         dayPlannerPanel.setLayout(null);
 
         try {
-          System.err.println(databaseKey);
-          String foodQuery = String.format("SELECT * FROM '%d' WHERE date = '%d' ",LogInScreen.universityID, Integer.parseInt(CalendarDemo.datePrimaryKey));
-          Statement stmt = LogInScreen.studentInfoCon.createStatement();
-          foodSet = stmt.executeQuery(foodQuery);
+            System.err.println(databaseKey);
+            String foodQuery = String.format("SELECT * FROM '%d' WHERE date = '%d' ", LogInScreen.universityID, Integer.parseInt(CalendarDemo.datePrimaryKey));
+            Statement stmt = LogInScreen.studentInfoCon.createStatement();
+            foodSet = stmt.executeQuery(foodQuery);
 //          System.err.println(foodSet.getString("breakfast_restaurant"));
         } catch (SQLException e) {
-          foodSet = null;
-          e.printStackTrace();
+            foodSet = null;
+            e.printStackTrace();
         }
- 
+
         breakfastItems(foodSet);
         breakfastNutritionItems();
         lunchItems(foodSet);
@@ -113,7 +115,7 @@ public class DayPlanner extends JFrame {
         snackItems(foodSet);
         snackNutritionItems();
         totalNutritionItems(foodSet);
-        
+
         ent = einEnt;
         side = einSide;
         drink = einDrink;
@@ -167,13 +169,10 @@ public class DayPlanner extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                try {
-                    MainMenu menu = new MainMenu();
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
+                //                    MainMenu menu = new MainMenu();
+                MainMenu.menu.repaint();
+                MainMenu.menu.revalidate();
+                MainMenu.menu.setVisible(true);
 
             }
 
@@ -742,45 +741,45 @@ public class DayPlanner extends JFrame {
         breakfastRestaurants.setBackground(Color.WHITE);
         breakfastRestaurants.setForeground(ToolClass.fgcuBlue);
         if (set != null) {
-          try {
-            breakfastRestaurants.setSelectedItem(set.getString("breakfast_restaurant"));
-          } catch (SQLException e) {
-            System.err.println("No b data found");
-          }
+            try {
+                breakfastRestaurants.setSelectedItem(set.getString("breakfast_restaurant"));
+            } catch (SQLException e) {
+                System.err.println("No b data found");
+            }
         }
-        
+
         if (breakfastRestaurants.getSelectedItem() == restaurants[0]) {
-          //einsteins
-          ent = einEnt;
-          side = einSide;
-          drink = einDrink;
+            //einsteins
+            ent = einEnt;
+            side = einSide;
+            drink = einDrink;
         } else if (breakfastRestaurants.getSelectedItem() == restaurants[1]) {
-          //papa
-          ent = papaEnt;
-          side = papaSide;
-          drink = papaDrink;
+            //papa
+            ent = papaEnt;
+            side = papaSide;
+            drink = papaDrink;
         } else if (breakfastRestaurants.getSelectedItem() == restaurants[2]) {
-          //brahma
-          ent = brEnt;
-          side = brSide;
-          drink = brDrink;
+            //brahma
+            ent = brEnt;
+            side = brSide;
+            drink = brDrink;
         } else if (breakfastRestaurants.getSelectedItem() == restaurants[3]) {
-          //chick
-          ent = chickEnt;
-          side = chickSide;
-          drink = chickDrink;
+            //chick
+            ent = chickEnt;
+            side = chickSide;
+            drink = chickDrink;
         } else if (breakfastRestaurants.getSelectedItem() == restaurants[4]) {
-          //jamba
-          ent = new String[0];
-          side = new String[0];
-          drink = jambaDrink;
+            //jamba
+            ent = new String[0];
+            side = new String[0];
+            drink = jambaDrink;
         } else if (breakfastRestaurants.getSelectedItem() == restaurants[0]) {
-          //starbucks
-          ent = new String[0];
-          side = new String[0];
-          drink = starDrink;
+            //starbucks
+            ent = new String[0];
+            side = new String[0];
+            drink = starDrink;
         }
-        
+
         breakfastFoodItems = new JComboBox(ent);
         breakfastFoodItems.setBackground(Color.WHITE);
         breakfastFoodItems.setForeground(ToolClass.fgcuGreen);
@@ -794,14 +793,14 @@ public class DayPlanner extends JFrame {
         breakfastDrinkItems = new JComboBox(drink);
         breakfastDrinkItems.setBackground(Color.WHITE);
         breakfastDrinkItems.setForeground(ToolClass.fgcuBlue);
-        
+
         try {
-          breakfastFoodItems.setSelectedItem(set.getString("breakfast_food"));
-          breakfastSideItems.setSelectedItem(set.getString("breakfast_side"));
-          breakfastDrinkItems.setSelectedItem(set.getString("breakfast_drink"));
+            breakfastFoodItems.setSelectedItem(set.getString("breakfast_food"));
+            breakfastSideItems.setSelectedItem(set.getString("breakfast_side"));
+            breakfastDrinkItems.setSelectedItem(set.getString("breakfast_drink"));
         } catch (SQLException e) {
 //          e.printStackTrace();
-          System.err.println("No b data found");
+            System.err.println("No b data found");
         }
 
         breakfastRestaurants.addActionListener(boxHandler);
@@ -898,47 +897,47 @@ public class DayPlanner extends JFrame {
         lunchRestaurants.setVisible(true);
         lunchRestaurants.setBackground(Color.WHITE);
         lunchRestaurants.setForeground(ToolClass.fgcuBlue);
-        
+
         if (set != null) {
-          try {
-            lunchRestaurants.setSelectedItem(set.getString("lunch_restaurant"));
-          } catch (SQLException e) {
-            System.err.println("No l data found");
-          }
+            try {
+                lunchRestaurants.setSelectedItem(set.getString("lunch_restaurant"));
+            } catch (SQLException e) {
+                System.err.println("No l data found");
+            }
         }
-        
+
         if (lunchRestaurants.getSelectedItem() == restaurants[0]) {
-          //einsteins
-          ent = einEnt;
-          side = einSide;
-          drink = einDrink;
+            //einsteins
+            ent = einEnt;
+            side = einSide;
+            drink = einDrink;
         } else if (lunchRestaurants.getSelectedItem() == restaurants[1]) {
-          //papa
-          ent = papaEnt;
-          side = papaSide;
-          drink = papaDrink;
+            //papa
+            ent = papaEnt;
+            side = papaSide;
+            drink = papaDrink;
         } else if (lunchRestaurants.getSelectedItem() == restaurants[2]) {
-          //brahma
-          ent = brEnt;
-          side = brSide;
-          drink = brDrink;
+            //brahma
+            ent = brEnt;
+            side = brSide;
+            drink = brDrink;
         } else if (lunchRestaurants.getSelectedItem() == restaurants[3]) {
-          //chick
-          ent = chickEnt;
-          side = chickSide;
-          drink = chickDrink;
+            //chick
+            ent = chickEnt;
+            side = chickSide;
+            drink = chickDrink;
         } else if (lunchRestaurants.getSelectedItem() == restaurants[4]) {
-          //jamba
-          ent = new String[0];
-          side = new String[0];
-          drink = jambaDrink;
+            //jamba
+            ent = new String[0];
+            side = new String[0];
+            drink = jambaDrink;
         } else if (lunchRestaurants.getSelectedItem() == restaurants[0]) {
-          //starbucks
-          ent = new String[0];
-          side = new String[0];
-          drink = starDrink;
+            //starbucks
+            ent = new String[0];
+            side = new String[0];
+            drink = starDrink;
         }
-        
+
         lunchFoodItems = new JComboBox(ent);
         lunchFoodItems.setBackground(Color.WHITE);
         lunchFoodItems.setForeground(ToolClass.fgcuGreen);
@@ -950,15 +949,15 @@ public class DayPlanner extends JFrame {
         lunchDrinkItems = new JComboBox(drink);
         lunchDrinkItems.setBackground(Color.WHITE);
         lunchDrinkItems.setForeground(ToolClass.fgcuBlue);
-        
+
         try {
-          lunchFoodItems.setSelectedItem(set.getString("lunch_food"));
-          lunchSideItems.setSelectedItem(set.getString("lunch_side"));
-          lunchDrinkItems.setSelectedItem(set.getString("lunch_drink"));
+            lunchFoodItems.setSelectedItem(set.getString("lunch_food"));
+            lunchSideItems.setSelectedItem(set.getString("lunch_side"));
+            lunchDrinkItems.setSelectedItem(set.getString("lunch_drink"));
         } catch (SQLException e) {
-          System.err.println("No l data found");
+            System.err.println("No l data found");
         }
-        
+
         lunchRestaurants.addActionListener(boxHandler);
         lunchFoodItems.addActionListener(boxHandler);
         lunchSideItems.addActionListener(boxHandler);
@@ -1043,45 +1042,45 @@ public class DayPlanner extends JFrame {
         dinnerRestaurants.setVisible(true);
         dinnerRestaurants.setBackground(Color.WHITE);
         dinnerRestaurants.setForeground(ToolClass.fgcuBlue);
-        
+
         if (set != null) {
-          try {
-            dinnerRestaurants.setSelectedItem(set.getString("dinner_restaurant"));
-          } catch (SQLException e) {
-            System.err.println("No d data found");
-          }
+            try {
+                dinnerRestaurants.setSelectedItem(set.getString("dinner_restaurant"));
+            } catch (SQLException e) {
+                System.err.println("No d data found");
+            }
         }
-        
+
         if (dinnerRestaurants.getSelectedItem() == restaurants[0]) {
-          //einsteins
-          ent = einEnt;
-          side = einSide;
-          drink = einDrink;
+            //einsteins
+            ent = einEnt;
+            side = einSide;
+            drink = einDrink;
         } else if (dinnerRestaurants.getSelectedItem() == restaurants[1]) {
-          //papa
-          ent = papaEnt;
-          side = papaSide;
-          drink = papaDrink;
+            //papa
+            ent = papaEnt;
+            side = papaSide;
+            drink = papaDrink;
         } else if (dinnerRestaurants.getSelectedItem() == restaurants[2]) {
-          //brahma
-          ent = brEnt;
-          side = brSide;
-          drink = brDrink;
+            //brahma
+            ent = brEnt;
+            side = brSide;
+            drink = brDrink;
         } else if (dinnerRestaurants.getSelectedItem() == restaurants[3]) {
-          //chick
-          ent = chickEnt;
-          side = chickSide;
-          drink = chickDrink;
+            //chick
+            ent = chickEnt;
+            side = chickSide;
+            drink = chickDrink;
         } else if (dinnerRestaurants.getSelectedItem() == restaurants[4]) {
-          //jamba
-          ent = new String[0];
-          side = new String[0];
-          drink = jambaDrink;
+            //jamba
+            ent = new String[0];
+            side = new String[0];
+            drink = jambaDrink;
         } else if (dinnerRestaurants.getSelectedItem() == restaurants[0]) {
-          //starbucks
-          ent = new String[0];
-          side = new String[0];
-          drink = starDrink;
+            //starbucks
+            ent = new String[0];
+            side = new String[0];
+            drink = starDrink;
         }
 
         dinnerFoodItems = new JComboBox(ent);
@@ -1095,15 +1094,15 @@ public class DayPlanner extends JFrame {
         dinnerDrinkItems = new JComboBox(drink);
         dinnerDrinkItems.setBackground(Color.WHITE);
         dinnerDrinkItems.setForeground(ToolClass.fgcuBlue);
-        
+
         try {
-          dinnerFoodItems.setSelectedItem(set.getString("dinner_food"));
-          dinnerSideItems.setSelectedItem(set.getString("dinner_side"));
-          dinnerDrinkItems.setSelectedItem(set.getString("dinner_drink"));
+            dinnerFoodItems.setSelectedItem(set.getString("dinner_food"));
+            dinnerSideItems.setSelectedItem(set.getString("dinner_side"));
+            dinnerDrinkItems.setSelectedItem(set.getString("dinner_drink"));
         } catch (SQLException e) {
-          System.err.println("No d data found");
+            System.err.println("No d data found");
         }
-        
+
         dinnerRestaurants.addActionListener(boxHandler);
         dinnerFoodItems.addActionListener(boxHandler);
         dinnerSideItems.addActionListener(boxHandler);
@@ -1168,34 +1167,34 @@ public class DayPlanner extends JFrame {
         snackRestaurants.setVisible(true);
         snackRestaurants.setBackground(Color.WHITE);
         snackRestaurants.setForeground(ToolClass.fgcuBlue);
-        
+
         try {
-          snackRestaurants.setSelectedItem(set.getString("snack_restaurant"));
+            snackRestaurants.setSelectedItem(set.getString("snack_restaurant"));
         } catch (SQLException e) {
-          System.err.println("No s data found");
+            System.err.println("No s data found");
         }
-        
-        if (snackRestaurants.getSelectedItem() ==sRestaurants[0]) {
-          //jamba
-          drink = jambaDrink;
+
+        if (snackRestaurants.getSelectedItem() == sRestaurants[0]) {
+            //jamba
+            drink = jambaDrink;
         } else if (snackRestaurants.getSelectedItem() == sRestaurants[1]) {
-          //starbucks
-          drink = starDrink;
+            //starbucks
+            drink = starDrink;
         }
 
         snackItems = new JComboBox(drink);
         snackItems.setBackground(Color.WHITE);
         snackItems.setForeground(ToolClass.fgcuGreen);
-        
+
         try {
-          snackItems.setSelectedItem(set.getString("snack"));
+            snackItems.setSelectedItem(set.getString("snack"));
         } catch (SQLException e) {
-          System.err.println("No s data found");
+            System.err.println("No s data found");
         }
 
         snackRestaurants.addActionListener(boxHandler);
         snackItems.addActionListener(boxHandler);
-        
+
         snackPanel.add(snackLabel);
         snackPanel.add(snackRestaurants);
         snackPanel.add(snackItems);
@@ -1236,7 +1235,7 @@ public class DayPlanner extends JFrame {
         snackNutrition.add(snackProtein);
         snackNutrition.add(snackFat);
     }
-    
+
 
     public void totalNutritionItems(ResultSet set) {
 
@@ -1266,15 +1265,15 @@ public class DayPlanner extends JFrame {
         totalFat = new JLabel("<HTML><U>Total Fat: </U></HTML> " + "g");
         totalFat.setForeground(Color.WHITE);
         totalFat.setFont(ToolClass.nutritionPanelFont);
-        
+
         try {
-          totalCalories.setText("<HTML><U>Total Calories:</U>"+ Integer.parseInt(set.getString("total_calories"))+"</HTML> ");
-          totalFatCalories.setText("<HTML><U>Total Fat Calories:</U>" + Integer.parseInt(set.getString("total_fat_cal")) + "</HTML> " + "g");
-          totalCarbs.setText("<HTML><U>Total Carbs:</U>" + Integer.parseInt(set.getString("total_carbs")) + "</HTML> " + "g");
-          totalProtein.setText("<HTML><U>Total Protein: </U>" + Integer.parseInt(set.getString("total_protein")) + "</HTML> " + "g");
+            totalCalories.setText("<HTML><U>Total Calories:</U>" + Integer.parseInt(set.getString("total_calories")) + "</HTML> ");
+            totalFatCalories.setText("<HTML><U>Total Fat Calories:</U>" + Integer.parseInt(set.getString("total_fat_cal")) + "</HTML> " + "g");
+            totalCarbs.setText("<HTML><U>Total Carbs:</U>" + Integer.parseInt(set.getString("total_carbs")) + "</HTML> " + "g");
+            totalProtein.setText("<HTML><U>Total Protein: </U>" + Integer.parseInt(set.getString("total_protein")) + "</HTML> " + "g");
         } catch (Exception e) {
 //          e.printStackTrace();
-          System.err.println("No n data found");
+            System.err.println("No n data found");
         }
 
         totalNutrition.add(totalCalories);
@@ -1283,7 +1282,7 @@ public class DayPlanner extends JFrame {
         totalNutrition.add(totalProtein);
         totalNutrition.add(totalFat);
     }
-    
+
 
     public void submit() {
 
@@ -1298,39 +1297,39 @@ public class DayPlanner extends JFrame {
         ActionListener sumbitButtonHandler = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              ent = einEnt;
-              side = einSide;
-              drink = einDrink;
-                Statement stmt;
+                ent = einEnt;
+                side = einSide;
+                drink = einDrink;
+                Statement stmt1;
                 try {
                     Class.forName("org.sqlite.JDBC");
 
                     LogInScreen.studentInfoCon.setAutoCommit(false);
                     System.out.println("Opened database successfully");
 
-                    stmt = LogInScreen.studentInfoCon.createStatement();
+                    stmt1 = LogInScreen.studentInfoCon.createStatement();
 
 
-                    String breakfastFood =  breakfastFoodItems.getSelectedItem().toString();
+                    String breakfastFood = breakfastFoodItems.getSelectedItem().toString();
                     String breakfastSide = breakfastSideItems.getSelectedItem().toString();
                     String breakfastDrink = breakfastDrinkItems.getSelectedItem().toString();
-                    
-                    String lunchFood =  lunchFoodItems.getSelectedItem().toString();
+
+                    String lunchFood = lunchFoodItems.getSelectedItem().toString();
                     String lunchSide = lunchSideItems.getSelectedItem().toString();
                     String lunchDrink = lunchDrinkItems.getSelectedItem().toString();
 
-                    String dinnerFood =  dinnerFoodItems.getSelectedItem().toString();
+                    String dinnerFood = dinnerFoodItems.getSelectedItem().toString();
                     String dinnerSide = dinnerSideItems.getSelectedItem().toString();
                     String dinnerDrink = dinnerDrinkItems.getSelectedItem().toString();
 
                     String snack = snackItems.getSelectedItem().toString();
-                    
+
                     int total_cal = bFoodCal + lFoodCal + dFoodCal + sFoodCal;
                     int total_fatCal = bFoodFatCal + lFoodFatCal + dFoodFatCal + sFoodFatCal;
                     int total_carb = bFoodCarb + lFoodCarb + dFoodCarb + sFoodCarb;
                     int total_protein = bFoodProtein + lFoodProtein + dFoodProtein + sFoodProtein;
-                    
-                    int points_used  = bFoodPoints+lFoodPoints+dFoodPoints+sFoodPoints;
+
+                    int points_used = bFoodPoints + lFoodPoints + dFoodPoints + sFoodPoints;
 
                     String breakfast_rest = breakfastRestaurants.getSelectedItem().toString();
                     String lunch_rest = lunchRestaurants.getSelectedItem().toString();
@@ -1348,8 +1347,9 @@ public class DayPlanner extends JFrame {
                             dinnerSide, dinnerDrink, snack_rest, snack, total_cal, total_fatCal, total_carb, total_protein, points_used);
 
 
-                    stmt.executeUpdate(sql);
-                    stmt.close();
+                    stmt1.executeUpdate(sql);
+                    stmt1.close();
+
                     LogInScreen.studentInfoCon.commit();
 
                     // closes window
