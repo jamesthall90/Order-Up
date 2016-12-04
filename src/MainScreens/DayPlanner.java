@@ -18,7 +18,7 @@ import java.sql.Statement;
 
 public class DayPlanner extends JFrame {
 
-    public static int databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
+    public static int databaseKey;
 
     JButton submitBtn;
     JPanel dayPlannerPanel, breakfastPanel, lunchPanel, dinnerPanel, snackPanel, breakfastNutrition, lunchNutrition,
@@ -83,7 +83,8 @@ public class DayPlanner extends JFrame {
     public DayPlanner(String dayText) throws SQLException, FileNotFoundException { // dayText is the day number
         super("Meal Plan for " + CalendarDemo.capitalize(CalendarDemo.monthNames[CalendarDemo.month]) + ", " + dayText + " " + CalendarDemo.year);
 
-
+        databaseKey = Integer.parseInt(CalendarDemo.datePrimaryKey);
+        
         System.out.println(databaseKey);
 
         ent = einEnt;
@@ -1337,7 +1338,7 @@ public class DayPlanner extends JFrame {
                     String snack_rest = snackRestaurants.getSelectedItem().toString();
 
 
-                    String sql = String.format("INSERT OR IGNORE INTO '%d' (date,breakfast_restaurant,breakfast_food,breakfast_side," +
+                    String sql = String.format("INSERT INTO '%d' (date,breakfast_restaurant,breakfast_food,breakfast_side," +
                                     "breakfast_drink,lunch_restaurant,lunch_food,lunch_side,lunch_drink,dinner_restaurant," +
                                     "dinner_food,dinner_side,dinner_drink,snack_restaurant,snack,total_calories," +
                                     "total_fat_cal,total_carbs,total_protein, points_used) " +
