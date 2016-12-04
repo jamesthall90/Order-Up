@@ -49,6 +49,7 @@ public class DayPlanner extends JFrame {
     ResultSet lFoodSet, lSideSet, lDrinkSet;
     ResultSet dFoodSet, dSideSet, dDrinkSet;
     ResultSet sFoodSet;
+    ResultSet foodSet;
 
 
     String[] restaurants = {"Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
@@ -59,10 +60,10 @@ public class DayPlanner extends JFrame {
     String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"}; //Entered into DB
     String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"}; //Entered into DB
     String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"}; //Entered into DB
-    String[] papaDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+    String[] papaDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
     String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"}; //Entered into DB
     String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; //Entered into DB
-    String[] brDrink = {"Water", "Coke", "Sprite"}; //Entered into DB
+    String[] brDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
     String[] chickEnt = {"Chicken Sandwich", "8-Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
     String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
     String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
@@ -92,16 +93,30 @@ public class DayPlanner extends JFrame {
         setLocationRelativeTo(null); // sets the location of the frame on the screen
         dayPlannerPanel.setLayout(null);
 
-//        dBConnect();
-        breakfastItems();
+        try {
+          System.err.println(databaseKey);
+          String foodQuery = String.format("SELECT * FROM '%d' WHERE date = '%d' ",LogInScreen.universityID, Integer.parseInt(CalendarDemo.datePrimaryKey));
+          Statement stmt = LogInScreen.studentInfoCon.createStatement();
+          foodSet = stmt.executeQuery(foodQuery);
+//          System.err.println(foodSet.getString("breakfast_restaurant"));
+        } catch (SQLException e) {
+          foodSet = null;
+          e.printStackTrace();
+        }
+ 
+        breakfastItems(foodSet);
         breakfastNutritionItems();
-        lunchItems();
+        lunchItems(foodSet);
         lunchNutritionItems();
-        dinnerItems();
+        dinnerItems(foodSet);
         dinnerNutritionItems();
-        snackItems();
+        snackItems(foodSet);
         snackNutritionItems();
-        totalNutritionItems();
+        totalNutritionItems(foodSet);
+        
+        ent = einEnt;
+        side = einSide;
+        drink = einDrink;
         submit();
 
         submitBtn.setBounds(0, 0, 200, 50);
@@ -706,8 +721,9 @@ public class DayPlanner extends JFrame {
     }
 
 
-    public void breakfastItems() {
+    public void breakfastItems(ResultSet set) {
 
+      
     /* Breakfast Panel & Items */
         breakfastPanel = new JPanel();
         breakfastPanel.setLayout(new GridLayout(5, 1));
@@ -725,23 +741,72 @@ public class DayPlanner extends JFrame {
         breakfastRestaurants.setVisible(true);
         breakfastRestaurants.setBackground(Color.WHITE);
         breakfastRestaurants.setForeground(ToolClass.fgcuBlue);
-        breakfastRestaurants.addActionListener(boxHandler);
-
+        if (set != null) {
+          try {
+            breakfastRestaurants.setSelectedItem(set.getString("breakfast_restaurant"));
+          } catch (SQLException e) {
+            System.err.println("No b data found");
+          }
+        }
+        
+        if (breakfastRestaurants.getSelectedItem() == restaurants[0]) {
+          //einsteins
+          ent = einEnt;
+          side = einSide;
+          drink = einDrink;
+        } else if (breakfastRestaurants.getSelectedItem() == restaurants[1]) {
+          //papa
+          ent = papaEnt;
+          side = papaSide;
+          drink = papaDrink;
+        } else if (breakfastRestaurants.getSelectedItem() == restaurants[2]) {
+          //brahma
+          ent = brEnt;
+          side = brSide;
+          drink = brDrink;
+        } else if (breakfastRestaurants.getSelectedItem() == restaurants[3]) {
+          //chick
+          ent = chickEnt;
+          side = chickSide;
+          drink = chickDrink;
+        } else if (breakfastRestaurants.getSelectedItem() == restaurants[4]) {
+          //jamba
+          ent = new String[0];
+          side = new String[0];
+          drink = jambaDrink;
+        } else if (breakfastRestaurants.getSelectedItem() == restaurants[0]) {
+          //starbucks
+          ent = new String[0];
+          side = new String[0];
+          drink = starDrink;
+        }
+        
         breakfastFoodItems = new JComboBox(ent);
         breakfastFoodItems.setBackground(Color.WHITE);
         breakfastFoodItems.setForeground(ToolClass.fgcuGreen);
-        breakfastFoodItems.addActionListener(boxHandler);
 //    queryDriver(bFoodState, breakfastRestaurantName, breakfastFoodName, bFoodCal, bFoodFatCal, bFoodProtein, bFoodCarb, bFoodPoints);
 
         breakfastSideItems = new JComboBox(side);
         breakfastSideItems.setBackground(Color.WHITE);
         breakfastSideItems.setForeground(ToolClass.fgcuGreen);
-        breakfastSideItems.addActionListener(boxHandler);
 //    queryDriver(bSideStatebreakfastRestaurantName, breakfastSideName, bSideCal, bSideFatCal, bSideProtein, bSideCarb, bSidePoints);
 
         breakfastDrinkItems = new JComboBox(drink);
         breakfastDrinkItems.setBackground(Color.WHITE);
         breakfastDrinkItems.setForeground(ToolClass.fgcuBlue);
+        
+        try {
+          breakfastFoodItems.setSelectedItem(set.getString("breakfast_food"));
+          breakfastSideItems.setSelectedItem(set.getString("breakfast_side"));
+          breakfastDrinkItems.setSelectedItem(set.getString("breakfast_drink"));
+        } catch (SQLException e) {
+//          e.printStackTrace();
+          System.err.println("No b data found");
+        }
+
+        breakfastRestaurants.addActionListener(boxHandler);
+        breakfastFoodItems.addActionListener(boxHandler);
+        breakfastSideItems.addActionListener(boxHandler);
         breakfastDrinkItems.addActionListener(boxHandler);
 
         breakfastPanel.add(breakfastLabel);
@@ -750,10 +815,13 @@ public class DayPlanner extends JFrame {
         breakfastPanel.add(breakfastSideItems);
         breakfastPanel.add(breakfastDrinkItems);
 
-        breakfastRestaurantName = breakfastRestaurants.getSelectedItem().toString();
-        breakfastFoodName = breakfastFoodItems.getSelectedItem().toString();
-        breakfastDrinkName = breakfastDrinkItems.getSelectedItem().toString();
-        breakfastSideName = breakfastSideItems.getSelectedItem().toString();
+//        breakfastRestaurantName = breakfastRestaurants.getSelectedItem().toString();
+//        breakfastFoodName = breakfastFoodItems.getSelectedItem().toString();
+//        breakfastDrinkName = breakfastDrinkItems.getSelectedItem().toString();
+//        breakfastSideName = breakfastSideItems.getSelectedItem().toString();
+//        ent = einEnt;
+//        side = einSide;
+//        drink = einDrink;
     }
 
 
@@ -772,27 +840,6 @@ public class DayPlanner extends JFrame {
         }
     }
 
-//    public void queryAss(String restName, String foodName, Statement FoodState, Connection FoodItemConnect, ResultSet FoodSet, int cal, int fatCals, int protein, int carbs, int points){
-//        String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
-//                " points FROM food_item WHERE restaurant = '%s' " +
-//                "AND item_name = '%s'", restName, foodName);
-//
-//        try {
-//            FoodState = FoodItemConnect.createStatement();
-//            FoodSet = FoodState.executeQuery(bFoodQuery);
-//
-//            cal = FoodSet.getInt("total_calories");
-//            fatCals = FoodSet.getInt("total_fat_cal");
-//            protein = FoodSet.getInt("total_protein");
-//            carbs = FoodSet.getInt("total_carbs");
-//            points = FoodSet.getInt("points");
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.printf("%d, %d, %d, %d, %d\n", cal, fatCals, protein, carbs, points);
-//    }
 
     public void breakfastNutritionItems() {
 
@@ -833,7 +880,7 @@ public class DayPlanner extends JFrame {
 
     }
 
-    public void lunchItems() {
+    public void lunchItems(ResultSet set) {
 
     /* Lunch Panel & Items */
         lunchPanel = new JPanel();
@@ -848,24 +895,73 @@ public class DayPlanner extends JFrame {
         lunchLabel.setFont(ToolClass.largerBoldHeadingFont);
 
         lunchRestaurants = new JComboBox(restaurants);
-        lunchRestaurants.addActionListener(boxHandler);
         lunchRestaurants.setVisible(true);
         lunchRestaurants.setBackground(Color.WHITE);
         lunchRestaurants.setForeground(ToolClass.fgcuBlue);
-
+        
+        if (set != null) {
+          try {
+            lunchRestaurants.setSelectedItem(set.getString("lunch_restaurant"));
+          } catch (SQLException e) {
+            System.err.println("No l data found");
+          }
+        }
+        
+        if (lunchRestaurants.getSelectedItem() == restaurants[0]) {
+          //einsteins
+          ent = einEnt;
+          side = einSide;
+          drink = einDrink;
+        } else if (lunchRestaurants.getSelectedItem() == restaurants[1]) {
+          //papa
+          ent = papaEnt;
+          side = papaSide;
+          drink = papaDrink;
+        } else if (lunchRestaurants.getSelectedItem() == restaurants[2]) {
+          //brahma
+          ent = brEnt;
+          side = brSide;
+          drink = brDrink;
+        } else if (lunchRestaurants.getSelectedItem() == restaurants[3]) {
+          //chick
+          ent = chickEnt;
+          side = chickSide;
+          drink = chickDrink;
+        } else if (lunchRestaurants.getSelectedItem() == restaurants[4]) {
+          //jamba
+          ent = new String[0];
+          side = new String[0];
+          drink = jambaDrink;
+        } else if (lunchRestaurants.getSelectedItem() == restaurants[0]) {
+          //starbucks
+          ent = new String[0];
+          side = new String[0];
+          drink = starDrink;
+        }
+        
         lunchFoodItems = new JComboBox(ent);
         lunchFoodItems.setBackground(Color.WHITE);
         lunchFoodItems.setForeground(ToolClass.fgcuGreen);
-        lunchFoodItems.addActionListener(boxHandler);
 
         lunchSideItems = new JComboBox(side);
         lunchSideItems.setBackground(Color.WHITE);
         lunchSideItems.setForeground(ToolClass.fgcuGreen);
-        lunchSideItems.addActionListener(boxHandler);
 
         lunchDrinkItems = new JComboBox(drink);
         lunchDrinkItems.setBackground(Color.WHITE);
         lunchDrinkItems.setForeground(ToolClass.fgcuBlue);
+        
+        try {
+          lunchFoodItems.setSelectedItem(set.getString("lunch_food"));
+          lunchSideItems.setSelectedItem(set.getString("lunch_side"));
+          lunchDrinkItems.setSelectedItem(set.getString("lunch_drink"));
+        } catch (SQLException e) {
+          System.err.println("No l data found");
+        }
+        
+        lunchRestaurants.addActionListener(boxHandler);
+        lunchFoodItems.addActionListener(boxHandler);
+        lunchSideItems.addActionListener(boxHandler);
         lunchDrinkItems.addActionListener(boxHandler);
 
         lunchPanel.add(lunchLabel);
@@ -929,7 +1025,7 @@ public class DayPlanner extends JFrame {
         lunchNutrition.add(lunchFat);
     }
 
-    public void dinnerItems() {
+    public void dinnerItems(ResultSet set) {
 
     /* Dinner Panel & Items */
         dinnerPanel = new JPanel();
@@ -944,10 +1040,49 @@ public class DayPlanner extends JFrame {
         dinnerLabel.setFont(ToolClass.largerBoldHeadingFont);
 
         dinnerRestaurants = new JComboBox(restaurants);
-        dinnerRestaurants.addActionListener(boxHandler);
         dinnerRestaurants.setVisible(true);
         dinnerRestaurants.setBackground(Color.WHITE);
         dinnerRestaurants.setForeground(ToolClass.fgcuBlue);
+        
+        if (set != null) {
+          try {
+            dinnerRestaurants.setSelectedItem(set.getString("dinner_restaurant"));
+          } catch (SQLException e) {
+            System.err.println("No d data found");
+          }
+        }
+        
+        if (dinnerRestaurants.getSelectedItem() == restaurants[0]) {
+          //einsteins
+          ent = einEnt;
+          side = einSide;
+          drink = einDrink;
+        } else if (dinnerRestaurants.getSelectedItem() == restaurants[1]) {
+          //papa
+          ent = papaEnt;
+          side = papaSide;
+          drink = papaDrink;
+        } else if (dinnerRestaurants.getSelectedItem() == restaurants[2]) {
+          //brahma
+          ent = brEnt;
+          side = brSide;
+          drink = brDrink;
+        } else if (dinnerRestaurants.getSelectedItem() == restaurants[3]) {
+          //chick
+          ent = chickEnt;
+          side = chickSide;
+          drink = chickDrink;
+        } else if (dinnerRestaurants.getSelectedItem() == restaurants[4]) {
+          //jamba
+          ent = new String[0];
+          side = new String[0];
+          drink = jambaDrink;
+        } else if (dinnerRestaurants.getSelectedItem() == restaurants[0]) {
+          //starbucks
+          ent = new String[0];
+          side = new String[0];
+          drink = starDrink;
+        }
 
         dinnerFoodItems = new JComboBox(ent);
         dinnerFoodItems.setBackground(Color.WHITE);
@@ -960,6 +1095,19 @@ public class DayPlanner extends JFrame {
         dinnerDrinkItems = new JComboBox(drink);
         dinnerDrinkItems.setBackground(Color.WHITE);
         dinnerDrinkItems.setForeground(ToolClass.fgcuBlue);
+        
+        try {
+          dinnerFoodItems.setSelectedItem(set.getString("dinner_food"));
+          dinnerSideItems.setSelectedItem(set.getString("dinner_side"));
+          dinnerDrinkItems.setSelectedItem(set.getString("dinner_drink"));
+        } catch (SQLException e) {
+          System.err.println("No d data found");
+        }
+        
+        dinnerRestaurants.addActionListener(boxHandler);
+        dinnerFoodItems.addActionListener(boxHandler);
+        dinnerSideItems.addActionListener(boxHandler);
+        dinnerDrinkItems.addActionListener(boxHandler);
 
         dinnerPanel.add(dinnerLabel);
         dinnerPanel.add(dinnerRestaurants);
@@ -999,7 +1147,7 @@ public class DayPlanner extends JFrame {
 
     }
 
-    public void snackItems() {
+    public void snackItems(ResultSet set) {
 
     /* Snack Panel & Items */
         snackPanel = new JPanel();
@@ -1017,16 +1165,37 @@ public class DayPlanner extends JFrame {
         snackLabel.setFont(ToolClass.largerBoldHeadingFont);
 
         snackRestaurants = new JComboBox(sRestaurants);
-        snackRestaurants.addActionListener(boxHandler);
         snackRestaurants.setVisible(true);
         snackRestaurants.setBackground(Color.WHITE);
         snackRestaurants.setForeground(ToolClass.fgcuBlue);
+        
+        try {
+          snackRestaurants.setSelectedItem(set.getString("snack_restaurant"));
+        } catch (SQLException e) {
+          System.err.println("No s data found");
+        }
+        
+        if (snackRestaurants.getSelectedItem() ==sRestaurants[0]) {
+          //jamba
+          drink = jambaDrink;
+        } else if (snackRestaurants.getSelectedItem() == sRestaurants[1]) {
+          //starbucks
+          drink = starDrink;
+        }
 
-        snackItems = new JComboBox(jambaDrink);
+        snackItems = new JComboBox(drink);
         snackItems.setBackground(Color.WHITE);
         snackItems.setForeground(ToolClass.fgcuGreen);
+        
+        try {
+          snackItems.setSelectedItem(set.getString("snack"));
+        } catch (SQLException e) {
+          System.err.println("No s data found");
+        }
 
+        snackRestaurants.addActionListener(boxHandler);
         snackItems.addActionListener(boxHandler);
+        
         snackPanel.add(snackLabel);
         snackPanel.add(snackRestaurants);
         snackPanel.add(snackItems);
@@ -1067,8 +1236,9 @@ public class DayPlanner extends JFrame {
         snackNutrition.add(snackProtein);
         snackNutrition.add(snackFat);
     }
+    
 
-    public void totalNutritionItems() {
+    public void totalNutritionItems(ResultSet set) {
 
         totalNutrition = new JPanel();
         totalNutrition.setLayout(new GridLayout(5, 1));
@@ -1076,26 +1246,36 @@ public class DayPlanner extends JFrame {
         totalNutrition.setBackground(ToolClass.fgcuBlue);
         totalNutrition.setBorder(ToolClass.whiteLine);
 
-        totalCalories = new JLabel("<HTML><U>Total Calories:</U></HTML> ");
+        totalCalories = new JLabel("<HTML><U>Total Calories: </U></HTML> ");
         totalCalories.setForeground(Color.WHITE);
         totalCalories.setFont(ToolClass.nutritionPanelFont);
         totalCalories.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        totalFatCalories = new JLabel("<HTML><U>Total Fat Calories:</U></HTML> " + "g");
+        totalFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U></HTML> " + "g");
         totalFatCalories.setForeground(Color.WHITE);
         totalFatCalories.setFont(ToolClass.nutritionPanelFont);
 
-        totalCarbs = new JLabel("<HTML><U>Total Carbs:</U></HTML> " + "g");
+        totalCarbs = new JLabel("<HTML><U>Total Carbs: </U></HTML> " + "g");
         totalCarbs.setForeground(Color.WHITE);
         totalCarbs.setFont(ToolClass.nutritionPanelFont);
 
-        totalProtein = new JLabel("<HTML><U>Total Protein:</U></HTML> " + "g");
+        totalProtein = new JLabel("<HTML><U>Total Protein: </U></HTML> " + "g");
         totalProtein.setForeground(Color.WHITE);
         totalProtein.setFont(ToolClass.nutritionPanelFont);
 
-        totalFat = new JLabel("<HTML><U>Total Fat:</U></HTML> " + "g");
+        totalFat = new JLabel("<HTML><U>Total Fat: </U></HTML> " + "g");
         totalFat.setForeground(Color.WHITE);
         totalFat.setFont(ToolClass.nutritionPanelFont);
+        
+        try {
+          totalCalories.setText("<HTML><U>Total Calories:</U>"+ Integer.parseInt(set.getString("total_calories"))+"</HTML> ");
+          totalFatCalories.setText("<HTML><U>Total Fat Calories:</U>" + Integer.parseInt(set.getString("total_fat_cal")) + "</HTML> " + "g");
+          totalCarbs.setText("<HTML><U>Total Carbs:</U>" + Integer.parseInt(set.getString("total_carbs")) + "</HTML> " + "g");
+          totalProtein.setText("<HTML><U>Total Protein: </U>" + Integer.parseInt(set.getString("total_protein")) + "</HTML> " + "g");
+        } catch (Exception e) {
+//          e.printStackTrace();
+          System.err.println("No n data found");
+        }
 
         totalNutrition.add(totalCalories);
         totalNutrition.add(totalFatCalories);
@@ -1103,6 +1283,7 @@ public class DayPlanner extends JFrame {
         totalNutrition.add(totalProtein);
         totalNutrition.add(totalFat);
     }
+    
 
     public void submit() {
 
@@ -1117,6 +1298,9 @@ public class DayPlanner extends JFrame {
         ActionListener sumbitButtonHandler = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+              ent = einEnt;
+              side = einSide;
+              drink = einDrink;
                 Statement stmt;
                 try {
                     Class.forName("org.sqlite.JDBC");
@@ -1182,23 +1366,4 @@ public class DayPlanner extends JFrame {
 
         submitBtn.addActionListener(sumbitButtonHandler);
     }
-
-//    public  void dBConnect() throws FileNotFoundException {
-//
-////        host = ToolClass.yamnelPath
-//
-//        try {
-//            bFoodItemsConnect = DriverManager.getConnection(LogInScreen.HOST);
-////            dbDrive = bFoodItemsConnect.createStatement();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 }
-
-
-////  public void queryDriver(Statement state, String rName, String foodName, int cal, int fatCal, int protein, int carb, int points){
-//public void breakfastFoodQuery(){
-//
-//}
