@@ -20,7 +20,7 @@ public class DayPlanner extends JFrame {
 
     public static int databaseKey;
 
-    JButton submitBtn;
+    JButton submitBtn, deleteBtn;
     JPanel dayPlannerPanel, breakfastPanel, lunchPanel, dinnerPanel, snackPanel, breakfastNutrition, lunchNutrition,
             dinnerNutrition, snackNutrition, totalNutrition;
 
@@ -51,7 +51,7 @@ public class DayPlanner extends JFrame {
     ResultSet lFoodSet, lSideSet, lDrinkSet;
     ResultSet dFoodSet, dSideSet, dDrinkSet;
     ResultSet sFoodSet;
-    ResultSet foodSet;
+    ResultSet foodSet, fNutriSet, sNutriSet, dNutriSet;
 
 
     String[] restaurants = {"Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
@@ -97,32 +97,82 @@ public class DayPlanner extends JFrame {
         dayPlannerPanel.setLayout(null);
 
         try {
-            System.err.println(databaseKey);
             String foodQuery = String.format("SELECT * FROM '%d' WHERE date = '%d' ", LogInScreen.universityID, Integer.parseInt(CalendarDemo.datePrimaryKey));
             Statement stmt = LogInScreen.studentInfoCon.createStatement();
             foodSet = stmt.executeQuery(foodQuery);
-//          System.err.println(foodSet.getString("breakfast_restaurant"));
+//            nutriSet = LogInScreen.studentInfoCon.createStatement().executeQuery(nutriQuery);
+            
+//            System.err.println(nutriSet.getInt(""));
         } catch (SQLException e) {
             foodSet = null;
             e.printStackTrace();
         }
 
         breakfastItems(foodSet);
-        breakfastNutritionItems();
+        
+        fNutriSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+            breakfastFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        sNutriSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+            breakfastSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        dNutriSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+            breakfastDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        
+        breakfastNutritionItems(fNutriSet, sNutriSet, dNutriSet);
         lunchItems(foodSet);
-        lunchNutritionItems();
+        
+        fNutriSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+            lunchFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        sNutriSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+            lunchSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        dNutriSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+            lunchDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        
+        lunchNutritionItems(fNutriSet, sNutriSet, dNutriSet);
         dinnerItems(foodSet);
-        dinnerNutritionItems();
+        
+        fNutriSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+            dinnerFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        sNutriSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+            dinnerSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        dNutriSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+            dinnerDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        
+        dinnerNutritionItems(fNutriSet, sNutriSet, dNutriSet);
         snackItems(foodSet);
-        snackNutritionItems();
+        
+        dNutriSet = stephensQuery(snackRestaurants.getSelectedItem().toString(),
+            snackItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        
+        snackNutritionItems(dNutriSet);
         totalNutritionItems(foodSet);
+        
+        bFoodSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+            breakfastFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        bSideSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+            breakfastSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        bDrinkSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+            breakfastDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        lFoodSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+            lunchFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        lSideSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+            lunchSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        lDrinkSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+            lunchDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        dFoodSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+            dinnerFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        dSideSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+            dinnerSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+        dDrinkSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+            dinnerDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
 
         ent = einEnt;
         side = einSide;
         drink = einDrink;
         submit();
+        delete();
 
         submitBtn.setBounds(0, 0, 200, 50);
+        deleteBtn.setBounds(210, 0, 200, 50);
         totalNutrition.setBounds(285, 70, 225, 70);
         breakfastPanel.setBounds(20, 120, 225, 225);
         breakfastNutrition.setBounds(20, 345, 225, 70);
@@ -138,6 +188,7 @@ public class DayPlanner extends JFrame {
         getContentPane().add(dayPlannerPanel);
 
         dayPlannerPanel.add(submitBtn);
+        dayPlannerPanel.add(deleteBtn);
 
         dayPlannerPanel.add(totalNutrition);
         dayPlannerPanel.add(breakfastPanel);
@@ -171,9 +222,34 @@ public class DayPlanner extends JFrame {
             @Override
             public void windowClosed(WindowEvent e) {
                 //                    MainMenu menu = new MainMenu();
-                MainMenu.menu.repaint();
-                MainMenu.menu.revalidate();
-                MainMenu.menu.setVisible(true);
+//                bFoodCal = 0;
+//                bFoodFatCal = 0;
+//                bFoodCarb = 0;
+//                bFoodProtein = 0;
+//                lFoodCal = 0;
+//                lFoodFatCal = 0;
+//                lFoodCarb = 0;
+//                lFoodProtein = 0;
+//                dFoodCal = 0;
+//                dFoodFatCal = 0;
+//                dFoodCarb = 0;
+//                dFoodProtein = 0;
+//                sFoodCal = 0;
+//                sFoodFatCal = 0;
+//                sFoodCarb = 0;
+//                sFoodProtein = 0;
+                try {
+                  MainMenu menu = new MainMenu();
+                } catch (FileNotFoundException e1) {
+                  // TODO Auto-generated catch block
+                  e1.printStackTrace();
+                } catch (SQLException e1) {
+                  // TODO Auto-generated catch block
+                  e1.printStackTrace();
+                }
+//                MainMenu.menu.repaint();
+//                MainMenu.menu.revalidate();
+//                MainMenu.menu.setVisible(true);
 
             }
 
@@ -251,18 +327,25 @@ public class DayPlanner extends JFrame {
                 breakfastPanel.add(breakfastSideItems);
                 breakfastPanel.add(breakfastDrinkItems);
 
-                bFoodSet = null;
-                bSideSet = null;
-                bDrinkSet = null;
-                bFoodCal = 0;
-                bFoodFatCal = 0;
-                bFoodCarb = 0;
-                bFoodProtein = 0;
-                bFoodPoints = 0;
+                bFoodSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+                    breakfastFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                bSideSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+                    breakfastSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                bDrinkSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+                    breakfastDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                try {
+                bFoodCal = bFoodSet.getInt("total_calories") + bSideSet.getInt("total_calories") + bDrinkSet.getInt("total_calories");
+                bFoodFatCal = bFoodSet.getInt("total_fat_cal") + bSideSet.getInt("total_fat_cal") + bDrinkSet.getInt("total_fat_cal");
+                bFoodCarb = bFoodSet.getInt("total_carbs") + bSideSet.getInt("total_carbs") + bDrinkSet.getInt("total_carbs");
+                bFoodProtein = bFoodSet.getInt("total_protein") + bSideSet.getInt("total_protein") + bDrinkSet.getInt("total_protein");
+                bFoodPoints = bFoodSet.getInt("points") + bSideSet.getInt("points") + bDrinkSet.getInt("points");
+                } catch (SQLException ex) {
+                  ex.printStackTrace();
+                }
                 breakfastCalories.setText("<HTML><U>Total Calories: </U>" + bFoodCal + "</HTML> ");
                 breakfastFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + bFoodFatCal + "</HTML>");
-                breakfastCarbs.setText("<HTML><U>Total Carbs: </U>" + bFoodCarb + "</HTML>");
-                breakfastProtein.setText("<HTML><U>Total Protein: </U>" + bFoodProtein + "</HTML>");
+                breakfastCarbs.setText("<HTML><U>Total Carbs: </U>" + bFoodCarb + " g</HTML>");
+                breakfastProtein.setText("<HTML><U>Total Protein: </U>" + bFoodProtein + " g</HTML>");
                 updateTotalNutrition();
 
 //        queryAss(breakfastRestaurantName, breakfastFoodName, bFoodState, bFoodItemsConnect, bFoodSet, bFoodCal,
@@ -311,18 +394,25 @@ public class DayPlanner extends JFrame {
                 lunchPanel.add(lunchSideItems);
                 lunchPanel.add(lunchDrinkItems);
 
-                lFoodSet = null;
-                lSideSet = null;
-                lDrinkSet = null;
-                lFoodCal = 0;
-                lFoodFatCal = 0;
-                lFoodCarb = 0;
-                lFoodProtein = 0;
-                lFoodPoints = 0;
+                lFoodSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+                    lunchFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                lSideSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+                    lunchSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                lDrinkSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
+                    lunchSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                try {
+                lFoodCal = lFoodSet.getInt("total_calories") + lSideSet.getInt("total_calories") + lDrinkSet.getInt("total_calories");
+                lFoodFatCal = lFoodSet.getInt("total_fat_cal") + lSideSet.getInt("total_fat_cal") + lDrinkSet.getInt("total_fat_cal");
+                lFoodCarb = lFoodSet.getInt("total_carbs") + lSideSet.getInt("total_carbs") + lDrinkSet.getInt("total_carbs");
+                lFoodProtein = lFoodSet.getInt("total_protein") + lSideSet.getInt("total_protein") + lDrinkSet.getInt("total_protein");
+                lFoodPoints = lFoodSet.getInt("points") + lSideSet.getInt("points") + lDrinkSet.getInt("points");
+                } catch (SQLException ex) {
+                  ex.printStackTrace();
+                }
                 lunchCalories.setText("<HTML><U>Total Calories: </U>" + lFoodCal + "</HTML> ");
                 lunchFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + lFoodFatCal + "</HTML>");
-                lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + "</HTML>");
-                lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + "</HTML>");
+                lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + " g</HTML>");
+                lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + " g</HTML>");
                 updateTotalNutrition();
 
             } else if (e.getSource() == dinnerRestaurants) {
@@ -368,18 +458,25 @@ public class DayPlanner extends JFrame {
                 dinnerPanel.add(dinnerSideItems);
                 dinnerPanel.add(dinnerDrinkItems);
 
-                dFoodSet = null;
-                dSideSet = null;
-                dDrinkSet = null;
-                dFoodCal = 0;
-                dFoodFatCal = 0;
-                dFoodCarb = 0;
-                dFoodProtein = 0;
-                dFoodPoints = 0;
+                dFoodSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+                    dinnerFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                dSideSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+                    dinnerSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                dDrinkSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
+                    dinnerDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                try {
+                dFoodCal = dFoodSet.getInt("total_calories") + dSideSet.getInt("total_calories") + dDrinkSet.getInt("total_calories");
+                dFoodFatCal = dFoodSet.getInt("total_fat_cal") + dSideSet.getInt("total_fat_cal") + dDrinkSet.getInt("total_fat_cal");
+                dFoodCarb = dFoodSet.getInt("total_carbs") + dSideSet.getInt("total_carbs") + dDrinkSet.getInt("total_carbs");
+                dFoodProtein = dFoodSet.getInt("total_protein") + dSideSet.getInt("total_protein") + dDrinkSet.getInt("total_protein");
+                dFoodPoints = dFoodSet.getInt("points") + dSideSet.getInt("points") + dDrinkSet.getInt("points");
+                } catch (SQLException ex) {
+                  ex.printStackTrace();
+                }
                 dinnerCalories.setText("<HTML><U>Total Calories: </U>" + dFoodCal + "</HTML> ");
                 dinnerFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + dFoodFatCal + "</HTML>");
-                dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + "</HTML>");
-                dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + "</HTML>");
+                dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + " g</HTML>");
+                dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + " g</HTML>");
                 updateTotalNutrition();
 
             } else if (e.getSource() == snackRestaurants) {
@@ -397,19 +494,26 @@ public class DayPlanner extends JFrame {
                 snackItems.addActionListener(boxHandler);
                 snackPanel.add(snackItems);
 
-                sFoodSet = null;
-                sFoodCal = 0;
-                sFoodFatCal = 0;
-                sFoodCarb = 0;
-                sFoodProtein = 0;
-                sFoodPoints = 0;
+                sFoodSet = stephensQuery(snackRestaurants.getSelectedItem().toString(),
+                    snackItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+                try {
+                sFoodCal = sFoodSet.getInt("total_calories");
+                sFoodFatCal = sFoodSet.getInt("total_fat_cal");
+                sFoodCarb = sFoodSet.getInt("total_carbs");
+                sFoodProtein = sFoodSet.getInt("total_protein");
+                sFoodPoints = sFoodSet.getInt("points");
+                } catch (SQLException ex) {
+                  ex.printStackTrace();
+                }
                 snackCalories.setText("<HTML><U>Total Calories: </U>" + sFoodCal + "</HTML> ");
                 snackFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + sFoodFatCal + "</HTML>");
-                snackCarbs.setText("<HTML><U>Total Carbs: </U>" + sFoodCarb + "</HTML>");
-                snackProtein.setText("<HTML><U>Total Protein: </U>" + sFoodProtein + "</HTML>");
+                snackCarbs.setText("<HTML><U>Total Carbs: </U>" + sFoodCarb + " g</HTML>");
+                snackProtein.setText("<HTML><U>Total Protein: </U>" + sFoodProtein + " g</HTML>");
                 updateTotalNutrition();
 
             } else if (e.getSource().equals(breakfastFoodItems)) {
+//              bFoodSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+//                  breakfastFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     bFoodCal -= bFoodSet.getInt("total_calories");
                     bFoodFatCal -= bFoodSet.getInt("total_fat_cal");
@@ -422,7 +526,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No bFoodSet");
                 }
                 bFoodSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-                        breakfastFoodItems.getSelectedItem().toString(), bFoodState, LogInScreen.studentInfoCon, bFoodSet);
+                    breakfastFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     bFoodCal += bFoodSet.getInt("total_calories");
                     bFoodFatCal += bFoodSet.getInt("total_fat_cal");
@@ -431,14 +535,16 @@ public class DayPlanner extends JFrame {
                     bFoodPoints += bFoodSet.getInt("points");
                     breakfastCalories.setText("<HTML><U>Total Calories: </U>" + bFoodCal + "</HTML> ");
                     breakfastFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + bFoodFatCal + "</HTML>");
-                    breakfastCarbs.setText("<HTML><U>Total Carbs: </U>" + bFoodCarb + "</HTML>");
-                    breakfastProtein.setText("<HTML><U>Total Protein: </U>" + bFoodProtein + "</HTML>");
+                    breakfastCarbs.setText("<HTML><U>Total Carbs: </U>" + bFoodCarb + " g</HTML>");
+                    breakfastProtein.setText("<HTML><U>Total Protein: </U>" + bFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
                     System.err.println("Didnt work");
                 }
             } else if (e.getSource().equals(breakfastSideItems)) {
+//              bSideSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+//                  breakfastSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     bFoodCal -= bSideSet.getInt("total_calories");
                     bFoodFatCal -= bSideSet.getInt("total_fat_cal");
@@ -451,7 +557,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No bSideSet");
                 }
                 bSideSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-                        breakfastSideItems.getSelectedItem().toString(), bSideState, LogInScreen.studentInfoCon, bSideSet);
+                    breakfastSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     bFoodCal += bSideSet.getInt("total_calories");
                     bFoodFatCal += bSideSet.getInt("total_fat_cal");
@@ -460,14 +566,16 @@ public class DayPlanner extends JFrame {
                     bFoodPoints += bSideSet.getInt("points");
                     breakfastCalories.setText("<HTML><U>Total Calories: </U>" + bFoodCal + "</HTML> ");
                     breakfastFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + bFoodFatCal + "</HTML>");
-                    breakfastCarbs.setText("<HTML><U>Total Carbs: </U>" + bFoodCarb + "</HTML>");
-                    breakfastProtein.setText("<HTML><U>Total Protein: </U>" + bFoodProtein + "</HTML>");
+                    breakfastCarbs.setText("<HTML><U>Total Carbs: </U>" + bFoodCarb + " g</HTML>");
+                    breakfastProtein.setText("<HTML><U>Total Protein: </U>" + bFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
                     System.err.println("Didnt work");
                 }
             } else if (e.getSource().equals(breakfastDrinkItems)) {
+//              bDrinkSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
+//                  breakfastDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     bFoodCal -= bDrinkSet.getInt("total_calories");
                     bFoodFatCal -= bDrinkSet.getInt("total_fat_cal");
@@ -480,7 +588,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No bDrinkSet");
                 }
                 bDrinkSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-                        breakfastDrinkItems.getSelectedItem().toString(), bDrinkState, LogInScreen.studentInfoCon, bDrinkSet);
+                    breakfastDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     bFoodCal += bDrinkSet.getInt("total_calories");
                     bFoodFatCal += bDrinkSet.getInt("total_fat_cal");
@@ -489,8 +597,8 @@ public class DayPlanner extends JFrame {
                     bFoodPoints += bDrinkSet.getInt("points");
                     breakfastCalories.setText("<HTML><U>Total Calories: </U>" + bFoodCal + "</HTML> ");
                     breakfastFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + bFoodFatCal + "</HTML>");
-                    breakfastCarbs.setText("<HTML><U>Total Carbs: </U>" + bFoodCarb + "</HTML>");
-                    breakfastProtein.setText("<HTML><U>Total Protein: </U>" + bFoodProtein + "</HTML>");
+                    breakfastCarbs.setText("<HTML><U>Total Carbs: </U>" + bFoodCarb + " g</HTML>");
+                    breakfastProtein.setText("<HTML><U>Total Protein: </U>" + bFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
@@ -510,7 +618,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No lFoodSet");
                 }
                 lFoodSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
-                        lunchFoodItems.getSelectedItem().toString(), lFoodState, LogInScreen.studentInfoCon, lFoodSet);
+                        lunchFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     lFoodCal += lFoodSet.getInt("total_calories");
                     lFoodFatCal += lFoodSet.getInt("total_fat_cal");
@@ -519,8 +627,8 @@ public class DayPlanner extends JFrame {
                     lFoodPoints += lFoodSet.getInt("points");
                     lunchCalories.setText("<HTML><U>Total Calories: </U>" + lFoodCal + "</HTML> ");
                     lunchFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + lFoodFatCal + "</HTML>");
-                    lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + "</HTML>");
-                    lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + "</HTML>");
+                    lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + " g</HTML>");
+                    lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
@@ -539,7 +647,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No lSideSet");
                 }
                 lSideSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
-                        lunchSideItems.getSelectedItem().toString(), lSideState, LogInScreen.studentInfoCon, lSideSet);
+                        lunchSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     lFoodCal += lSideSet.getInt("total_calories");
                     lFoodFatCal += lSideSet.getInt("total_fat_cal");
@@ -548,8 +656,8 @@ public class DayPlanner extends JFrame {
                     lFoodPoints += lSideSet.getInt("points");
                     lunchCalories.setText("<HTML><U>Total Calories: </U>" + lFoodCal + "</HTML> ");
                     lunchFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + lFoodFatCal + "</HTML>");
-                    lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + "</HTML>");
-                    lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + "</HTML>");
+                    lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + " g</HTML>");
+                    lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
@@ -568,7 +676,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No lDrinkSet");
                 }
                 lDrinkSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
-                        lunchDrinkItems.getSelectedItem().toString(), lDrinkState, LogInScreen.studentInfoCon, lDrinkSet);
+                        lunchDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     lFoodCal += lDrinkSet.getInt("total_calories");
                     lFoodFatCal += lDrinkSet.getInt("total_fat_cal");
@@ -577,8 +685,8 @@ public class DayPlanner extends JFrame {
                     lFoodPoints += lDrinkSet.getInt("points");
                     lunchCalories.setText("<HTML><U>Total Calories: </U>" + lFoodCal + "</HTML> ");
                     lunchFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + lFoodFatCal + "</HTML>");
-                    lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + "</HTML>");
-                    lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + "</HTML>");
+                    lunchCarbs.setText("<HTML><U>Total Carbs: </U>" + lFoodCarb + " g</HTML>");
+                    lunchProtein.setText("<HTML><U>Total Protein: </U>" + lFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
@@ -598,7 +706,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No dFoodSet");
                 }
                 dFoodSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
-                        dinnerFoodItems.getSelectedItem().toString(), dFoodState, LogInScreen.studentInfoCon, dFoodSet);
+                        dinnerFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     dFoodCal += dFoodSet.getInt("total_calories");
                     dFoodFatCal += dFoodSet.getInt("total_fat_cal");
@@ -607,8 +715,8 @@ public class DayPlanner extends JFrame {
                     dFoodPoints += dFoodSet.getInt("points");
                     dinnerCalories.setText("<HTML><U>Total Calories: </U>" + dFoodCal + "</HTML> ");
                     dinnerFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + dFoodFatCal + "</HTML>");
-                    dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + "</HTML>");
-                    dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + "</HTML>");
+                    dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + " g</HTML>");
+                    dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
@@ -627,7 +735,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No dSideSet");
                 }
                 dSideSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
-                        dinnerSideItems.getSelectedItem().toString(), dSideState, LogInScreen.studentInfoCon, dSideSet);
+                        dinnerSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     dFoodCal += dSideSet.getInt("total_calories");
                     dFoodFatCal += dSideSet.getInt("total_fat_cal");
@@ -636,8 +744,8 @@ public class DayPlanner extends JFrame {
                     dFoodPoints += dSideSet.getInt("points");
                     dinnerCalories.setText("<HTML><U>Total Calories: </U>" + dFoodCal + "</HTML> ");
                     dinnerFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + dFoodFatCal + "</HTML>");
-                    dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + "</HTML>");
-                    dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + "</HTML>");
+                    dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + " g</HTML>");
+                    dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
@@ -656,7 +764,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No dDrinkSet");
                 }
                 dDrinkSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
-                        dinnerDrinkItems.getSelectedItem().toString(), dDrinkState, LogInScreen.studentInfoCon, dDrinkSet);
+                        dinnerDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     dFoodCal += dDrinkSet.getInt("total_calories");
                     dFoodFatCal += dDrinkSet.getInt("total_fat_cal");
@@ -665,8 +773,8 @@ public class DayPlanner extends JFrame {
                     dFoodPoints += dDrinkSet.getInt("points");
                     dinnerCalories.setText("<HTML><U>Total Calories: </U>" + dFoodCal + "</HTML> ");
                     dinnerFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + dFoodFatCal + "</HTML>");
-                    dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + "</HTML>");
-                    dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + "</HTML>");
+                    dinnerCarbs.setText("<HTML><U>Total Carbs: </U>" + dFoodCarb + " g</HTML>");
+                    dinnerProtein.setText("<HTML><U>Total Protein: </U>" + dFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
@@ -686,7 +794,7 @@ public class DayPlanner extends JFrame {
                     System.err.println("SQL No sFoodSet");
                 }
                 sFoodSet = stephensQuery(snackRestaurants.getSelectedItem().toString(),
-                        snackItems.getSelectedItem().toString(), sFoodState, LogInScreen.studentInfoCon, sFoodSet);
+                        snackItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
                     sFoodCal += sFoodSet.getInt("total_calories");
                     sFoodFatCal += sFoodSet.getInt("total_fat_cal");
@@ -695,8 +803,8 @@ public class DayPlanner extends JFrame {
                     sFoodPoints += sFoodSet.getInt("points");
                     snackCalories.setText("<HTML><U>Total Calories: </U>" + sFoodCal + "</HTML> ");
                     snackFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + sFoodFatCal + "</HTML>");
-                    snackCarbs.setText("<HTML><U>Total Carbs: </U>" + sFoodCarb + "</HTML>");
-                    snackProtein.setText("<HTML><U>Total Protein: </U>" + sFoodProtein + "</HTML>");
+                    snackCarbs.setText("<HTML><U>Total Carbs: </U>" + sFoodCarb + " g</HTML>");
+                    snackProtein.setText("<HTML><U>Total Protein: </U>" + sFoodProtein + " g</HTML>");
                     updateTotalNutrition();
 
                 } catch (SQLException exc) {
@@ -825,14 +933,14 @@ public class DayPlanner extends JFrame {
     }
 
 
-    public ResultSet stephensQuery(String restName, String foodName, Statement FoodState, Connection FoodItemConnect, ResultSet FoodSet) {
+    public ResultSet stephensQuery(String restName, String foodName, Connection connect) {
         String foodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
                 " points FROM food_item WHERE restaurant = '%s' " +
                 "AND item_name = '%s'", restName, foodName);
 
         try {
-            FoodState = FoodItemConnect.createStatement();
-            FoodSet = FoodState.executeQuery(foodQuery);
+            Statement FoodState = connect.createStatement();
+            ResultSet FoodSet = FoodState.executeQuery(foodQuery);
             return FoodSet;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -841,30 +949,39 @@ public class DayPlanner extends JFrame {
     }
 
 
-    public void breakfastNutritionItems() {
+    public void breakfastNutritionItems(ResultSet fSet, ResultSet sSet, ResultSet dSet) {
 
+      
         breakfastNutrition = new JPanel();
         breakfastNutrition.setLayout(new GridLayout(5, 1));
         breakfastNutrition.setVisible(true);
         breakfastNutrition.setBorder(ToolClass.newCompound);
         breakfastNutrition.setBackground(ToolClass.fgcuBlue);
+        
+        try {
+          bFoodCal = fSet.getInt("total_calories") + sSet.getInt("total_calories") + dSet.getInt("total_calories");
+          bFoodFatCal = fSet.getInt("total_fat_cal") + sSet.getInt("total_fat_cal") + dSet.getInt("total_fat_cal");
+          bFoodCarb = fSet.getInt("total_carbs") + sSet.getInt("total_carbs") + dSet.getInt("total_carbs");
+          bFoodProtein = fSet.getInt("total_protein") + sSet.getInt("total_protein") + dSet.getInt("total_protein");
+          bFoodPoints = fSet.getInt("points") + sSet.getInt("points") + dSet.getInt("points");
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
 
-
-        breakfastCalories = new JLabel("<HTML><U>Total Calories:</U></HTML> ");
+        breakfastCalories = new JLabel("<HTML><U>Total Calories: </U>" + bFoodCal + "</HTML> ");
         breakfastCalories.setForeground(Color.WHITE);
         breakfastCalories.setFont(ToolClass.nutritionPanelFont);
         breakfastCalories.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        breakfastFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U></HTML>");
+        breakfastFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U>" + bFoodFatCal + "</HTML>");
         breakfastFatCalories.setForeground(Color.WHITE);
         breakfastFatCalories.setFont(ToolClass.nutritionPanelFont);
 
-        breakfastCarbs = new JLabel("<HTML><U>Total Carbs:</U></HTML>");
-        breakfastCarbs = new JLabel("<HTML><U>Total Carbs:</U> " + bFoodCarb + "g </HTML>");
+        breakfastCarbs = new JLabel("<HTML><U>Total Carbs: </U> " + bFoodCarb + " g</HTML>");
         breakfastCarbs.setForeground(Color.WHITE);
         breakfastCarbs.setFont(ToolClass.nutritionPanelFont);
 
-        breakfastProtein = new JLabel("<HTML><U>Total Protein:</U></HTML>");
+        breakfastProtein = new JLabel("<HTML><U>Total Protein: </U>" + bFoodProtein + " g</HTML>");
         breakfastProtein.setForeground(Color.WHITE);
         breakfastProtein.setFont(ToolClass.nutritionPanelFont);
 
@@ -971,25 +1088,18 @@ public class DayPlanner extends JFrame {
         lunchPanel.add(lunchDrinkItems);
     }
 
-    public void lunchNutritionItems() {
+    public void lunchNutritionItems(ResultSet fSet, ResultSet sSet, ResultSet dSet) {
 
-        String bFoodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
-                " points FROM food_item WHERE restaurant = '%s' " +
-                "AND item_name = '%s'", breakfastRestaurantName, breakfastFoodName);
+      try {
+        lFoodCal = fSet.getInt("total_calories") + sSet.getInt("total_calories") + dSet.getInt("total_calories");
+        lFoodFatCal = fSet.getInt("total_fat_cal") + sSet.getInt("total_fat_cal") + dSet.getInt("total_fat_cal");
+        lFoodCarb = fSet.getInt("total_carbs") + sSet.getInt("total_carbs") + dSet.getInt("total_carbs");
+        lFoodProtein = fSet.getInt("total_protein") + sSet.getInt("total_protein") + dSet.getInt("total_protein");
+        lFoodPoints = fSet.getInt("points") + sSet.getInt("points") + dSet.getInt("points");
 
-//        try {
-//            lFoodState = bFoodItemsConnect.createStatement();
-//            lFoodSet = bFoodState.executeQuery(bFoodQuery);
-//
-//            lFoodCal = bFoodSet.getInt("total_calories");
-//            lFoodFatCal = bFoodSet.getInt("total_fat_cal");
-//            lFoodProtein = bFoodSet.getInt("total_protein");
-//            lFoodCarb = bFoodSet.getInt("total_carbs");
-//            lFoodPoints = bFoodSet.getInt("points");
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
 
         lunchNutrition = new JPanel();
         lunchNutrition.setLayout(new GridLayout(5, 1));
@@ -997,20 +1107,20 @@ public class DayPlanner extends JFrame {
         lunchNutrition.setBackground(ToolClass.fgcuBlue);
         lunchNutrition.setBorder(ToolClass.newCompound);
 
-        lunchCalories = new JLabel("<HTML><U>Total Calories: </U></HTML> ");
+        lunchCalories = new JLabel("<HTML><U>Total Calories: </U>"+lFoodCal+"</HTML> ");
         lunchCalories.setForeground(Color.WHITE);
         lunchCalories.setFont(ToolClass.nutritionPanelFont);
         lunchCalories.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        lunchFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U></HTML>");
+        lunchFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U>"+lFoodFatCal+"</HTML>");
         lunchFatCalories.setForeground(Color.WHITE);
         lunchFatCalories.setFont(ToolClass.nutritionPanelFont);
 
-        lunchCarbs = new JLabel("<HTML><U>Total Carbs: </U></HTML>");
+        lunchCarbs = new JLabel("<HTML><U>Total Carbs: </U>"+lFoodCarb+" g</HTML>");
         lunchCarbs.setForeground(Color.WHITE);
         lunchCarbs.setFont(ToolClass.nutritionPanelFont);
 
-        lunchProtein = new JLabel("<HTML><U>Total Protein: </U></HTML>");
+        lunchProtein = new JLabel("<HTML><U>Total Protein: </U>"+lFoodProtein+" g</HTML>");
         lunchProtein.setForeground(Color.WHITE);
         lunchProtein.setFont(ToolClass.nutritionPanelFont);
 
@@ -1123,7 +1233,18 @@ public class DayPlanner extends JFrame {
         return label;
     }
 
-    public void dinnerNutritionItems() {
+    public void dinnerNutritionItems(ResultSet fSet, ResultSet sSet, ResultSet dSet) {
+      
+      try {
+        dFoodCal = fSet.getInt("total_calories") + sSet.getInt("total_calories") + dSet.getInt("total_calories");
+        dFoodFatCal = fSet.getInt("total_fat_cal") + sSet.getInt("total_fat_cal") + dSet.getInt("total_fat_cal");
+        dFoodCarb = fSet.getInt("total_carbs") + sSet.getInt("total_carbs") + dSet.getInt("total_carbs");
+        dFoodProtein = fSet.getInt("total_protein") + sSet.getInt("total_protein") + dSet.getInt("total_protein");
+        dFoodPoints = fSet.getInt("points") + sSet.getInt("points") + dSet.getInt("points");
+
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
 
         dinnerNutrition = new JPanel();
         dinnerNutrition.setLayout(new GridLayout(5, 1));
@@ -1131,12 +1252,12 @@ public class DayPlanner extends JFrame {
         dinnerNutrition.setBackground(ToolClass.fgcuBlue);
         dinnerNutrition.setBorder(ToolClass.newCompound);
 
-        dinnerCalories = panelTheme("Total Calories:");
+        dinnerCalories = panelTheme("Total Calories: " + bFoodCal);
         dinnerCalories.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        dinnerFatCalories = panelTheme("Total Fat Calories:");
-        dinnerCarbs = panelTheme("Total Carbs:");
-        dinnerProtein = panelTheme("Total Protein:");
+        dinnerFatCalories = panelTheme("Total Fat Calories: " + bFoodFatCal);
+        dinnerCarbs = panelTheme("Total Carbs: " + bFoodCarb + " g");
+        dinnerProtein = panelTheme("Total Protein: " + bFoodProtein + " g");
         dinnerFat = panelTheme("Total Fat:");
 
         dinnerNutrition.add(dinnerCalories);
@@ -1201,7 +1322,18 @@ public class DayPlanner extends JFrame {
         snackPanel.add(snackItems);
     }
 
-    public void snackNutritionItems() {
+    public void snackNutritionItems(ResultSet dSet) {
+      
+      try {
+        sFoodCal = dSet.getInt("total_calories");
+        sFoodFatCal = dSet.getInt("total_fat_cal");
+        sFoodCarb = dSet.getInt("total_carbs");
+        sFoodProtein = dSet.getInt("total_protein");
+        sFoodPoints = dSet.getInt("points");
+
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
 
         snackNutrition = new JPanel();
         snackNutrition.setLayout(new GridLayout(5, 1));
@@ -1209,20 +1341,20 @@ public class DayPlanner extends JFrame {
         snackNutrition.setBackground(ToolClass.fgcuBlue);
         snackNutrition.setBorder(ToolClass.newCompound);
 
-        snackCalories = new JLabel("<HTML><U>Total Calories: </U></HTML> ");
+        snackCalories = new JLabel("<HTML><U>Total Calories: </U>"+sFoodCal+"</HTML> ");
         snackCalories.setForeground(Color.WHITE);
         snackCalories.setFont(ToolClass.nutritionPanelFont);
         snackCalories.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        snackFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U></HTML>");
+        snackFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U>"+sFoodFatCal+"</HTML>");
         snackFatCalories.setForeground(Color.WHITE);
         snackFatCalories.setFont(ToolClass.nutritionPanelFont);
 
-        snackCarbs = new JLabel("<HTML><U>Total Carbs: </U></HTML>");
+        snackCarbs = new JLabel("<HTML><U>Total Carbs: </U>"+sFoodCarb+" g</HTML>");
         snackCarbs.setForeground(Color.WHITE);
         snackCarbs.setFont(ToolClass.nutritionPanelFont);
 
-        snackProtein = new JLabel("<HTML><U>Total Protein: </U></HTML>");
+        snackProtein = new JLabel("<HTML><U>Total Protein: </U>"+sFoodProtein+" g</HTML>");
         snackProtein.setForeground(Color.WHITE);
         snackProtein.setFont(ToolClass.nutritionPanelFont);
 
@@ -1246,20 +1378,20 @@ public class DayPlanner extends JFrame {
         totalNutrition.setBackground(ToolClass.fgcuBlue);
         totalNutrition.setBorder(ToolClass.whiteLine);
 
-        totalCalories = new JLabel("<HTML><U>Total Calories: </U></HTML> ");
+        totalCalories = new JLabel("<HTML><U>Total Calories: </U>"+(bFoodCal+lFoodCal+dFoodCal+sFoodCal)+"</HTML> ");
         totalCalories.setForeground(Color.WHITE);
         totalCalories.setFont(ToolClass.nutritionPanelFont);
         totalCalories.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        totalFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U></HTML> " + "g");
+        totalFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U>"+(bFoodFatCal+lFoodFatCal+dFoodFatCal+sFoodFatCal)+" g</HTML>");
         totalFatCalories.setForeground(Color.WHITE);
         totalFatCalories.setFont(ToolClass.nutritionPanelFont);
 
-        totalCarbs = new JLabel("<HTML><U>Total Carbs: </U></HTML> " + "g");
+        totalCarbs = new JLabel("<HTML><U>Total Carbs: </U>"+(bFoodCarb+lFoodCarb+dFoodCarb+sFoodCarb)+" g</HTML>");
         totalCarbs.setForeground(Color.WHITE);
         totalCarbs.setFont(ToolClass.nutritionPanelFont);
 
-        totalProtein = new JLabel("<HTML><U>Total Protein: </U></HTML> " + "g");
+        totalProtein = new JLabel("<HTML><U>Total Protein: </U>"+(bFoodProtein+lFoodProtein+dFoodProtein+sFoodProtein)+" g</HTML>");
         totalProtein.setForeground(Color.WHITE);
         totalProtein.setFont(ToolClass.nutritionPanelFont);
 
@@ -1272,6 +1404,7 @@ public class DayPlanner extends JFrame {
             totalFatCalories.setText("<HTML><U>Total Fat Calories:</U>" + Integer.parseInt(set.getString("total_fat_cal")) + "</HTML> " + "g");
             totalCarbs.setText("<HTML><U>Total Carbs:</U>" + Integer.parseInt(set.getString("total_carbs")) + "</HTML> " + "g");
             totalProtein.setText("<HTML><U>Total Protein: </U>" + Integer.parseInt(set.getString("total_protein")) + "</HTML> " + "g");
+        
         } catch (Exception e) {
 //          e.printStackTrace();
             System.err.println("No n data found");
@@ -1284,6 +1417,42 @@ public class DayPlanner extends JFrame {
         totalNutrition.add(totalFat);
     }
 
+    
+    public void delete() {
+      deleteBtn = new JButton("Delete Meal");
+      deleteBtn.setVisible(true);
+      ActionListener deleteButtonHandler = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          ent = einEnt;
+          side = einSide;
+          drink = einDrink;
+          try {
+            String sql = String.format("DELETE FROM '%d' WHERE date= '%s'", 
+                LogInScreen.universityID, databaseKey);
+            LogInScreen.studentInfoCon.setAutoCommit(false);
+            Statement stmt1 = LogInScreen.studentInfoCon.createStatement();
+            stmt1.execute(sql);
+            stmt1.close();
+  
+            LogInScreen.studentInfoCon.commit();
+  
+            // closes window
+            dispose();
+            System.out.println("Records deleted successfully");
+
+          } catch (SQLException Exc) {
+            Exc.printStackTrace();
+            System.err.println(Exc.getClass().getName() + ": " + Exc.getMessage());
+            dispose();
+            System.out.println("Record delete unsuccessful");
+
+  
+          }
+        }
+      };
+      deleteBtn.addActionListener(deleteButtonHandler);
+    }
 
     public void submit() {
 

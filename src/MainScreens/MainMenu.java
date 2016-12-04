@@ -466,8 +466,8 @@ public class MainMenu {
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
                     }
-//                    MainMenu.menu.dispose();
-                    MainMenu.menu.setVisible(false);
+                    MainMenu.menu.dispose();
+//                    MainMenu.menu.setVisible(false);
                 }
             };
 
