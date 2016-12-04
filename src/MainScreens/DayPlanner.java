@@ -1524,13 +1524,13 @@ public class DayPlanner extends JFrame {
 
                     // closes window
                     dispose();
+                    System.out.println("Records created successfully");
+
 
                 } catch (Exception Exc) {
                     System.err.println(Exc.getClass().getName() + ": " + Exc.getMessage());
                     dispose();
-
                 }
-                System.out.println("Records created successfully");
             }
         };
 
