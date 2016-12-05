@@ -139,26 +139,21 @@ public class CalorieCalculator extends JFrame {
 
       try {
         if (Double.parseDouble(ageTextField.getText()) < 1) {
-
           JOptionPane.showMessageDialog(null, "Enter only numbers greater " + "than zero", "Your input is wrong",
               JOptionPane.ERROR_MESSAGE);
         } else if (Double.parseDouble(heightTextField.getText()) < 1) {
-
           JOptionPane.showMessageDialog(null, "Enter only numbers greater " + "than zero", "Your input is wrong",
               JOptionPane.ERROR_MESSAGE);
         } else if (Double.parseDouble(weightTextField.getText()) < 1) {
-
           JOptionPane.showMessageDialog(null, "Enter only numbers greater " + "than zero", "Your input is wrong",
               JOptionPane.ERROR_MESSAGE);
         } else if (!maleRadioButton.isSelected() && !femaleRadioButton.isSelected()) {
-
           JOptionPane.showMessageDialog(null, "Select a gender " + "please", "Your input" + " is wrong",
               JOptionPane.ERROR_MESSAGE);
         } else {
           maintain = BMR() * BmrMultiplier();
           Bmr = Double.toString((int) maintain);
           maintainWeightTextField.setText(Bmr);
-
           addOne = maintain + 500;
           Bmr = Double.toString((int) addOne);
           gainOneLbsTextField.setText(Bmr);
@@ -173,7 +168,6 @@ public class CalorieCalculator extends JFrame {
           loseTwoLbsTextField.setText(Bmr);
         }
       } catch (NumberFormatException error) {
-
         JOptionPane.showMessageDialog(null, "Enter only numbers that " + "are also greater " + "than zero",
             "Your input is wrong", JOptionPane.ERROR_MESSAGE);
       }
@@ -201,32 +195,22 @@ public class CalorieCalculator extends JFrame {
   }
 
   public double age() {
-
     return Double.parseDouble(ageTextField.getText());
   }
 
   // getHeight clashes with a method in awt
   public double height() {
-
     return Double.parseDouble(heightTextField.getText());
   }
 
   public double weight() {
-
     return Double.parseDouble(weightTextField.getText());
   }
 
   public double BMR() {
     if (gender() == true) {
-
-      bmr = 66 + (6.2 * weight()) + (12.7 * height()) - (6.76 * age()); // for
-                                                                        // men
-                                                                        // need
-                                                                        // to do
-                                                                        // for
-                                                                        // women
+      bmr = 66 + (6.2 * weight()) + (12.7 * height()) - (6.76 * age());
     } else if (gender() == false) {
-
       bmr = 655.1 + (4.35 * weight()) + (4.7 * height()) - (4.7 * age());
     }
     return bmr;
@@ -240,30 +224,16 @@ public class CalorieCalculator extends JFrame {
   public double BmrMultiplier() {
 
     if (activityComboBox.getSelectedItem().equals("Little or no exercise")) {
-
       return 1.2;
     } else if (activityComboBox.getSelectedItem().equals("Light exercise/sports 1-3 days/week")) {
-
       return 1.375;
     } else if (activityComboBox.getSelectedItem().equals("Moderate exercise/sports 3-5 days/week")) {
-
       return 1.55;
     } else if (activityComboBox.getSelectedItem().equals("Hard exercise/sports 6-7 days a week")) {
-
       return 1.725;
     } else if (activityComboBox.getSelectedItem().equals("Very hard exercise/sports & physical job")) {
-
       return 1.9;
     }
     return 1;
   }
-
-  // //test
-  // public static void main(String[] args) {
-  // CalorieCalculator starter = new CalorieCalculator();
-  // starter.setVisible(true);
-  // starter.setSize(400, 400);
-  // starter.setResizable(false);
-  // starter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  // }
 }
