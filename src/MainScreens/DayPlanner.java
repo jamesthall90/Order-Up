@@ -20,6 +20,9 @@ public class DayPlanner extends JFrame {
 
     public static int databaseKey;
 
+    /*
+     * private local variables
+     */
     JButton submitBtn, deleteBtn;
     JPanel dayPlannerPanel, breakfastPanel, lunchPanel, dinnerPanel, snackPanel, breakfastNutrition, lunchNutrition,
             dinnerNutrition, snackNutrition, totalNutrition;
@@ -34,13 +37,9 @@ public class DayPlanner extends JFrame {
             dinnerDrinkItems, snackRestaurants, snackItems;
 
     Dimension innerPanelDimension = new Dimension(200, 200);
-    String[] ent, side, drink = new String[3]; // temporary array to hold menu
+    String[] ent, side, drink = new String[3]; // temporary array to hold menu items
 
     // items and load into combo-boxes
-
-
-//    Connection bFoodItemsConnect, drink_itemConnect;
-
     Statement bFoodState, bSideState, bDrinkState;
     Statement lFoodState, lSideState, lDrinkState;
     Statement dFoodState, dSideState, dDrinkState;
@@ -57,20 +56,20 @@ public class DayPlanner extends JFrame {
     String[] restaurants = {"Einstein Bros. Bagels", "Papa Johns", "Brahma Express", "Chick-Fil-A", "Jamba Juice",
             "Starbucks"};
     String[] sRestaurants = {"Jamba Juice", "Starbucks"};
-    String[] einEnt = {"Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap"}; //Entered into DB
-    String[] einSide = {"Blueberry Muffin", "Brownie", "Cookie"}; //Entered into DB
-    String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"}; //Entered into DB
-    String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"}; //Entered into DB
-    String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"}; //Entered into DB
-    String[] papaDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
-    String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"}; //Entered into DB
-    String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; //Entered into DB
-    String[] brDrink = {"Water", "Coca-Cola", "Sprite"}; //Entered into DB
-    String[] chickEnt = {"Chicken Sandwich", "8-Piece Chicken Nuggets", "Chicken Salad"};  //Entered into DB
-    String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"}; //Entered into DB
-    String[] chickDrink = {"Water", "Lemonade", "Iced Tea"}; //Entered into DB
-    String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"}; //Entered into DB
-    String[] starDrink = {"Vanilla Bean Frappuccino", "Coffee", "Raspberry Iced Tea"}; //Entered into DB
+    String[] einEnt = {"Plain Bagel", "Cheesy Bacon Club", "Santa Fe Wrap"};
+    String[] einSide = {"Blueberry Muffin", "Brownie", "Cookie"};
+    String[] einDrink = {"Coffee", "Orange Juice", "Chocolate Milk"};
+    String[] papaEnt = {"Cheese Pizza", "Pepperoni Pizza", "Hot Wings"};
+    String[] papaSide = {"Cookie Slice", "Brownie", "Breadsticks x2"};
+    String[] papaDrink = {"Water", "Coca-Cola", "Sprite"};
+    String[] brEnt = {"Teriyaki Chicken Bowl", "Dunk City Roll", "Spicy Tuna Roll"};
+    String[] brSide = {"Egg Roll", "Miso Soup", "Seaweed Salad"}; 
+    String[] brDrink = {"Water", "Coca-Cola", "Sprite"}; 
+    String[] chickEnt = {"Chicken Sandwich", "8-Piece Chicken Nuggets", "Chicken Salad"};
+    String[] chickSide = {"Waffle Fries", "Cookie", "Fruit Cup"};
+    String[] chickDrink = {"Water", "Lemonade", "Iced Tea"};
+    String[] jambaDrink = {"Mango Smoothie", "Strawberry Smoothie", "Chocolate Banana Smoothie"};
+    String[] starDrink = {"Vanilla Bean Frappuccino", "Coffee", "Raspberry Iced Tea"};
 
     String breakfastRestaurantName, breakfastDrinkName, breakfastFoodName, breakfastSideName;
     int bFoodCal, bFoodFatCal, bFoodCarb, bFoodProtein, bFoodPoints, bSideCal, bSideFatCal, bSideCarb, bSideProtein, bSidePoints,
@@ -99,10 +98,7 @@ public class DayPlanner extends JFrame {
         try {
             String foodQuery = String.format("SELECT * FROM '%d' WHERE date = '%d' ", LogInScreen.universityID, Integer.parseInt(CalendarDemo.datePrimaryKey));
             Statement stmt = LogInScreen.studentInfoCon.createStatement();
-            foodSet = stmt.executeQuery(foodQuery);
-//            nutriSet = LogInScreen.studentInfoCon.createStatement().executeQuery(nutriQuery);
-            
-//            System.err.println(nutriSet.getInt(""));
+            foodSet = stmt.executeQuery(foodQuery);            
         } catch (SQLException e) {
             foodSet = null;
             e.printStackTrace();
@@ -110,6 +106,7 @@ public class DayPlanner extends JFrame {
 
         breakfastItems(foodSet);
         
+        //get nutrition facts for what is loaded into the comboboxes when dayplanner starts
         fNutriSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
             breakfastFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
         sNutriSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
@@ -168,9 +165,11 @@ public class DayPlanner extends JFrame {
         ent = einEnt;
         side = einSide;
         drink = einDrink;
-        submit();
-        delete();
 
+        submit(); //create submit button
+        delete(); //create delete button
+        
+        //staticly set position of all dayplanner items
         submitBtn.setBounds(0, 0, 200, 50);
         deleteBtn.setBounds(210, 0, 200, 50);
         totalNutrition.setBounds(285, 70, 225, 70);
@@ -182,14 +181,11 @@ public class DayPlanner extends JFrame {
         snackNutrition.setBounds(310, 290, 185, 70);
         dinnerPanel.setBounds(300, 400, 225, 225);
         dinnerNutrition.setBounds(300, 625, 225, 70);
-        // submitBtn.setBounds(350, 400, 60, 60);
 
         // Addition of contents to dayPlannerPanel
         getContentPane().add(dayPlannerPanel);
-
         dayPlannerPanel.add(submitBtn);
         dayPlannerPanel.add(deleteBtn);
-
         dayPlannerPanel.add(totalNutrition);
         dayPlannerPanel.add(breakfastPanel);
         dayPlannerPanel.add(breakfastNutrition);
@@ -199,7 +195,6 @@ public class DayPlanner extends JFrame {
         dayPlannerPanel.add(dinnerNutrition);
         dayPlannerPanel.add(snackPanel);
         dayPlannerPanel.add(snackNutrition);
-        // dayPlannerPanel.add(submitBtn);
 
         dayPlannerPanel.setBackground(ToolClass.fgcuGreen);
 
@@ -221,36 +216,13 @@ public class DayPlanner extends JFrame {
 
             @Override
             public void windowClosed(WindowEvent e) {
-                //                    MainMenu menu = new MainMenu();
-//                bFoodCal = 0;
-//                bFoodFatCal = 0;
-//                bFoodCarb = 0;
-//                bFoodProtein = 0;
-//                lFoodCal = 0;
-//                lFoodFatCal = 0;
-//                lFoodCarb = 0;
-//                lFoodProtein = 0;
-//                dFoodCal = 0;
-//                dFoodFatCal = 0;
-//                dFoodCarb = 0;
-//                dFoodProtein = 0;
-//                sFoodCal = 0;
-//                sFoodFatCal = 0;
-//                sFoodCarb = 0;
-//                sFoodProtein = 0;
                 try {
                   MainMenu menu = new MainMenu();
                 } catch (FileNotFoundException e1) {
-                  // TODO Auto-generated catch block
                   e1.printStackTrace();
                 } catch (SQLException e1) {
-                  // TODO Auto-generated catch block
                   e1.printStackTrace();
                 }
-//                MainMenu.menu.repaint();
-//                MainMenu.menu.revalidate();
-//                MainMenu.menu.setVisible(true);
-
             }
 
             @Override
@@ -278,6 +250,11 @@ public class DayPlanner extends JFrame {
 
     }
 
+    
+    /*
+     * This class is very long, it may not be super efficient, or even the correct way to 
+     * implement it, but it works.
+     */
     private class BoxHandler implements ActionListener {
 
         @Override
@@ -308,10 +285,12 @@ public class DayPlanner extends JFrame {
                     side = chickSide;
                     drink = chickDrink;
                 } else if (r.equals(restaurants[4])) {
+                  //loads an empty string for food and side comboboxes because you can only get a drink from jamba 
                     ent = new String[0];
                     side = new String[0];
                     drink = jambaDrink;
                 } else if (r.equals(restaurants[5])) {
+                  //or starbucks
                     ent = new String[0];
                     side = new String[0];
                     drink = starDrink;
@@ -376,10 +355,12 @@ public class DayPlanner extends JFrame {
                     side = chickSide;
                     drink = chickDrink;
                 } else if (r.equals(restaurants[4])) {
+                  //loads an empty string for food and side comboboxes because you can only get a drink from jamba 
                     ent = new String[0];
                     side = new String[0];
                     drink = jambaDrink;
                 } else if (r.equals(restaurants[5])) {
+                  //or starbucks
                     ent = new String[0];
                     side = new String[0];
                     drink = starDrink;
@@ -440,6 +421,7 @@ public class DayPlanner extends JFrame {
                     side = chickSide;
                     drink = chickDrink;
                 } else if (r.equals(restaurants[4])) {
+                  //loads an empty string for food and side comboboxes because you can only get a drink from jamba 
                     ent = new String[0];
                     side = new String[0];
                     drink = jambaDrink;
@@ -485,6 +467,7 @@ public class DayPlanner extends JFrame {
                 // update snack combo boxes
                 snackPanel.remove(snackItems);
 
+                //snack only has one combobox so only need to update one
                 if (r.equals(sRestaurants[0])) {
                     side = jambaDrink;
                 } else if (r.equals(sRestaurants[1])) {
@@ -510,11 +493,11 @@ public class DayPlanner extends JFrame {
                 snackCarbs.setText("<HTML><U>Total Carbs: </U>" + sFoodCarb + " g</HTML>");
                 snackProtein.setText("<HTML><U>Total Protein: </U>" + sFoodProtein + " g</HTML>");
                 updateTotalNutrition();
-
+                //---------------------------here starts food, side, and drink item listeners-------------------------
             } else if (e.getSource().equals(breakfastFoodItems)) {
-//              bFoodSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-//                  breakfastFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
+              //if no food set is created, it creates one
                 try {
+                  //subtract the nutrition info that was there previously so it will track it dynamically
                     bFoodCal -= bFoodSet.getInt("total_calories");
                     bFoodFatCal -= bFoodSet.getInt("total_fat_cal");
                     bFoodCarb -= bFoodSet.getInt("total_carbs");
@@ -528,6 +511,7 @@ public class DayPlanner extends JFrame {
                 bFoodSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
                     breakfastFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                  //add the new nutrition info so nutrition info updates dynamically
                     bFoodCal += bFoodSet.getInt("total_calories");
                     bFoodFatCal += bFoodSet.getInt("total_fat_cal");
                     bFoodCarb += bFoodSet.getInt("total_carbs");
@@ -543,9 +527,8 @@ public class DayPlanner extends JFrame {
                     System.err.println("Didnt work");
                 }
             } else if (e.getSource().equals(breakfastSideItems)) {
-//              bSideSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-//                  breakfastSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     bFoodCal -= bSideSet.getInt("total_calories");
                     bFoodFatCal -= bSideSet.getInt("total_fat_cal");
                     bFoodCarb -= bSideSet.getInt("total_carbs");
@@ -559,6 +542,7 @@ public class DayPlanner extends JFrame {
                 bSideSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
                     breakfastSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     bFoodCal += bSideSet.getInt("total_calories");
                     bFoodFatCal += bSideSet.getInt("total_fat_cal");
                     bFoodCarb += bSideSet.getInt("total_carbs");
@@ -574,9 +558,8 @@ public class DayPlanner extends JFrame {
                     System.err.println("Didnt work");
                 }
             } else if (e.getSource().equals(breakfastDrinkItems)) {
-//              bDrinkSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
-//                  breakfastDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     bFoodCal -= bDrinkSet.getInt("total_calories");
                     bFoodFatCal -= bDrinkSet.getInt("total_fat_cal");
                     bFoodCarb -= bDrinkSet.getInt("total_carbs");
@@ -590,6 +573,7 @@ public class DayPlanner extends JFrame {
                 bDrinkSet = stephensQuery(breakfastRestaurants.getSelectedItem().toString(),
                     breakfastDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     bFoodCal += bDrinkSet.getInt("total_calories");
                     bFoodFatCal += bDrinkSet.getInt("total_fat_cal");
                     bFoodCarb += bDrinkSet.getInt("total_carbs");
@@ -607,6 +591,7 @@ public class DayPlanner extends JFrame {
                 // --------------------lunch------------------------------------
             } else if (e.getSource().equals(lunchFoodItems)) {
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     lFoodCal -= lFoodSet.getInt("total_calories");
                     lFoodFatCal -= lFoodSet.getInt("total_fat_cal");
                     lFoodCarb -= lFoodSet.getInt("total_carbs");
@@ -620,6 +605,7 @@ public class DayPlanner extends JFrame {
                 lFoodSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
                         lunchFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     lFoodCal += lFoodSet.getInt("total_calories");
                     lFoodFatCal += lFoodSet.getInt("total_fat_cal");
                     lFoodCarb += lFoodSet.getInt("total_carbs");
@@ -636,6 +622,7 @@ public class DayPlanner extends JFrame {
                 }
             } else if (e.getSource().equals(lunchSideItems)) {
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     lFoodCal -= lSideSet.getInt("total_calories");
                     lFoodFatCal -= lSideSet.getInt("total_fat_cal");
                     lFoodCarb -= lSideSet.getInt("total_carbs");
@@ -649,6 +636,7 @@ public class DayPlanner extends JFrame {
                 lSideSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
                         lunchSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     lFoodCal += lSideSet.getInt("total_calories");
                     lFoodFatCal += lSideSet.getInt("total_fat_cal");
                     lFoodCarb += lSideSet.getInt("total_carbs");
@@ -665,6 +653,7 @@ public class DayPlanner extends JFrame {
                 }
             } else if (e.getSource().equals(lunchDrinkItems)) {
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     lFoodCal -= lDrinkSet.getInt("total_calories");
                     lFoodFatCal -= lDrinkSet.getInt("total_fat_cal");
                     lFoodCarb -= lDrinkSet.getInt("total_carbs");
@@ -678,6 +667,7 @@ public class DayPlanner extends JFrame {
                 lDrinkSet = stephensQuery(lunchRestaurants.getSelectedItem().toString(),
                         lunchDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     lFoodCal += lDrinkSet.getInt("total_calories");
                     lFoodFatCal += lDrinkSet.getInt("total_fat_cal");
                     lFoodCarb += lDrinkSet.getInt("total_carbs");
@@ -695,6 +685,7 @@ public class DayPlanner extends JFrame {
                 //-------------------------------dinner-----------------------------------
             } else if (e.getSource().equals(dinnerFoodItems)) {
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     dFoodCal -= dFoodSet.getInt("total_calories");
                     dFoodFatCal -= dFoodSet.getInt("total_fat_cal");
                     dFoodCarb -= dFoodSet.getInt("total_carbs");
@@ -708,6 +699,7 @@ public class DayPlanner extends JFrame {
                 dFoodSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
                         dinnerFoodItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     dFoodCal += dFoodSet.getInt("total_calories");
                     dFoodFatCal += dFoodSet.getInt("total_fat_cal");
                     dFoodCarb += dFoodSet.getInt("total_carbs");
@@ -724,6 +716,7 @@ public class DayPlanner extends JFrame {
                 }
             } else if (e.getSource().equals(dinnerSideItems)) {
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     dFoodCal -= dSideSet.getInt("total_calories");
                     dFoodFatCal -= dSideSet.getInt("total_fat_cal");
                     dFoodCarb -= dSideSet.getInt("total_carbs");
@@ -737,6 +730,7 @@ public class DayPlanner extends JFrame {
                 dSideSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
                         dinnerSideItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     dFoodCal += dSideSet.getInt("total_calories");
                     dFoodFatCal += dSideSet.getInt("total_fat_cal");
                     dFoodCarb += dSideSet.getInt("total_carbs");
@@ -753,6 +747,7 @@ public class DayPlanner extends JFrame {
                 }
             } else if (e.getSource().equals(dinnerDrinkItems)) {
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     dFoodCal -= dDrinkSet.getInt("total_calories");
                     dFoodFatCal -= dDrinkSet.getInt("total_fat_cal");
                     dFoodCarb -= dDrinkSet.getInt("total_carbs");
@@ -766,6 +761,7 @@ public class DayPlanner extends JFrame {
                 dDrinkSet = stephensQuery(dinnerRestaurants.getSelectedItem().toString(),
                         dinnerDrinkItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     dFoodCal += dDrinkSet.getInt("total_calories");
                     dFoodFatCal += dDrinkSet.getInt("total_fat_cal");
                     dFoodCarb += dDrinkSet.getInt("total_carbs");
@@ -783,6 +779,7 @@ public class DayPlanner extends JFrame {
                 //------------------------------------snack--------------------------------------
             } else if (e.getSource().equals(snackItems)) {
                 try {
+                //subtract the nutrition info that was there previously so it will track it dynamically
                     sFoodCal -= sFoodSet.getInt("total_calories");
                     sFoodFatCal -= sFoodSet.getInt("total_fat_cal");
                     sFoodCarb -= sFoodSet.getInt("total_carbs");
@@ -796,6 +793,7 @@ public class DayPlanner extends JFrame {
                 sFoodSet = stephensQuery(snackRestaurants.getSelectedItem().toString(),
                         snackItems.getSelectedItem().toString(), LogInScreen.studentInfoCon);
                 try {
+                //add the new nutrition info so nutrition info updates dynamically
                     sFoodCal += sFoodSet.getInt("total_calories");
                     sFoodFatCal += sFoodSet.getInt("total_fat_cal");
                     sFoodCarb += sFoodSet.getInt("total_carbs");
@@ -811,24 +809,29 @@ public class DayPlanner extends JFrame {
                     System.err.println("Didnt work");
                 }
             }
+            //repaint and revalidate the objects in window whenever something is selected
             revalidate();
             repaint();
         }
     }
 
+    /*
+     * This method is called inorder to update the totalNutrition panel
+     */
     public void updateTotalNutrition() {
 
-        totalCalories.setText("<HTML><U>Total Calories: </U>" + 0 + "</HTML>");
         totalCalories.setText("<HTML><U>Total Calories: </U>" + (bFoodCal + lFoodCal + dFoodCal + sFoodCal) + "</HTML>");
-        totalFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + 0 + "</HTML>");
         totalFatCalories.setText("<HTML><U>Total Fat Calories: </U>" + (bFoodFatCal + lFoodFatCal + dFoodFatCal + sFoodFatCal) + "</HTML>");
-        totalCarbs.setText("<HTML><U>Total Carbs: </U>" + 0 + "</HTML>");
-        totalCarbs.setText("<HTML><U>Total Carbs: </U>" + (bFoodCarb + lFoodCarb + dFoodCarb + sFoodCarb) + "</HTML>");
-        totalProtein.setText("<HTML><U>Total Protein: </U>" + 0 + "</HTML>");
-        totalProtein.setText("<HTML><U>Total Protein: </U>" + (bFoodProtein + lFoodProtein + dFoodProtein + sFoodProtein) + "</HTML>");
+        totalCarbs.setText("<HTML><U>Total Carbs: </U>" + (bFoodCarb + lFoodCarb + dFoodCarb + sFoodCarb) + " g</HTML>");
+        totalProtein.setText("<HTML><U>Total Protein: </U>" + (bFoodProtein + lFoodProtein + dFoodProtein + sFoodProtein) + " g</HTML>");
     }
 
-
+    /*
+     * this method is called to add all breakfast comboBoxes and lables 
+     * 
+     * Receives a ResultSet inorder to load the correct items in the comboboxes
+     * according to what a user had previously selected.
+     */
     public void breakfastItems(ResultSet set) {
 
       
@@ -849,6 +852,11 @@ public class DayPlanner extends JFrame {
         breakfastRestaurants.setVisible(true);
         breakfastRestaurants.setBackground(Color.WHITE);
         breakfastRestaurants.setForeground(ToolClass.fgcuBlue);
+        
+        /* 
+         * as long as there is data in the set, this will load the correct entree,side and drink items
+         * into the comboboxes.
+         */
         if (set != null) {
             try {
                 breakfastRestaurants.setSelectedItem(set.getString("breakfast_restaurant"));
@@ -889,50 +897,50 @@ public class DayPlanner extends JFrame {
             drink = starDrink;
         }
 
+        //set up the menu option comboboxes
         breakfastFoodItems = new JComboBox(ent);
         breakfastFoodItems.setBackground(Color.WHITE);
         breakfastFoodItems.setForeground(ToolClass.fgcuGreen);
-//    queryDriver(bFoodState, breakfastRestaurantName, breakfastFoodName, bFoodCal, bFoodFatCal, bFoodProtein, bFoodCarb, bFoodPoints);
 
         breakfastSideItems = new JComboBox(side);
         breakfastSideItems.setBackground(Color.WHITE);
         breakfastSideItems.setForeground(ToolClass.fgcuGreen);
-//    queryDriver(bSideStatebreakfastRestaurantName, breakfastSideName, bSideCal, bSideFatCal, bSideProtein, bSideCarb, bSidePoints);
 
         breakfastDrinkItems = new JComboBox(drink);
         breakfastDrinkItems.setBackground(Color.WHITE);
         breakfastDrinkItems.setForeground(ToolClass.fgcuBlue);
 
+        //attempt to query the set to change the selected item in the comboboxes
         try {
             breakfastFoodItems.setSelectedItem(set.getString("breakfast_food"));
             breakfastSideItems.setSelectedItem(set.getString("breakfast_side"));
             breakfastDrinkItems.setSelectedItem(set.getString("breakfast_drink"));
         } catch (SQLException e) {
-//          e.printStackTrace();
             System.err.println("No b data found");
         }
 
+        //must add action listeners after you setSelectedItem()
         breakfastRestaurants.addActionListener(boxHandler);
         breakfastFoodItems.addActionListener(boxHandler);
         breakfastSideItems.addActionListener(boxHandler);
         breakfastDrinkItems.addActionListener(boxHandler);
 
+        //add items to the breakfast panel
         breakfastPanel.add(breakfastLabel);
         breakfastPanel.add(breakfastRestaurants);
         breakfastPanel.add(breakfastFoodItems);
         breakfastPanel.add(breakfastSideItems);
         breakfastPanel.add(breakfastDrinkItems);
-
-//        breakfastRestaurantName = breakfastRestaurants.getSelectedItem().toString();
-//        breakfastFoodName = breakfastFoodItems.getSelectedItem().toString();
-//        breakfastDrinkName = breakfastDrinkItems.getSelectedItem().toString();
-//        breakfastSideName = breakfastSideItems.getSelectedItem().toString();
-//        ent = einEnt;
-//        side = einSide;
-//        drink = einDrink;
     }
 
-
+/*
+ * this method is used to query the database to get calorie information from a specific food.
+ * Receives: restName - the restaurant name to query for
+ *          foodName - the name of the food to query for
+ *          connect - the connection to the database
+ *          
+ * returns: ResultSet set - the ResultSet created from the query
+ */
     public ResultSet stephensQuery(String restName, String foodName, Connection connect) {
         String foodQuery = String.format("SELECT total_calories, total_fat_cal, total_protein, total_carbs," +
                 " points FROM food_item WHERE restaurant = '%s' " +
@@ -949,11 +957,16 @@ public class DayPlanner extends JFrame {
     }
 
 
+    /*
+     * This method creates the breakfast nutrition items and adds them to the breakfastpanel
+     * 
+     * Receives: ResultSets that contain nutrition info for the selected food, side and drink items
+     */
     public void breakfastNutritionItems(ResultSet fSet, ResultSet sSet, ResultSet dSet) {
 
       
         breakfastNutrition = new JPanel();
-        breakfastNutrition.setLayout(new GridLayout(5, 1));
+        breakfastNutrition.setLayout(new GridLayout(4, 1));
         breakfastNutrition.setVisible(true);
         breakfastNutrition.setBorder(ToolClass.newCompound);
         breakfastNutrition.setBackground(ToolClass.fgcuBlue);
@@ -985,15 +998,15 @@ public class DayPlanner extends JFrame {
         breakfastProtein.setForeground(Color.WHITE);
         breakfastProtein.setFont(ToolClass.nutritionPanelFont);
 
-        breakfastFat = new JLabel("<HTML><U>Total Fat:</U></HTML>");
-        breakfastFat.setForeground(Color.WHITE);
-        breakfastFat.setFont(ToolClass.nutritionPanelFont);
+//        breakfastFat = new JLabel("<HTML><U>Total Fat:</U></HTML>");
+//        breakfastFat.setForeground(Color.WHITE);
+//        breakfastFat.setFont(ToolClass.nutritionPanelFont);
 
         breakfastNutrition.add(breakfastCalories);
         breakfastNutrition.add(breakfastFatCalories);
         breakfastNutrition.add(breakfastCarbs);
         breakfastNutrition.add(breakfastProtein);
-        breakfastNutrition.add(breakfastFat);
+//        breakfastNutrition.add(breakfastFat);
 
     }
 
@@ -1016,6 +1029,10 @@ public class DayPlanner extends JFrame {
         lunchRestaurants.setBackground(Color.WHITE);
         lunchRestaurants.setForeground(ToolClass.fgcuBlue);
 
+        /* 
+         * as long as there is data in the set, this will load the correct entree,side and drink items
+         * into the comboboxes.
+         */
         if (set != null) {
             try {
                 lunchRestaurants.setSelectedItem(set.getString("lunch_restaurant"));
@@ -1068,6 +1085,7 @@ public class DayPlanner extends JFrame {
         lunchDrinkItems.setBackground(Color.WHITE);
         lunchDrinkItems.setForeground(ToolClass.fgcuBlue);
 
+        //attempt to query the set to change the selected item in the comboboxes
         try {
             lunchFoodItems.setSelectedItem(set.getString("lunch_food"));
             lunchSideItems.setSelectedItem(set.getString("lunch_side"));
@@ -1076,6 +1094,7 @@ public class DayPlanner extends JFrame {
             System.err.println("No l data found");
         }
 
+        //must add action listeners after you setSelectedItem()
         lunchRestaurants.addActionListener(boxHandler);
         lunchFoodItems.addActionListener(boxHandler);
         lunchSideItems.addActionListener(boxHandler);
@@ -1088,6 +1107,11 @@ public class DayPlanner extends JFrame {
         lunchPanel.add(lunchDrinkItems);
     }
 
+    /*
+     * This method creates the lunch nutrition items and adds them to the lunchPanel
+     * 
+     * Receives: ResultSets that contain nutrition info for the selected food, side and drink items
+     */
     public void lunchNutritionItems(ResultSet fSet, ResultSet sSet, ResultSet dSet) {
 
       try {
@@ -1102,7 +1126,7 @@ public class DayPlanner extends JFrame {
       }
 
         lunchNutrition = new JPanel();
-        lunchNutrition.setLayout(new GridLayout(5, 1));
+        lunchNutrition.setLayout(new GridLayout(4, 1));
         lunchNutrition.setVisible(true);
         lunchNutrition.setBackground(ToolClass.fgcuBlue);
         lunchNutrition.setBorder(ToolClass.newCompound);
@@ -1124,15 +1148,15 @@ public class DayPlanner extends JFrame {
         lunchProtein.setForeground(Color.WHITE);
         lunchProtein.setFont(ToolClass.nutritionPanelFont);
 
-        lunchFat = new JLabel("<HTML><U>Total Fat: </U></HTML>");
-        lunchFat.setForeground(Color.WHITE);
-        lunchFat.setFont(ToolClass.nutritionPanelFont);
+//        lunchFat = new JLabel("<HTML><U>Total Fat: </U></HTML>");
+//        lunchFat.setForeground(Color.WHITE);
+//        lunchFat.setFont(ToolClass.nutritionPanelFont);
 
         lunchNutrition.add(lunchCalories);
         lunchNutrition.add(lunchFatCalories);
         lunchNutrition.add(lunchCarbs);
         lunchNutrition.add(lunchProtein);
-        lunchNutrition.add(lunchFat);
+//        lunchNutrition.add(lunchFat);
     }
 
     public void dinnerItems(ResultSet set) {
@@ -1154,6 +1178,10 @@ public class DayPlanner extends JFrame {
         dinnerRestaurants.setBackground(Color.WHITE);
         dinnerRestaurants.setForeground(ToolClass.fgcuBlue);
 
+        /* 
+         * as long as there is data in the set, this will load the correct entree,side and drink items
+         * into the comboboxes.
+         */
         if (set != null) {
             try {
                 dinnerRestaurants.setSelectedItem(set.getString("dinner_restaurant"));
@@ -1206,6 +1234,7 @@ public class DayPlanner extends JFrame {
         dinnerDrinkItems.setBackground(Color.WHITE);
         dinnerDrinkItems.setForeground(ToolClass.fgcuBlue);
 
+        //attempt to query the set to change the selected item in the comboboxes
         try {
             dinnerFoodItems.setSelectedItem(set.getString("dinner_food"));
             dinnerSideItems.setSelectedItem(set.getString("dinner_side"));
@@ -1214,6 +1243,7 @@ public class DayPlanner extends JFrame {
             System.err.println("No d data found");
         }
 
+        //must add action listeners after you setSelectedItem()
         dinnerRestaurants.addActionListener(boxHandler);
         dinnerFoodItems.addActionListener(boxHandler);
         dinnerSideItems.addActionListener(boxHandler);
@@ -1226,6 +1256,10 @@ public class DayPlanner extends JFrame {
         dinnerPanel.add(dinnerDrinkItems);
     }
 
+    /*
+     * experimenting with new ways to set up our nutrition panels, this was one way to make it more 
+     * modularized
+     */
     private JLabel panelTheme(String txt) {
         JLabel label = new JLabel("<HTML><U>" + txt + "</U></HTML> " + "g");
         label.setForeground(Color.WHITE);
@@ -1233,6 +1267,11 @@ public class DayPlanner extends JFrame {
         return label;
     }
 
+    /*
+     * This method creates the dinner nutrition items and adds them to the dinnerPanel
+     * 
+     * Receives: ResultSets that contain nutrition info for the selected food, side and drink items
+     */
     public void dinnerNutritionItems(ResultSet fSet, ResultSet sSet, ResultSet dSet) {
       
       try {
@@ -1247,7 +1286,7 @@ public class DayPlanner extends JFrame {
       }
 
         dinnerNutrition = new JPanel();
-        dinnerNutrition.setLayout(new GridLayout(5, 1));
+        dinnerNutrition.setLayout(new GridLayout(4, 1));
         dinnerNutrition.setVisible(true);
         dinnerNutrition.setBackground(ToolClass.fgcuBlue);
         dinnerNutrition.setBorder(ToolClass.newCompound);
@@ -1258,13 +1297,13 @@ public class DayPlanner extends JFrame {
         dinnerFatCalories = panelTheme("Total Fat Calories: " + bFoodFatCal);
         dinnerCarbs = panelTheme("Total Carbs: " + bFoodCarb + " g");
         dinnerProtein = panelTheme("Total Protein: " + bFoodProtein + " g");
-        dinnerFat = panelTheme("Total Fat:");
+//        dinnerFat = panelTheme("Total Fat:");
 
         dinnerNutrition.add(dinnerCalories);
         dinnerNutrition.add(dinnerFatCalories);
         dinnerNutrition.add(dinnerCarbs);
         dinnerNutrition.add(dinnerProtein);
-        dinnerNutrition.add(dinnerFat);
+//        dinnerNutrition.add(dinnerFat);
 
     }
 
@@ -1290,6 +1329,10 @@ public class DayPlanner extends JFrame {
         snackRestaurants.setBackground(Color.WHITE);
         snackRestaurants.setForeground(ToolClass.fgcuBlue);
 
+        /* 
+         * as long as there is data in the set, this will load the correct entree,side and drink items
+         * into the comboboxes.
+         */
         try {
             snackRestaurants.setSelectedItem(set.getString("snack_restaurant"));
         } catch (SQLException e) {
@@ -1308,12 +1351,14 @@ public class DayPlanner extends JFrame {
         snackItems.setBackground(Color.WHITE);
         snackItems.setForeground(ToolClass.fgcuGreen);
 
+        //attempt to query the set to change the selected item in the comboboxes
         try {
             snackItems.setSelectedItem(set.getString("snack"));
         } catch (SQLException e) {
             System.err.println("No s data found");
         }
 
+        //must add action listeners after you setSelectedItem()
         snackRestaurants.addActionListener(boxHandler);
         snackItems.addActionListener(boxHandler);
 
@@ -1322,6 +1367,11 @@ public class DayPlanner extends JFrame {
         snackPanel.add(snackItems);
     }
 
+    /*
+     * This method creates the snack nutrition items and adds them to the snackPanel
+     * 
+     * Receives: ResultSet that contains nutrition info for the selected drink item
+     */
     public void snackNutritionItems(ResultSet dSet) {
       
       try {
@@ -1336,7 +1386,7 @@ public class DayPlanner extends JFrame {
       }
 
         snackNutrition = new JPanel();
-        snackNutrition.setLayout(new GridLayout(5, 1));
+        snackNutrition.setLayout(new GridLayout(4, 1));
         snackNutrition.setVisible(true);
         snackNutrition.setBackground(ToolClass.fgcuBlue);
         snackNutrition.setBorder(ToolClass.newCompound);
@@ -1358,22 +1408,27 @@ public class DayPlanner extends JFrame {
         snackProtein.setForeground(Color.WHITE);
         snackProtein.setFont(ToolClass.nutritionPanelFont);
 
-        snackFat = new JLabel("<HTML><U>Total Fat: </U></HTML>");
-        snackFat.setForeground(Color.WHITE);
-        snackFat.setFont(ToolClass.nutritionPanelFont);
+//        snackFat = new JLabel("<HTML><U>Total Fat: </U></HTML>");
+//        snackFat.setForeground(Color.WHITE);
+//        snackFat.setFont(ToolClass.nutritionPanelFont);
 
         snackNutrition.add(snackCalories);
         snackNutrition.add(snackFatCalories);
         snackNutrition.add(snackCarbs);
         snackNutrition.add(snackProtein);
-        snackNutrition.add(snackFat);
+//        snackNutrition.add(snackFat);
     }
 
 
+    /*
+     * this method creates the items in the total nutrition panel
+     * 
+     * Receives: ResultSet set - has the users total nutrition information for that day.
+     */
     public void totalNutritionItems(ResultSet set) {
 
         totalNutrition = new JPanel();
-        totalNutrition.setLayout(new GridLayout(5, 1));
+        totalNutrition.setLayout(new GridLayout(4, 1));
         totalNutrition.setVisible(true);
         totalNutrition.setBackground(ToolClass.fgcuBlue);
         totalNutrition.setBorder(ToolClass.whiteLine);
@@ -1383,7 +1438,7 @@ public class DayPlanner extends JFrame {
         totalCalories.setFont(ToolClass.nutritionPanelFont);
         totalCalories.setHorizontalTextPosition(SwingConstants.LEFT);
 
-        totalFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U>"+(bFoodFatCal+lFoodFatCal+dFoodFatCal+sFoodFatCal)+" g</HTML>");
+        totalFatCalories = new JLabel("<HTML><U>Total Fat Calories: </U>"+(bFoodFatCal+lFoodFatCal+dFoodFatCal+sFoodFatCal)+" </HTML>");
         totalFatCalories.setForeground(Color.WHITE);
         totalFatCalories.setFont(ToolClass.nutritionPanelFont);
 
@@ -1395,10 +1450,6 @@ public class DayPlanner extends JFrame {
         totalProtein.setForeground(Color.WHITE);
         totalProtein.setFont(ToolClass.nutritionPanelFont);
 
-        totalFat = new JLabel("<HTML><U>Total Fat: </U></HTML> " + "g");
-        totalFat.setForeground(Color.WHITE);
-        totalFat.setFont(ToolClass.nutritionPanelFont);
-
         try {
             totalCalories.setText("<HTML><U>Total Calories:</U>" + Integer.parseInt(set.getString("total_calories")) + "</HTML> ");
             totalFatCalories.setText("<HTML><U>Total Fat Calories:</U>" + Integer.parseInt(set.getString("total_fat_cal")) + "</HTML> " + "g");
@@ -1406,7 +1457,6 @@ public class DayPlanner extends JFrame {
             totalProtein.setText("<HTML><U>Total Protein: </U>" + Integer.parseInt(set.getString("total_protein")) + "</HTML> " + "g");
         
         } catch (Exception e) {
-//          e.printStackTrace();
             System.err.println("No n data found");
         }
 
@@ -1414,10 +1464,11 @@ public class DayPlanner extends JFrame {
         totalNutrition.add(totalFatCalories);
         totalNutrition.add(totalCarbs);
         totalNutrition.add(totalProtein);
-        totalNutrition.add(totalFat);
     }
 
-    
+    /*
+     * method is called inorder to create the delete button and add an action listener
+     */
     public void delete() {
       deleteBtn = new JButton("Delete Meal");
       deleteBtn.setVisible(true);
@@ -1453,7 +1504,10 @@ public class DayPlanner extends JFrame {
       };
       deleteBtn.addActionListener(deleteButtonHandler);
     }
-
+    
+    /*
+     * method is called inorder to create the submit button and add an action listener
+     */
     public void submit() {
 
         submitBtn = new JButton("Plan Meal");

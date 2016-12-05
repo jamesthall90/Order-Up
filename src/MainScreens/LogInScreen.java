@@ -155,22 +155,6 @@ public class LogInScreen extends JFrame {
                     ResultSet uPointSet = state.executeQuery(uPoint);
                     userPointTotal = Integer.parseInt(uidSet.getString("meal_bucks"));
 
-//                    String tableCheck = String.format("SELECT count(*) FROM studentinfo WHERE type='table' AND name='%s'", uid2);
-//
-//                    ResultSet tableSet = state.executeQuery(tableCheck);
-//
-//                    System.out.println(tableCheck);
-//
-//                    if (tableSet == 0) {
-//
-//                        String tableCreate = String.format("CREATE TABLE ['%s']" +
-//                                "date INTEGER PRIMARY KEY," + "breakfast TEXT," + "lunch TEXT," +
-//                                "dinner TEXT," + "snack TEXT," + "points_used INTEGER," +
-//                                "total_calories INTEGER," + "total_fat_calories INTEGER," +
-//                                "[total protein] INTEGER," + "total_carbs INTEGER," +
-//                                "total_fat INTEGER", uid);
-//                    }
-
                     //grabs student's first name
                     String fName = String.format("SELECT first_name FROM student WHERE student_email= '%s'", uname);
                     ResultSet fNameSet = state.executeQuery(fName);
@@ -188,9 +172,12 @@ public class LogInScreen extends JFrame {
                     usertxt = txtFieldUser.getText();
                     passtxt = rs.getString("student_password");
 
-                    System.out.println(uname + " " + upaswd);
-                    System.out.println(usertxt + " " + upaswd);
-
+                     /*
+                      * testing sysouts
+                      * 
+                      * System.out.println(uname + " " + upaswd);
+                      * System.out.println(usertxt + " " + upaswd);
+                      */
                     //compares entered student info with database info
                     if (uname.equals(usertxt) && upaswd.equals(passtxt)) {
                         MainMenu menu = new MainMenu();
